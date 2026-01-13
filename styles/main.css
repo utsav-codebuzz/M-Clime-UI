@@ -1,3 +1,38 @@
+/* Component Loading States - Prevent Layout Shift */
+#sidebar-container {
+  min-height: 100vh;
+  width: 0;
+  /* Don't reserve space since sidebar is fixed */
+  position: relative;
+  transition: width 0.3s ease;
+  pointer-events: none;
+  /* Allow clicks to pass through */
+}
+
+/* Sidebar is fixed, so container doesn't need width */
+#sidebar-container .sidebar {
+  pointer-events: auto;
+  /* Re-enable pointer events on sidebar */
+}
+
+#header-container {
+  min-height: 60px;
+  width: 100%;
+  position: relative;
+}
+
+/* Smooth fade-in animations */
+#sidebar-container,
+#header-container {
+  opacity: 0;
+  transition: opacity 0.4s ease-in-out;
+}
+
+#sidebar-container.component-loaded,
+#header-container.component-loaded {
+  opacity: 1;
+}
+
 /* Sidebar Styles */
 .sidebar {
   width: var(--sidebar-width-expanded);
@@ -13,7 +48,14 @@
   z-index: 100;
   background: transparent;
   backdrop-filter: blur(10px);
-  transition: width 0.3s ease;
+  transition: width 0.3s ease, opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  opacity: 0;
+  transform: translateX(-20px);
+}
+
+.sidebar.fade-in {
+  opacity: 1;
+  transform: translateX(0);
 }
 
 .sidebar.collapsed {
@@ -241,11 +283,9 @@
 }
 
 .nav-link:hover {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 255, 0.04) 0%,
-    rgba(167, 167, 251, 0.45) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 0, 255, 0.04) 0%,
+      rgba(167, 167, 251, 0.45) 100%);
   color: var(--primary);
   font-weight: 700;
   border-top-right-radius: 100px;
@@ -253,11 +293,9 @@
 }
 
 .nav-link.active {
-  background: linear-gradient(
-    90deg,
-    rgba(0, 0, 255, 0.04) 0%,
-    rgba(167, 167, 251, 0.45) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(0, 0, 255, 0.04) 0%,
+      rgba(167, 167, 251, 0.45) 100%);
   color: var(--primary);
   font-weight: 700;
   border-top-right-radius: 100px;
@@ -266,8 +304,7 @@
 
 .nav-link:hover .icon-bg,
 .nav-link.active .icon-bg {
-  filter: brightness(0) saturate(100%) invert(10%) sepia(95%) saturate(5839%)
-    hue-rotate(245deg) brightness(100%) contrast(150%);
+  filter: brightness(0) saturate(100%) invert(10%) sepia(95%) saturate(5839%) hue-rotate(245deg) brightness(100%) contrast(150%);
 }
 
 .nav-link img {
@@ -316,24 +353,20 @@
 }
 
 .upgrade-card {
-  background: linear-gradient(
-    113.25deg,
-    rgba(58, 129, 228, 0.08) 24.79%,
-    rgba(58, 129, 228, 0.2) 43.96%,
-    rgba(58, 129, 228, 0.12) 64.65%
-  );
+  background: linear-gradient(113.25deg,
+      rgba(58, 129, 228, 0.08) 24.79%,
+      rgba(58, 129, 228, 0.2) 43.96%,
+      rgba(58, 129, 228, 0.12) 64.65%);
   border-radius: 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   border: 1.5px solid;
-  border-image-source: linear-gradient(
-    124.94deg,
-    rgba(48, 134, 255, 0.01) 4.6%,
-    rgba(48, 134, 255, 0.125) 48.53%,
-    rgba(48, 134, 255, 0.01) 86.91%
-  );
+  border-image-source: linear-gradient(124.94deg,
+      rgba(48, 134, 255, 0.01) 4.6%,
+      rgba(48, 134, 255, 0.125) 48.53%,
+      rgba(48, 134, 255, 0.01) 86.91%);
   border-image-slice: 1;
   padding: 8px 16px;
   width: 100%;
@@ -363,6 +396,44 @@
 }
 
 /* ===== Storage Header ===== */
+
+/* Header Animation */
+header {
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+  z-index: 3000;
+}
+
+header.fade-in,
+#header-container.component-loaded header {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Ensure header dropdowns sit above filters/contents - only increase z-index */
+header .custom-dropdown {
+  z-index: 10000 !important;
+}
+
+header .dropdown-menu,
+header .help-menu,
+header .profile-menu {
+  z-index: 10001 !important;
+}
+
+/* Specifically target help and profile dropdowns */
+.help-dropdown,
+.profile-dropdown {
+  z-index: 10000 !important;
+}
+
+.help-dropdown .dropdown-menu,
+.help-dropdown .help-menu,
+.profile-dropdown .dropdown-menu,
+.profile-dropdown .profile-menu {
+  z-index: 10001 !important;
+}
 
 .storage-header {
   display: flex;
@@ -454,8 +525,20 @@
   flex: 1;
   min-height: 100vh;
   padding: 20px 20px 20px 14px;
-  transition: margin-left 0.3s ease;
+  transition: margin-left 0.3s ease, opacity 0.4s ease-in-out;
   width: calc(100% - var(--sidebar-width-expanded));
+  opacity: 0;
+  animation: fadeInContent 0.5s ease-in-out 0.2s forwards;
+}
+
+@keyframes fadeInContent {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 .main-content.collapsed {
