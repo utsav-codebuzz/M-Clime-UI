@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starred - M'Clime</title>
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+    <link rel="stylesheet" href="assets/styles/common.css" />
+    <link rel="stylesheet" href="assets/styles/mydrive-styles.css" />
+    <link rel="stylesheet" href="styles/main.css" />
+    <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
+    <link
+      rel="icon"
+      type="image/svg+xml"
+      href="/assets/images/logos/white_logo_without_bg.svg"
+    />
+  </head>
+
+  <body>
+    <div class="dashboard-wrapper">
+      <button
+        class="mobile-menu-toggle"
+        id="mobileMenuToggle"
+        style="display: none"
+      >
+        <i data-feather="menu"></i>
+      </button>
+
+      <!-- Sidebar Container -->
+      <div id="sidebar-container"></div>
+
+      <main class="main-content" id="mainContent">
+        <div class="main-card">
+          <!-- Header Container -->
+          <div id="header-container"></div>
+
+          <div class="mydrive-content">
+            <div class="view-controls">
+              <div class="search-bar">
+                <img src="assets/images/search.svg" alt="search" />
+                <input
+                  type="text"
+                  class="search-input"
+                  placeholder="Search Starred Files"
+                />
+              </div>
+              <div class="filters">
+                <div class="custom-dropdown" data-filter="category">
+                  <button class="dropdown-btn">
+                    <span>All</span>
+                    <img src="assets/images/arrow-down.svg" />
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li data-value="all">All</li>
+                    <li data-value="Documents">Recent View</li>
+                    <li data-value="Images">Recent Upload</li>
+                  </ul>
+                </div>
+
+                <div class="custom-dropdown" data-type="type">
+                  <button class="dropdown-btn">
+                    <span>Type</span>
+                    <img src="assets/images/arrow-down.svg" />
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li data-value="name">All</li>
+                    <li data-value="size">.pdf</li>
+                    <li data-value="size">.doc</li>
+                    <li data-value="size">.docx</li>
+                    <li data-value="size">.txt</li>
+                    <li data-value="size">.xls</li>
+                    <li data-value="size">.xlsx</li>
+                    <li data-value="size">.csv</li>
+                    <li data-value="size">.jpg</li>
+                    <li data-value="size">.jpeg</li>
+                    <li data-value="size">.png</li>
+                    <li data-value="size">.heic</li>
+                  </ul>
+                </div>
+
+                <div class="custom-dropdown" data-type="filter">
+                  <button class="dropdown-btn">
+                    <span>Filter By</span>
+                    <img src="assets/images/arrow-down.svg" />
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li data-value="name">All</li>
+                    <li data-value="size">Identity</li>
+                    <li data-value="size">Financial</li>
+                    <li data-value="size">Tax</li>
+                    <li data-value="size">Bills</li>
+                    <li data-value="size">Legal</li>
+                    <li data-value="size">Work</li>
+                    <li data-value="size">Personal</li>
+                    <li data-value="size">Receipt</li>
+                    <li data-value="size">Other</li>
+                  </ul>
+                </div>
+
+                <div class="custom-dropdown" data-filter="sort">
+                  <button class="dropdown-btn">
+                    <span>Sort By</span>
+                    <img src="assets/images/arrow-down.svg" />
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li data-value="name">Name</li>
+                    <li data-value="size">Size</li>
+                    <li data-value="date">Date</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="mydrive-header">
+              <div class="page-title">Starred</div>
+              <div class="view-toggle">
+                <button class="view-btn active" data-view="grid">
+                  <img src="assets/images/mydrive/grid.svg" alt="Grid view" />
+                </button>
+                <button class="view-btn" data-view="list">
+                  <img src="assets/images/mydrive/list.svg" alt="List view" />
+                </button>
+              </div>
+            </div>
+
+            <div class="page-header">
+              <div class="page-header-info">
+                <img src="assets/images/mydrive/figam_wb.svg" alt="" />
+                <p>
+                  <span>Cloud Dashboard.fig </span> • <span> 1.5 GB </span> •
+                  <span> Sep 28, 2025</span>
+                </p>
+                <button class="view_detils">
+                  <img
+                    src="assets/images/mydrive/search_docs.svg"
+                    alt="search"
+                    width="16"
+                    height="16"
+                  />
+                  View Details
+                </button>
+              </div>
+              <div class="action_images">
+                <img
+                  src="assets/images/mydrive/info_circle.svg"
+                  alt="info"
+                  width="22"
+                  height="22"
+                />
+                <img
+                  src="assets/images/mydrive/download.svg"
+                  alt="download"
+                  width="22"
+                  height="22"
+                />
+                <img
+                  src="assets/images/mydrive/rename.svg"
+                  alt="rename"
+                  width="22"
+                  height="22"
+                />
+                <img
+                  src="assets/images/mydrive/delete.svg"
+                  alt="delete"
+                  width="22"
+                  height="22"
+                />
+              </div>
+            </div>
+
+            <div class="files-grid" id="filesContainer"></div>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Load components first -->
+    <script src="components/load-components.js"></script>
+    <!-- Then load other scripts -->
+    <script src="assets/scripts/starred-data.js"></script>
+    <script src="assets/scripts/file-modals.js"></script>
+    <script src="assets/scripts/render-starred.js"></script>
+    <script src="components/sidebar/sidebar.js"></script>
+    <script src="assets/scripts/dropdown/dropdown.js"></script>
+    <script src="components/logout-modal/logout-modal.js"></script>
+    
+    <!-- Initialize feather icons after components are loaded -->
+    <script>
+      document.addEventListener('componentsLoaded', () => {
+        if (feather) {
+          feather.replace();
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,267 @@
+.storage-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding: 14px 0px;
+  border-radius: 12px;
+}
+
+.storage-cta-left {
+  flex: 1;
+}
+
+.cta-title {
+  font-size: 15px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.cta-sub {
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.storage-cta-bar {
+  height: 6px;
+  background: #eef2ff;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.storage-cta-progress {
+  display: block;
+  height: 100%;
+  width: 50%;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.storage-cta-action {
+  flex-shrink: 0;
+  font-family: var(--outfit);
+}
+
+.get-storage-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 1.5px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  background: linear-gradient(
+    90deg,
+    rgba(167, 167, 251, 0.2) 0%,
+    rgba(0, 0, 255, 0.04) 100%
+  );
+}
+
+.get-storage-btn svg {
+  color: inherit;
+}
+
+.get-storage-btn:hover {
+  color: var(--primary);
+}
+
+.get-storage-btn:hover svg {
+  color: var(--primary);
+}
+
+.storage-header-local {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.storage-left-local {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 343px;
+}
+
+.storage-icon-local {
+  width: 34px;
+  height: 34px;
+}
+
+.storage-info-local {
+  flex: 1;
+  max-width: 295px;
+}
+
+.storage-text-local {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.header-title-local {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.header-storage-local {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.storage-bar-local {
+  height: 6px;
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.storage-progress-local {
+  height: 100%;
+  display: block;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.storage-actions-local {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-btn-local {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn-local:hover {
+  background: #f3f4f6;
+}
+
+.profile-img-local {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.action_images-local {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Files table styles */
+.storage-files {
+  margin-top: 18px;
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(16, 24, 40, 0.03);
+}
+
+.storage-files .files-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 18px;
+  background: #2152910a;
+}
+
+.files-header .col-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.files-header .col-right {
+  font-size: 13px;
+  color: #6b7280;
+}
+
+.file-list {
+  display: block;
+}
+
+.file-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  align-items: center;
+  padding: 14px 18px;
+  border-top: 1px solid rgba(230, 233, 240, 0.6);
+  transition: background 0.12s ease;
+}
+
+.file-row:hover {
+  background: #2152910a;
+}
+
+.file-left {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  min-width: 0;
+}
+
+.file-icon {
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(16, 24, 40, 0.04);
+}
+
+.file-meta {
+  display: flex;
+  flex-direction: column;
+}
+
+.file-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: #0f172a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.file-sub {
+  font-size: 13px;
+  color: #6b7280;
+  margin-top: 6px;
+}
+
+.file-size-col {
+  font-size: 14px;
+  color: #111827;
+  min-width: 80px;
+  text-align: right;
+}
+
+@media (max-width: 720px) {
+  .files-header .col-right {
+    display: none;
+  }
+
+  .file-size-col {
+    display: none;
+  }
+}

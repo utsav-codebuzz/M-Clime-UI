@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit Profile</title>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <link rel="stylesheet" href="assets/styles/common.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="assets/styles/changepass.css" />
+  <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
+  <link rel="icon" type="image/svg+xml" href="assets/images/logos/white_logo_without_bg.svg" />
+</head>
+
+<body>
+  <div class="dashboard-wrapper">
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" style="display: none">
+      <i data-feather="menu"></i>
+    </button>
+
+    <!-- Sidebar Container -->
+    <div id="sidebar-container"></div>
+
+    <main class="main-content" id="mainContent">
+      <div class="main-card">
+        <!-- Header Container -->
+        <div id="header-container"></div>
+
+        <div class="changepass-wrapper">
+          <div class="auth-header">
+            <h1>Edit Profile</h1>
+          </div>
+          <div class="auth-wrapper">
+            <div class="auth-box">
+              <div class="auth-card">
+                <div class="auth-profile">
+                  <img src="assets/images/header/profile.svg" alt="profile" class="edit-profile" />
+                  <img src="assets/images/Edit.svg" alt="edit" class="edit" />
+                </div>
+
+                <div class="auth-body">
+                  <div class="mb-3 input-wrapper">
+                    <div class="icon">
+                      <img src="assets/images/auth/auth_user.svg" alt="auth_user" />
+                    </div>
+                    <input class="form-control" type="text" placeholder="First Name" />
+                  </div>
+
+                  <div class="mb-3 input-wrapper">
+                    <div class="icon">
+                      <img src="assets/images/auth/auth_user.svg" alt="auth_user" />
+                    </div>
+                    <input class="form-control" type="text" placeholder="Last Name" />
+                  </div>
+
+                  <div class="mb-3 input-wrapper">
+                    <div class="icon">
+                      <img src="assets/images/auth/email.svg" alt="email" />
+                    </div>
+                    <input type="email" class="form-control" placeholder="Email" />
+                  </div>
+                </div>
+
+                <button class="auth-btn">Continue</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Load components first -->
+  <script src="components/load-components.js"></script>
+  <!-- Then load other scripts -->
+  <script src="components/sidebar/sidebar.js"></script>
+  <script src="components/logout-modal/logout-modal.js"></script>
+  <script src="assets/scripts/dropdown/dropdown.js"></script>
+  <script src="assets/scripts/render-bin.js"></script>
+
+  <!-- Initialize feather icons after components are loaded -->
+  <script>
+    document.addEventListener('componentsLoaded', () => {
+      if (feather) {
+        feather.replace();
+      }
+    });
+  </script>
+</body>
+
+</html>

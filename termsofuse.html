@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Terms of Use - M'Clime</title>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <link rel="stylesheet" href="assets/styles/common.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="assets/styles/terms-styles.css" />
+  <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logos/white_logo_without_bg.svg" />
+</head>
+
+<body>
+  <div class="dashboard-wrapper">
+    <button class="mobile-menu-toggle" id="mobileMenuToggle" style="display: none">
+      <i data-feather="menu"></i>
+    </button>
+
+    <!-- Sidebar Container -->
+    <div id="sidebar-container"></div>
+
+    <main class="main-content" id="mainContent">
+      <div class="main-card">
+        <!-- Header Container -->
+        <div id="header-container"></div>
+
+        <div class="terms-wrapper">
+          <div class="terms-container">
+            <h1>Terms of Use</h1>
+            <p class="updated">Last Updated: 30 Dec, 2025</p>
+
+            <p class="desc">
+              Welcome to M'Clime ("we", "our", "us"). These Terms of Use
+              govern your access to and use of our storage drive web. By
+              accessing or using our Service, you agree to comply with and be
+              bound by these Terms. If you do not agree, please do not use the
+              Service.
+            </p>
+
+            <h2>1. Eligibility</h2>
+            <p class="desc">
+              You must be at least 18 years old or have legal
+              parental/guardian consent to use our Service. By using the
+              Service, you confirm that you meet this requirement.
+            </p>
+
+            <h2>2. User Account</h2>
+            <ul>
+              <li>
+                You are responsible for maintaining the confidentiality of
+                your account credentials
+              </li>
+              <li>
+                You are responsible for all activities under your account
+              </li>
+              <li>
+                You agree to provide accurate and up-to-date information
+              </li>
+            </ul>
+            <p class="desc">
+              We reserve the right to suspend or terminate accounts that
+              violate these Terms.
+            </p>
+
+            <h2>3. Use of the Service</h2>
+            <p class="desc">
+              You may use the Service only for lawful purposes. You agree not
+              to:
+            </p>
+            <ul>
+              <li>
+                Upload or store illegal, harmful, or copyrighted content
+                without permission
+              </li>
+              <li>
+                Attempt unauthorized access to the system or other users' data
+              </li>
+              <li>Use the Service to distribute malware, viruses, or spam</li>
+              <li>
+                Interfere with the performance or security of the Service
+              </li>
+              <li>Violate any applicable laws or regulations</li>
+            </ul>
+
+            <h2>4. User Content and Responsibility</h2>
+            <ul>
+              <li>All files uploaded remain your property</li>
+              <li>You are solely responsible for the content you upload</li>
+              <li>
+                We do not monitor or review user files unless required for
+                security, maintenance, or legal reasons
+              </li>
+              <li>
+                You grant us limited permission to store and process your
+                content solely to provide the Service
+              </li>
+            </ul>
+
+            <h2>5. Storage Limits</h2>
+            <ul>
+              <li>Storage limits may apply depending on your plan</li>
+              <li>
+                We reserve the right to modify storage limits or service
+                features at any time
+              </li>
+              <li>
+                Exceeding limits may result in restricted access or additional
+                charges
+              </li>
+            </ul>
+
+            <h2>6. Data Security</h2>
+            <p class="desc">
+              We implement reasonable security measures to protect user data.
+              However, we cannot guarantee absolute security and are not
+              liable for data loss due to factors beyond our control.
+            </p>
+
+            <h2>7. Service Availability</h2>
+            <ul>
+              <li>
+                The Service is provided on an "as-is" and "as-available" basis
+              </li>
+              <li>We do not guarantee uninterrupted or error-free service</li>
+              <li>
+                Maintenance or technical issues may result in temporary
+                downtime
+              </li>
+            </ul>
+
+            <h2>8. Intellectual Property</h2>
+            <p class="desc">
+              All M'Clime trademarks, logos, and service marks are our
+              property. You may not use them without our prior written
+              permission.
+            </p>
+
+            <h2>9. Termination</h2>
+            <p class="desc">
+              We may suspend or terminate your access to the Service at our
+              sole discretion, with or without cause, and with or without
+              notice.
+            </p>
+
+            <h2>10. Limitation of Liability</h2>
+            <p class="desc">
+              To the maximum extent permitted by law, we shall not be liable
+              for any indirect, incidental, special, consequential, or
+              punitive damages resulting from your use of the Service.
+            </p>
+
+            <h2>11. Changes to Terms</h2>
+            <p class="desc">
+              We may update these Terms from time to time. We will notify you
+              of any changes by posting the new Terms on this page and
+              updating the "Last Updated" date. Your continued use of the
+              Service after any changes constitutes acceptance of the new
+              Terms.
+            </p>
+
+            <h2>12. Governing Law</h2>
+            <p class="desc">
+              These Terms shall be governed by and construed in accordance
+              with the laws of [Your Country/State], without regard to its
+              conflict of law provisions.
+            </p>
+
+            <h2>13. Contact Information</h2>
+            <p class="desc">
+              If you have any questions about these Terms, please contact us
+              at:<br />
+              Email: legal@mclime.com<br />
+              Address: 123 Legal Street, Compliance City, CC 12345
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Load components first -->
+  <script src="components/load-components.js"></script>
+  <!-- Then load other scripts -->
+  <script src="components/sidebar/sidebar.js"></script>
+  <script src="assets/scripts/dropdown/dropdown.js"></script>
+  <script src="assets/scripts/render-bin.js"></script>
+  <script src="components/logout-modal/logout-modal.js"></script>
+
+  <!-- Initialize feather icons after components are loaded -->
+  <script>
+    document.addEventListener('componentsLoaded', () => {
+      if (feather) {
+        feather.replace();
+      }
+    });
+  </script>
+</body>
+
+</html>
