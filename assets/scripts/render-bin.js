@@ -226,8 +226,8 @@ function renderListViewStarred() {
       </thead>
       <tbody>
         ${window.binFilesData
-          .map(
-            (file) => `
+      .map(
+        (file) => `
           <tr class="file-row" data-file-id="${file.id}">
             <td class="td-name">
               <div class="file-info-cell">
@@ -247,16 +247,15 @@ function renderListViewStarred() {
             <td class="td-size">${file.size}</td>
             <td class="td-actions">
               <div class="action-buttons">
-               ${
-                 file.isStarred
-                   ? `
+               ${file.isStarred
+            ? `
 <button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/star.svg" alt="info" width="16" height="16">
                 </button>                  `
-                   : `<button class="action-btn info-btn" title="Info">
+            : `<button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/inactive_star.svg" alt="info" width="16" height="16">
                 </button>`
-               }
+          }
                 
                 <div class="file-actions" data-file-id="${file.id}">
                   <img
@@ -274,8 +273,8 @@ function renderListViewStarred() {
             </td>
           </tr>
         `
-          )
-          .join("")}
+      )
+      .join("")}
       </tbody>
     </table>
   `;
@@ -346,7 +345,7 @@ function addDropdownCSS() {
       .dropdown-btn {
         background: white;
         border: 1px solid #ddd;
-        border-radius: 4px;
+        border-radius: 10px;
         padding: 8px 12px;
         cursor: pointer;
         display: flex;
@@ -366,7 +365,7 @@ function addDropdownCSS() {
         position: absolute;
         background: white;
         border: 1px solid #ddd;
-        border-radius: 4px;
+        border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         min-width: 120px;
         z-index: 1000;

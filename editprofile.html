@@ -29,40 +29,47 @@
 
         <div class="changepass-wrapper">
           <div class="auth-header">
-            <h1>Edit Profile</h1>
+            <div class="auth-header-left">
+              <h1>Edit Profile</h1>
+              <p>Last edit on 25 Dec, 2025</p>
+            </div>
+            <div class="auth-header-right">
+              <button class="auth-btn cancel-btn">Discard</button>
+              <button class="auth-btn save-btn"><img src="assets/images/save.svg" alt="save">Save</button>
+            </div>
           </div>
-          <div class="auth-wrapper">
-            <div class="auth-box">
-              <div class="auth-card">
-                <div class="auth-profile">
-                  <img src="assets/images/header/profile.svg" alt="profile" class="edit-profile" />
-                  <img src="assets/images/Edit.svg" alt="edit" class="edit" />
+          <div class="auth-medal">
+            <h2>Profile Picture</h2>
+            <div class="picture-info">
+              <img src="assets/images/header/profile.svg" alt="profile" class="edit-profile" />
+              <div class="picture-btn">
+                <button class="auth-btn save-btn">Change Picture</button>
+                <button class="auth-btn delete-btn">Delete Picture</button>
+              </div>
+            </div>
+          </div>
+          <div class="auth-info">
+            <h2>Personal Information</h2>
+            <div class="auth-sub-info">
+              <div class="mb-3 input-wrapper">
+                <div class="icon">
+                  <img src="assets/images/auth/auth_user.svg" alt="auth_user" />
                 </div>
+                <input class="form-control" type="text" placeholder="First Name" />
+              </div>
 
-                <div class="auth-body">
-                  <div class="mb-3 input-wrapper">
-                    <div class="icon">
-                      <img src="assets/images/auth/auth_user.svg" alt="auth_user" />
-                    </div>
-                    <input class="form-control" type="text" placeholder="First Name" />
-                  </div>
-
-                  <div class="mb-3 input-wrapper">
-                    <div class="icon">
-                      <img src="assets/images/auth/auth_user.svg" alt="auth_user" />
-                    </div>
-                    <input class="form-control" type="text" placeholder="Last Name" />
-                  </div>
-
-                  <div class="mb-3 input-wrapper">
-                    <div class="icon">
-                      <img src="assets/images/auth/email.svg" alt="email" />
-                    </div>
-                    <input type="email" class="form-control" placeholder="Email" />
-                  </div>
+              <div class="mb-3 input-wrapper">
+                <div class="icon">
+                  <img src="assets/images/auth/auth_user.svg" alt="auth_user" />
                 </div>
+                <input class="form-control" type="text" placeholder="Last Name" />
+              </div>
 
-                <button class="auth-btn">Continue</button>
+              <div class="mb-3 input-wrapper">
+                <div class="icon">
+                  <img src="assets/images/auth/email.svg" alt="email" />
+                </div>
+                <input type="email" class="form-control" placeholder="Email" />
               </div>
             </div>
           </div>
