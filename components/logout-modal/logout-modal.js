@@ -6,9 +6,20 @@ class LogoutModal {
     }
 
     initialize() {
-        document.addEventListener('DOMContentLoaded', () => {
+        const init = () => {
             this.setupModal();
             this.setupEventListeners();
+            this.setupGlobalLogoutHandler();
+        };
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', init);
+        } else {
+            init();
+        }
+
+        // Re-initialize after components are loaded
+        document.addEventListener('componentsLoaded', () => {
             this.setupGlobalLogoutHandler();
         });
     }
@@ -67,8 +78,18 @@ class LogoutModal {
     }
 
     setupGlobalLogoutHandler() {
-        this.logoutLinks = document.querySelectorAll('[data-logout]');
+        // Use event delegation to handle dynamically loaded logout links
+        document.addEventListener('click', (e) => {
+            const logoutLink = e.target.closest('[data-logout]');
+            if (logoutLink) {
+                e.preventDefault();
+                e.stopPropagation();
+                this.showModal();
+            }
+        });
 
+        // Also set up existing links
+        this.logoutLinks = document.querySelectorAll('[data-logout]');
         this.logoutLinks.forEach(link => {
             link.addEventListener('click', (e) => {
                 e.preventDefault();

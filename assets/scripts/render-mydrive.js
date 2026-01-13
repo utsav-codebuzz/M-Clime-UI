@@ -151,9 +151,8 @@ function showDeleteModal(fileId) {
           </div>
           
           <div class="delete-message">
-            <p>Are you sure you want to delete <strong>"${
-              file.name
-            }"</strong>?</p>
+            <p>Are you sure you want to delete <strong>"${file.name
+    }"</strong>?</p>
             <p class="delete-subtext">This action cannot be undone. The file will be permanently removed from your drive.</p>
           </div>
           
@@ -168,9 +167,8 @@ function showDeleteModal(fileId) {
             </div>
             <div class="delete-info-row">
               <span class="delete-info-label">Uploaded:</span>
-              <span class="delete-info-value">${
-                file.date || file.uploaded || "N/A"
-              }</span>
+              <span class="delete-info-value">${file.date || file.uploaded || "N/A"
+    }</span>
             </div>
           </div>
         </div>
@@ -495,70 +493,44 @@ function initModalEvents() {
 }
 
 function initFilterDropdowns() {
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".custom-dropdown")) {
-      document
-        .querySelectorAll(".custom-dropdown .dropdown-menu")
-        .forEach((menu) => {
-          menu.style.display = "none";
-        });
-    }
-  });
+  // Filter dropdowns are now handled by dropdown.js using the .active class system
+  // This function only needs to handle the filter logic when items are clicked
+  const filterDropdowns = document.querySelectorAll(".custom-dropdown[data-filter], .custom-dropdown[data-type]");
 
-  document.querySelectorAll(".custom-dropdown").forEach((dropdown) => {
-    const button = dropdown.querySelector(".dropdown-btn");
+  if (filterDropdowns.length === 0) return;
+
+  filterDropdowns.forEach((dropdown) => {
     const menu = dropdown.querySelector(".dropdown-menu");
+    if (!menu) return;
 
-    if (button && menu) {
-      menu.style.display = "none";
+    menu.querySelectorAll("li").forEach((item) => {
+      // Remove any existing listeners to avoid duplicates
+      const newItem = item.cloneNode(true);
+      item.parentNode.replaceChild(newItem, item);
 
-      button.addEventListener("click", function (e) {
+      newItem.addEventListener("click", function (e) {
         e.stopPropagation();
-        e.preventDefault();
 
-        document
-          .querySelectorAll(".custom-dropdown .dropdown-menu")
-          .forEach((m) => {
-            if (m !== menu) {
-              m.style.display = "none";
-            }
-          });
+        const value = this.getAttribute("data-value");
+        const text = this.textContent;
 
-        if (menu.style.display === "block") {
-          menu.style.display = "block";
-        } else {
-          menu.style.display = "block";
-          menu.style.top = "";
-          menu.style.left = "";
-          menu.style.position = "";
-          menu.style.minWidth = "";
-          menu.style.zIndex = "1000";
+        const button = dropdown.querySelector(".dropdown-btn");
+        const buttonText = button?.querySelector("span");
+        if (buttonText) {
+          buttonText.textContent = text;
         }
+
+        // Close the dropdown (dropdown.js will handle this via .active class)
+        dropdown.classList.remove("active");
+
+        const dropdownType =
+          dropdown.getAttribute("data-filter") ||
+          dropdown.getAttribute("data-type") ||
+          "category";
+
+        applyFilters(dropdownType, value);
       });
-
-      menu.querySelectorAll("li").forEach((item) => {
-        item.addEventListener("click", function (e) {
-          e.stopPropagation();
-
-          const value = this.getAttribute("data-value");
-          const text = this.textContent;
-
-          const buttonText = button.querySelector("span");
-          if (buttonText) {
-            buttonText.textContent = text;
-          }
-
-          menu.style.display = "none";
-
-          const dropdownType =
-            dropdown.getAttribute("data-filter") ||
-            dropdown.getAttribute("data-type") ||
-            "category";
-
-          applyFilters(dropdownType, value);
-        });
-      });
-    }
+    });
   });
 }
 
@@ -615,12 +587,22 @@ function applyFilters(filterType, value) {
 
 window.attachFileActionHandlers = function () {
   document.addEventListener("click", (e) => {
+    // Don't interfere with header dropdowns or regular dropdowns
+    if (
+      e.target.closest(".help-dropdown") ||
+      e.target.closest(".profile-dropdown") ||
+      e.target.closest(".custom-dropdown:not(.file-actions)")
+    ) {
+      return;
+    }
+
     if (
       !e.target.closest(".file-actions") &&
       !e.target.closest(".three-dots")
     ) {
-      document.querySelectorAll(".file-menu").forEach((menu) => {
-        menu.style.display = "none";
+      // Close all file menus by removing active class
+      document.querySelectorAll(".file-actions").forEach((fa) => {
+        fa.classList.remove("active");
       });
     }
   });
@@ -638,19 +620,31 @@ window.attachFileActionHandlers = function () {
 
       if (!menu || !menu.classList.contains("dropdown-menu")) return;
 
-      if (menu.style.display === "block") {
-        menu.style.display = "none";
-      } else {
-        document.querySelectorAll(".dropdown-menu").forEach((m) => {
-          m.style.display = "none";
+      // Only handle file-menu, not header dropdowns
+      if (menu.classList.contains("file-menu")) {
+        const isCurrentlyActive = fileActions.classList.contains("active");
+
+        // Close all other file menus first
+        document.querySelectorAll(".file-actions").forEach((fa) => {
+          fa.classList.remove("active");
         });
 
-        menu.style.display = "block";
-        menu.style.position = "absolute";
-        menu.style.left = "auto";
-        menu.style.right = "0";
-        menu.style.top = `100%`;
-        menu.style.zIndex = "1000";
+        // Toggle the clicked file menu
+        if (isCurrentlyActive) {
+          fileActions.classList.remove("active");
+        } else {
+          fileActions.classList.add("active");
+
+          // Check if menu needs to open on the left (if it would overflow)
+          requestAnimationFrame(() => {
+            const rect = menu.getBoundingClientRect();
+            if (rect.right > window.innerWidth - 8) {
+              menu.classList.add("open-left");
+            } else {
+              menu.classList.remove("open-left");
+            }
+          });
+        }
       }
     });
   });
@@ -665,10 +659,11 @@ window.attachFileActionHandlers = function () {
       if (!fileActions) return;
 
       const fileId = fileActions.dataset.fileId;
-
       const menu = this.closest(".dropdown-menu");
-      if (menu) {
-        menu.style.display = "none";
+
+      // Close file menu by removing active class, let CSS handle header dropdowns
+      if (menu && menu.classList.contains("file-menu")) {
+        fileActions.classList.remove("active");
       }
 
       switch (action) {
@@ -810,8 +805,8 @@ function renderListView() {
       </thead>
       <tbody>
         ${window.mydriveFilesData
-          .map(
-            (file) => `
+      .map(
+        (file) => `
           <tr class="file-row" data-file-id="${file.id}">
             <td class="td-name">
               <div class="file-info-cell">
@@ -831,16 +826,15 @@ function renderListView() {
             <td class="td-size">${file.size}</td>
             <td class="td-actions">
               <div class="action-buttons">
-               ${
-                 file.isStarred
-                   ? `
+               ${file.isStarred
+            ? `
 <button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/star.svg" alt="info" width="16" height="16">
                 </button>                  `
-                   : `<button class="action-btn info-btn" title="Info">
+            : `<button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/inactive_star.svg" alt="info" width="16" height="16">
                 </button>`
-               }
+          }
                 
                 <div class="file-actions" data-file-id="${file.id}">
                   <img
@@ -860,8 +854,8 @@ function renderListView() {
             </td>
           </tr>
         `
-          )
-          .join("")}
+      )
+      .join("")}
       </tbody>
     </table>
   `;

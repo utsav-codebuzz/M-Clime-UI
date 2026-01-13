@@ -10,7 +10,6 @@
   flex-direction: column;
   justify-content: space-between;
   min-height: calc(100vh - 32px);
-  gap: 20px;
 }
 
 .main-card .storage-header {
@@ -40,6 +39,8 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  position: relative;
+  z-index: -1 !important;
 }
 
 .auth-header h1 {
@@ -339,6 +340,22 @@
   z-index: 100;
   overflow: hidden;
   margin-top: 4px;
+  display: none !important;
+}
+
+/* Show dropdown menus when parent has active class */
+.custom-dropdown.active .dropdown-menu,
+.help-dropdown.active .dropdown-menu,
+.help-dropdown.active .help-menu,
+.profile-dropdown.active .dropdown-menu,
+.profile-dropdown.active .profile-menu {
+  display: block !important;
+}
+
+/* Ensure help-menu and profile-menu are hidden by default */
+.help-dropdown .help-menu,
+.profile-dropdown .profile-menu {
+  display: none !important;
 }
 
 .dropdown-menu li {

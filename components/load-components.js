@@ -9,9 +9,36 @@ class ComponentLoader {
 
     async loadComponent(componentName, targetElementId) {
         try {
+            const container = document.getElementById(targetElementId);
+            if (!container) return;
+
+            // Add loading class for animation
+            container.classList.add('component-loading');
+
             const response = await fetch(this.components[componentName]);
             const html = await response.text();
-            document.getElementById(targetElementId).innerHTML = html;
+            container.innerHTML = html;
+
+            // Add loaded class and trigger animation
+            requestAnimationFrame(() => {
+                container.classList.remove('component-loading');
+                container.classList.add('component-loaded');
+                
+                // Trigger fade-in animation with slight delay for smooth effect
+                setTimeout(() => {
+                    if (componentName === 'sidebar') {
+                        const sidebar = document.getElementById('sidebar');
+                        if (sidebar) {
+                            sidebar.classList.add('fade-in');
+                        }
+                    } else if (componentName === 'header') {
+                        const header = container.querySelector('header');
+                        if (header) {
+                            header.classList.add('fade-in');
+                        }
+                    }
+                }, 50);
+            });
 
             if (componentName === 'sidebar') {
                 this.initializeSidebar();
@@ -20,6 +47,10 @@ class ComponentLoader {
             }
         } catch (error) {
             console.error(`Error loading ${componentName}:`, error);
+            const container = document.getElementById(targetElementId);
+            if (container) {
+                container.classList.remove('component-loading');
+            }
         }
     }
 
@@ -49,6 +80,9 @@ class ComponentLoader {
         if (document.getElementById('header-container')) {
             await this.loadComponent('header', 'header-container');
         }
+
+        // Dispatch event after all components are loaded
+        document.dispatchEvent(new Event('componentsLoaded'));
     }
 }
 

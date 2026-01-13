@@ -10,11 +10,17 @@ class Sidebar {
 
   init() {
     // Wait for sidebar to be loaded
-    setTimeout(() => {
+    const initSidebar = () => {
       this.sidebar = document.getElementById("sidebar");
       this.mainContent = document.getElementById("mainContent");
       this.toggleBtn = document.getElementById("toggleBtn");
       this.mobileMenuToggle = document.getElementById("mobileMenuToggle");
+
+      // If sidebar is not loaded yet, wait a bit more
+      if (!this.sidebar || !this.toggleBtn) {
+        setTimeout(initSidebar, 50);
+        return;
+      }
 
       if (this.toggleBtn) {
         this.toggleIcon = this.toggleBtn.querySelector(".toggle-icon");
@@ -24,7 +30,10 @@ class Sidebar {
       this.handleResize();
       this.restoreState();
       this.highlightCurrentPage();
-    }, 100);
+    };
+
+    // Start initialization
+    setTimeout(initSidebar, 50);
   }
 
   setupEventListeners() {
@@ -48,9 +57,14 @@ class Sidebar {
 
   toggleSidebar() {
     if (window.innerWidth <= 768) return;
+    
+    if (!this.sidebar) return;
 
     this.sidebar.classList.toggle("collapsed");
-    this.mainContent.classList.toggle("collapsed");
+    
+    if (this.mainContent) {
+      this.mainContent.classList.toggle("collapsed");
+    }
 
     localStorage.setItem(
       "sidebarCollapsed",
