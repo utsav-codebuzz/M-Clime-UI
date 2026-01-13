@@ -115,9 +115,8 @@ function renderFilesList() {
     row.className = "file-row";
     row.innerHTML = `
       <div class="file-left">
-        <div class="file-icon"><img src="${
-          item.icon || "assets/images/file-icons/default.svg"
-        }" alt="icon" width="24" height="24"/></div>
+        <div class="file-icon"><img src="${item.icon || "assets/images/file-icons/default.svg"
+      }" alt="icon" width="24" height="24"/></div>
         <div class="file-meta">
           <div class="file-name">${item.name}</div>
           <div class="file-sub">
@@ -151,9 +150,9 @@ function updateStorageUsage(usedBytes) {
   );
   headerStorageEls.forEach(
     (el) =>
-      (el.textContent = `${formatBytes(usedBytes)} / ${formatBytes(
-        config.totalBytes
-      )}`)
+    (el.textContent = `${formatBytes(usedBytes)} / ${formatBytes(
+      config.totalBytes
+    )}`)
   );
 
   const progressEls = document.querySelectorAll(
@@ -169,188 +168,210 @@ function updateStorageUsage(usedBytes) {
   }
 }
 
-function initSortDropdown() {
-  const sortDropdown = document.getElementById("sortDropdown");
-  const sortButton = document.getElementById("sortButton");
-  const sortMenu = document.getElementById("sortMenu");
-  const customDateSection = document.getElementById("customDateSection");
-  const applyCustomDateBtn = document.getElementById("applyCustomDate");
-  const startDateInput = document.getElementById("startDate");
-  const endDateInput = document.getElementById("endDate");
+// SIMPLIFIED DROPDOWN MANAGEMENT
+function initDropdowns() {
+  console.log("Initializing dropdowns...");
 
-  if (!sortDropdown || !sortButton || !sortMenu) {
-    console.error("Sort dropdown elements not found");
-    return;
-  }
-
-  const today = new Date().toISOString().split("T")[0];
-  const lastWeek = new Date();
-  lastWeek.setDate(lastWeek.getDate() - 7);
-  const lastWeekStr = lastWeek.toISOString().split("T")[0];
-
-  if (endDateInput) {
-    endDateInput.value = today;
-    endDateInput.max = today;
-  }
-
-  if (startDateInput) {
-    startDateInput.value = lastWeekStr;
-    startDateInput.max = today;
-  }
-
-  sortButton.addEventListener("click", function (e) {
-    e.preventDefault();
-    e.stopPropagation();
-
-    document.querySelectorAll(".custom-dropdown").forEach((dd) => {
-      if (dd !== sortDropdown) {
-        dd.classList.remove("open");
+  // Function to close all dropdowns except the one passed
+  function closeAllDropdowns(except = null) {
+    document.querySelectorAll(".custom-dropdown").forEach((dropdown) => {
+      if (dropdown !== except && dropdown.classList.contains("open")) {
+        dropdown.classList.remove("open");
       }
     });
-
-    sortDropdown.classList.toggle("open");
-
-    if (customDateSection && sortDropdown.classList.contains("open")) {
-      customDateSection.classList.remove("show");
-    }
-  });
-
-  const sortItems = sortMenu.querySelectorAll(".sort-item");
-  sortItems.forEach((item) => {
-    item.addEventListener("click", function (e) {
-      e.stopPropagation();
-
-      sortItems.forEach((i) => i.classList.remove("active"));
-
-      this.classList.add("active");
-
-      const value = this.getAttribute("data-value");
-
-      if (value === "custom") {
-        if (customDateSection) {
-          customDateSection.classList.add("show");
-        }
-      } else {
-        if (customDateSection) {
-          customDateSection.classList.remove("show");
-        }
-
-        const buttonText = sortButton.querySelector("span");
-        if (buttonText) {
-          buttonText.textContent = this.textContent.replace("›", "").trim();
-        }
-
-        sortDropdown.classList.remove("open");
-
-        applyFilters("sort", value);
-      }
-    });
-  });
-
-  if (applyCustomDateBtn) {
-    applyCustomDateBtn.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      if (!startDateInput || !endDateInput) {
-        console.error("Date inputs not found");
-        return;
-      }
-
-      const startDate = startDateInput.value;
-      const endDate = endDateInput.value;
-
-      if (!startDate || !endDate) {
-        alert("Please select both start and end dates");
-        return;
-      }
-
-      if (new Date(startDate) > new Date(endDate)) {
-        alert("Start date cannot be after end date");
-        return;
-      }
-
-      const buttonText = sortButton.querySelector("span");
-      if (buttonText) {
-        buttonText.textContent = "Custom Date";
-      }
-
-      sortDropdown.classList.remove("open");
-
-      applyFilters("sort", "custom", { startDate, endDate });
-    });
   }
 
+  // Handle click outside to close dropdowns
   document.addEventListener("click", function (e) {
-    if (!sortDropdown.contains(e.target)) {
-      sortDropdown.classList.remove("open");
-      if (customDateSection) {
-        customDateSection.classList.remove("show");
-      }
-    }
-  });
-}
-
-function initFilterDropdowns() {
-  console.log("Initializing filter dropdowns...");
-
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".custom-dropdown")) {
-      document
-        .querySelectorAll(".custom-dropdown .dropdown-menu")
-        .forEach((menu) => (menu.style.display = "none"));
+    const isDropdownClick = e.target.closest(".custom-dropdown");
+    if (!isDropdownClick) {
+      closeAllDropdowns();
     }
   });
 
-  document.querySelectorAll(".custom-dropdown").forEach((dropdown) => {
+  // Handle escape key
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      closeAllDropdowns();
+    }
+  });
+
+  // Initialize all regular dropdowns (category, type, filter)
+  document.querySelectorAll(".custom-dropdown:not(#sortDropdown)").forEach((dropdown) => {
     const button = dropdown.querySelector(".dropdown-btn");
     const menu = dropdown.querySelector(".dropdown-menu");
 
     if (!button || !menu) return;
 
-    menu.style.display = "none";
-
     button.addEventListener("click", function (e) {
+      e.preventDefault();
       e.stopPropagation();
 
-      document
-        .querySelectorAll(".custom-dropdown .dropdown-menu")
-        .forEach((m) => {
-          if (m !== menu) m.style.display = "none";
-        });
+      const isOpen = dropdown.classList.contains("open");
 
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
+      // Close all other dropdowns first
+      closeAllDropdowns(dropdown);
 
-      menu.style.zIndex = "1000";
+      // Toggle current dropdown
+      if (isOpen) {
+        dropdown.classList.remove("open");
+      } else {
+        dropdown.classList.add("open");
+      }
     });
 
+    // Handle menu item clicks
     menu.querySelectorAll("li").forEach((item) => {
       item.addEventListener("click", function (e) {
         e.stopPropagation();
 
-        if (
-          !dropdown.hasAttribute("data-filter") &&
-          !dropdown.hasAttribute("data-type")
-        ) {
-          return;
-        }
-
         const value = this.getAttribute("data-value");
         const text = this.textContent;
 
+        // Update button text
         const buttonText = button.querySelector("span");
         if (buttonText) buttonText.textContent = text;
 
-        menu.style.display = "none";
+        // Close dropdown
+        dropdown.classList.remove("open");
 
+        // Apply filter
         const dropdownType =
           dropdown.getAttribute("data-filter") ||
           dropdown.getAttribute("data-type");
 
-        applyFilters(dropdownType, value);
+        if (dropdownType) {
+          applyFilters(dropdownType, value);
+        }
       });
     });
   });
+
+  // Special handling for sort dropdown
+  const sortDropdown = document.getElementById("sortDropdown");
+  if (sortDropdown) {
+    const sortButton = document.getElementById("sortButton");
+    const sortMenu = document.getElementById("sortMenu");
+    const customDateSection = document.getElementById("customDateSection");
+    const applyCustomDateBtn = document.getElementById("applyCustomDate");
+    const startDateInput = document.getElementById("startDate");
+    const endDateInput = document.getElementById("endDate");
+
+    // Set default dates
+    const today = new Date().toISOString().split("T")[0];
+    const lastWeek = new Date();
+    lastWeek.setDate(lastWeek.getDate() - 7);
+    const lastWeekStr = lastWeek.toISOString().split("T")[0];
+
+    if (endDateInput) {
+      endDateInput.value = today;
+      endDateInput.max = today;
+    }
+
+    if (startDateInput) {
+      startDateInput.value = lastWeekStr;
+      startDateInput.max = today;
+    }
+
+    // Sort button click
+    sortButton.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const isOpen = sortDropdown.classList.contains("open");
+
+      // Close all other dropdowns first
+      closeAllDropdowns(sortDropdown);
+
+      // Toggle sort dropdown
+      if (isOpen) {
+        sortDropdown.classList.remove("open");
+        if (customDateSection) {
+          customDateSection.classList.remove("show");
+        }
+      } else {
+        sortDropdown.classList.add("open");
+      }
+    });
+
+    // Sort items click
+    const sortItems = sortMenu.querySelectorAll(".sort-item");
+    sortItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.stopPropagation();
+
+        // Remove active class from all sort items
+        sortItems.forEach((i) => i.classList.remove("active"));
+
+        // Add active class to clicked item
+        this.classList.add("active");
+
+        const value = this.getAttribute("data-value");
+
+        if (value === "custom") {
+          // Show custom date section
+          if (customDateSection) {
+            customDateSection.classList.add("show");
+          }
+        } else {
+          // Hide custom date section for other options
+          if (customDateSection) {
+            customDateSection.classList.remove("show");
+          }
+
+          // Update button text
+          const buttonText = sortButton.querySelector("span");
+          if (buttonText) {
+            buttonText.textContent = this.textContent.replace("›", "").trim();
+          }
+
+          // Close dropdown and apply filter
+          sortDropdown.classList.remove("open");
+          applyFilters("sort", value);
+        }
+      });
+    });
+
+    // Apply custom date
+    if (applyCustomDateBtn) {
+      applyCustomDateBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        if (!startDateInput || !endDateInput) {
+          console.error("Date inputs not found");
+          return;
+        }
+
+        const startDate = startDateInput.value;
+        const endDate = endDateInput.value;
+
+        if (!startDate || !endDate) {
+          alert("Please select both start and end dates");
+          return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+          alert("Start date cannot be after end date");
+          return;
+        }
+
+        // Update button text
+        const buttonText = sortButton.querySelector("span");
+        if (buttonText) {
+          buttonText.textContent = "Custom Date";
+        }
+
+        // Close dropdown and apply filter
+        sortDropdown.classList.remove("open");
+        if (customDateSection) {
+          customDateSection.classList.remove("show");
+        }
+
+        applyFilters("sort", "custom", { startDate, endDate });
+      });
+    }
+  }
 }
 
 function applyFilters(filterType, value, customData = null) {
@@ -434,8 +455,7 @@ function applyFilters(filterType, value, customData = null) {
 
 function initStoragePage() {
   renderFilesList();
-  initFilterDropdowns();
-  initSortDropdown();
+  initDropdowns();
 }
 
 window.initStoragePage = initStoragePage;
@@ -456,7 +476,6 @@ function addDropdownCSS() {
 
   const css = `
     <style id="storage-dropdown-css">
-      /* Dropdown styles for filters */
       .custom-dropdown {
         position: relative;
         display: inline-block;
@@ -465,7 +484,7 @@ function addDropdownCSS() {
       .dropdown-btn {
         background: white;
         border: 1px solid #ddd;
-        border-radius: 4px;
+        border-radius: 10px;
         padding: 8px 12px;
         cursor: pointer;
         display: flex;
@@ -485,7 +504,7 @@ function addDropdownCSS() {
         position: absolute;
         background: white;
         border: 1px solid #ddd;
-        border-radius: 4px;
+        border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         min-width: 120px;
         z-index: 1000;
@@ -494,6 +513,22 @@ function addDropdownCSS() {
         padding: 8px 0;
         max-height: 300px;
         overflow-y: auto;
+      }
+
+      .dropdown-menu.sort-dropdown {
+        display: none;
+        min-width: 375px;
+        padding: 8px;
+        max-height: 350px;
+        flex-direction: row;
+      }
+
+      .custom-dropdown.open .dropdown-menu {
+        display: block;
+      }
+
+      .custom-dropdown.open .dropdown-menu.sort-dropdown {
+        display: flex;
       }
 
       .dropdown-menu li {
@@ -510,17 +545,73 @@ function addDropdownCSS() {
         background: #f0f0f0;
       }
 
-      .dropdown-menu li img {
-        width: 16px;
-        height: 16px;
+      /* Sort dropdown specific */
+      .sort-left {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        border-right: 1px solid #f3f4f6;
+        padding-right: 10px;
+        min-width: 180px;
+        max-width: 180px;
       }
 
-      .dropdown-menu li.danger {
-        color: #dc2626;
+      .sort-right {
+        flex: 1;
+        padding-left: 10px;
+        display: none;
       }
 
-      .dropdown-menu li.danger:hover {
-        background: #fee2e2;
+      .sort-right.show {
+        display: block;
+      }
+
+      .sort-item {
+        padding: 10px 12px;
+        border-radius: 8px;
+        font-size: 14px;
+        color: #374151;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .sort-item:hover {
+        background-color: #f9fafb;
+      }
+
+      .sort-item.active {
+        background-color: #f0f9ff;
+        color: #3a81e4;
+        font-weight: 500;
+      }
+
+      .sort-item.custom-trigger {
+        margin-top: 8px;
+        border-top: 1px solid #f3f4f6;
+        padding-top: 12px;
+      }
+
+      @media (max-width: 768px) {
+        .dropdown-menu.sort-dropdown {
+          flex-direction: column;
+          min-width: 280px;
+        }
+        
+        .sort-left {
+          border-right: none;
+          border-bottom: 1px solid #f3f4f6;
+          padding-right: 0;
+          padding-bottom: 16px;
+          min-width: auto;
+        }
+        
+        .sort-right {
+          padding-left: 0;
+          padding-top: 16px;
+        }
       }
     </style>
   `;

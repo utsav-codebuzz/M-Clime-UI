@@ -55,11 +55,9 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.15s ease;
-  background: linear-gradient(
-    90deg,
-    rgba(167, 167, 251, 0.2) 0%,
-    rgba(0, 0, 255, 0.04) 100%
-  );
+  background: linear-gradient(90deg,
+      rgba(167, 167, 251, 0.2) 0%,
+      rgba(0, 0, 255, 0.04) 100%);
 }
 
 .get-storage-btn svg {
@@ -254,6 +252,155 @@
   color: #111827;
   min-width: 80px;
   text-align: right;
+}
+
+.sort-dropdown {
+  padding: 16px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(16, 24, 40, 0.15);
+  border: 1px solid #e5e7eb;
+  min-width: 320px;
+  display: flex;
+  flex-direction: column;
+}
+
+.sort-left {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-right: 1px solid #f3f4f6;
+  padding-right: 16px;
+  min-width: 180px;
+}
+
+.sort-right {
+  flex: 1;
+  padding-left: 16px;
+}
+
+.sort-item {
+  padding: 10px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sort-item:hover {
+  background-color: #f9fafb;
+}
+
+.sort-item.active {
+  background-color: #f0f9ff;
+  color: #3a81e4;
+  font-weight: 500;
+}
+
+.sort-item .arrow {
+  color: #9ca3af;
+  font-size: 16px;
+  margin-left: 8px;
+}
+
+.sort-item.custom-trigger {
+  margin-top: 8px;
+  border-top: 1px solid #f3f4f6;
+  padding-top: 12px;
+}
+
+/* 自定义日期范围样式 */
+.date-range-label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #111827;
+  margin-bottom: 12px;
+}
+
+.date-input-wrapper {
+  margin-bottom: 12px;
+}
+
+.date-input-wrapper label {
+  display: block;
+  font-size: 13px;
+  color: #6b7280;
+  margin-bottom: 6px;
+}
+
+.date-input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  font-size: 14px;
+  color: #111827;
+  background-color: white;
+}
+
+.date-input:focus {
+  outline: none;
+  border-color: #3a81e4;
+  box-shadow: 0 0 0 3px rgba(58, 129, 228, 0.1);
+}
+
+.apply-btn {
+  width: 100%;
+  padding: 10px 16px;
+  background-color: #3a81e4;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  margin-top: 8px;
+}
+
+.apply-btn:hover {
+  background-color: #2d6bc8;
+}
+
+.custom-dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  z-index: 1000;
+  margin-top: 8px;
+}
+
+.custom-dropdown.active .dropdown-menu {
+  display: block;
+}
+
+@media (max-width: 768px) {
+  .sort-dropdown {
+    flex-direction: column;
+    min-width: 280px;
+  }
+
+  .sort-left {
+    border-right: none;
+    border-bottom: 1px solid #f3f4f6;
+    padding-right: 0;
+    padding-bottom: 16px;
+    min-width: auto;
+  }
+
+  .sort-right {
+    padding-left: 0;
+    padding-top: 16px;
+  }
 }
 
 @media (max-width: 720px) {
