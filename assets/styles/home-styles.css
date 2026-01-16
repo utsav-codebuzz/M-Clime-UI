@@ -228,6 +228,8 @@
   font-weight: 400;
   line-height: 100%;
   color: #999999;
+  font-family: var(--outfit);
+
   border-image-source: linear-gradient(
     90deg,
     rgba(209, 133, 71, 0.028) 0%,
@@ -251,6 +253,7 @@
   justify-content: center;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: var(--outfit);
 }
 
 .ask-btn:hover {

@@ -122,7 +122,6 @@
   min-width: 280px;
   position: relative;
   font-family: var(--outfit);
-
 }
 
 .search-bar img {
@@ -445,7 +444,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .storage-cta {
@@ -504,10 +503,14 @@
   background: transparent;
   font-weight: 600;
   cursor: pointer;
+  font-family: var(--outfit);
+
   transition: all 0.15s ease;
-  background: linear-gradient(90deg,
-      rgba(167, 167, 251, 0.2) 0%,
-      rgba(0, 0, 255, 0.04) 100%);
+  background: linear-gradient(
+    90deg,
+    rgba(167, 167, 251, 0.2) 0%,
+    rgba(0, 0, 255, 0.04) 100%
+  );
 }
 
 .get-storage-btn svg {
@@ -739,9 +742,9 @@
   transition: 0.2s ease;
 }
 
-.date-input:focus+.date-placeholder,
-.date-input:not(:placeholder-shown)+.date-placeholder,
-.date-input[value]:not([value=""])+.date-placeholder {
+.date-input:focus + .date-placeholder,
+.date-input:not(:placeholder-shown) + .date-placeholder,
+.date-input[value]:not([value=""]) + .date-placeholder {
   opacity: 0;
 }
 
@@ -826,6 +829,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-family: var(--outfit);
 }
 
 .custom-dropdown {
@@ -859,9 +863,8 @@
   }
 }
 
-@media(max-width: 480px) {
+@media (max-width: 480px) {
   .filters {
     justify-content: center;
   }
-
 }

@@ -439,7 +439,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .files-grid {
@@ -1045,6 +1045,7 @@
 .btn-primary {
   background: #3b82f6;
   color: white;
+  font-family: var(--outfit);
 }
 
 .btn-primary:hover {
@@ -1063,6 +1064,7 @@
 .btn-danger {
   background: #dc2626;
   color: white;
+  font-family: var(--outfit);
 }
 
 .btn-danger:hover {

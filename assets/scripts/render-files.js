@@ -1235,6 +1235,8 @@ function addRenameModalCSS() {
       .btn-primary {
         background: #3b82f6;
         color: white;
+          font-family: var(--outfit);
+
       }
       
       .btn-primary:hover {
@@ -1370,6 +1372,8 @@ function addDeleteModalCSS() {
         border: none;
         transition: all 0.2s ease;
         min-width: 80px;
+          font-family: var(--outfit);
+
       }
       
       .btn-danger:hover {

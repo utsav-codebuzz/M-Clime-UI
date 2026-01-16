@@ -101,6 +101,7 @@
   transition: all 0.2s;
   padding: 0;
   margin-left: auto;
+  font-family: var(--outfit);
 }
 
 .toggle-btn:hover {
@@ -225,7 +226,7 @@
   background: var(--primary);
   color: white;
   border: none;
-  padding: 6px;
+  padding: 9px;
   border-radius: 24px;
   font-weight: 600;
   font-size: 12px;
@@ -799,6 +800,7 @@ header .profile-menu {
     font-size: 14px;
     background: rgba(243, 244, 246, 0.7);
     outline: none;
+    font-family: var(--outfit);
   }
 
   .mobile-search-input:focus {

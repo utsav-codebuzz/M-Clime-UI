@@ -80,6 +80,7 @@
   background-clip: text;
   color: transparent !important;
   margin: 0;
+  font-family: var(--outfit);
 }
 
 .plan-subtitle {
@@ -144,6 +145,7 @@
 .card-btn:focus {
   outline: 2px solid #0000ff;
   outline-offset: 2px;
+  font-family: var(--outfit);
 }
 
 .save-badge {
@@ -192,10 +194,12 @@
 
 .pricing-card.featured {
   border: 2px solid transparent;
-  border-image-source: linear-gradient(90deg,
-      rgba(209, 133, 71, 0.028) 0%,
-      rgba(172, 115, 117, 0.56) 50%,
-      rgba(116, 132, 183, 0.028) 100%);
+  border-image-source: linear-gradient(
+    90deg,
+    rgba(209, 133, 71, 0.028) 0%,
+    rgba(172, 115, 117, 0.56) 50%,
+    rgba(116, 132, 183, 0.028) 100%
+  );
   border-image-slice: 1;
   box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
 }
@@ -320,6 +324,7 @@
   min-height: 44px;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
+  font-family: var(--outfit);
 }
 
 .card-btn:hover {
@@ -330,6 +335,7 @@
 .btn-primary {
   background: #0000ff !important;
   color: white !important;
+  font-family: var(--outfit);
 }
 
 .btn-primary:hover {
@@ -342,7 +348,7 @@
 }
 
 .card-btn.loading::after {
-  content: '';
+  content: "";
   position: absolute;
   width: 16px;
   height: 16px;

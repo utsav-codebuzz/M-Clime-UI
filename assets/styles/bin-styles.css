@@ -137,6 +137,7 @@
   border-radius: 24px;
   font-size: 14px;
   background: white;
+  font-family: var(--outfit);
 }
 
 .search-input:focus {
@@ -182,7 +183,6 @@
   backdrop-filter: blur(23px);
   box-shadow: 5px 4px 27px 0px #0000001a;
   border-radius: 100px;
-  font-family: var(--outfit);
   font-family: var(--outfit);
 }
 
@@ -439,7 +439,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
 }
 
 .files-grid {
@@ -1040,11 +1040,13 @@
   cursor: pointer;
   border: none;
   transition: all 0.2s ease;
+  font-family: var(--outfit);
 }
 
 .btn-primary {
   background: #3b82f6;
   color: white;
+  font-family: var(--outfit);
 }
 
 .btn-primary:hover {
