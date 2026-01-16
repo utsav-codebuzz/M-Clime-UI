@@ -68,6 +68,7 @@
   transition: all 0.3s ease;
   border: none;
   outline: none;
+  font-family: var(--outfit);
 }
 
 .cancel-btn {
@@ -77,6 +78,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
+  font-family: var(--outfit);
 }
 
 .confirm-btn {

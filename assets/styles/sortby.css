@@ -72,7 +72,8 @@
 }
 
 .sort-item.active .arrow img {
-  filter: brightness(0) saturate(100%) invert(48%) sepia(68%) saturate(2583%) hue-rotate(197deg) brightness(91%) contrast(96%);
+  filter: brightness(0) saturate(100%) invert(48%) sepia(68%) saturate(2583%)
+    hue-rotate(197deg) brightness(91%) contrast(96%);
 }
 
 .sort-item.custom-trigger {
@@ -153,9 +154,9 @@
   transition: 0.2s ease;
 }
 
-.date-input:focus+.date-placeholder,
-.date-input:not(:placeholder-shown)+.date-placeholder,
-.date-input[value]:not([value=""])+.date-placeholder {
+.date-input:focus + .date-placeholder,
+.date-input:not(:placeholder-shown) + .date-placeholder,
+.date-input[value]:not([value=""]) + .date-placeholder {
   opacity: 0;
 }
 
@@ -188,6 +189,7 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
+  font-family: var(--outfit);
 }
 
 .apply-btn:hover {

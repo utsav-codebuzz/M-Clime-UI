@@ -1,4 +1,3 @@
-
 .restore-modal-overlay {
   position: fixed;
   top: 0;
@@ -99,6 +98,7 @@
   transition: all 0.3s ease;
   border: none;
   outline: none;
+  font-family: var(--outfit);
 }
 
 .restore-modal-btn.cancel-btn {
@@ -108,6 +108,7 @@
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
+  font-family: var(--outfit);
 }
 
 .restore-modal-btn.confirm-btn {
