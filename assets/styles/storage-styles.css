@@ -1,3 +1,449 @@
+.main-card {
+  flex: 1;
+  background: #fff;
+  backdrop-filter: blur(10px);
+  border-radius: 20px;
+  padding: 22px;
+  box-shadow: var(--shadow);
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 32px);
+}
+
+.storage-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 20px;
+}
+
+.storage-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  max-width: 343px;
+}
+
+.storage-icon {
+  width: 34px;
+  height: 34px;
+}
+
+.storage-info {
+  flex: 1;
+  max-width: 295px;
+}
+
+.storage-text {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+
+.header-title {
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--text-primary);
+}
+
+.header-storage {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+.storage-bar {
+  height: 6px;
+  width: 100%;
+  background: #e5e7eb;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.storage-progress {
+  height: 100%;
+  display: block;
+  background: var(--primary);
+  border-radius: 999px;
+}
+
+.storage-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.icon-btn:hover {
+  background: #f3f4f6;
+}
+
+.profile-img {
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+.mydrive-content {
+  background: url("../images/common/global_bg.svg") center / cover no-repeat,
+    rgba(255, 255, 255, 0.95);
+  min-height: calc(100vh - 32px);
+  padding: 28px 28px;
+  border-radius: 28px;
+  position: relative;
+  z-index: -1 !important;
+}
+
+.view-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.search-bar {
+  flex: 1;
+  min-width: 280px;
+  position: relative;
+  font-family: var(--outfit);
+
+}
+
+.search-bar img {
+  position: absolute;
+  top: 8px;
+  left: 10px;
+}
+
+.search-input {
+  width: 30%;
+  padding: 10px 16px 10px 40px;
+  border: 1px solid #d1d5db;
+  border-radius: 24px;
+  font-size: 14px;
+  background: white;
+}
+
+.search-input:focus {
+  outline: none;
+}
+
+.filters {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.filter-select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 24px;
+  background: white;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.custom-dropdown {
+  position: relative;
+  min-width: fit-content;
+  font-family: inherit;
+}
+
+.dropdown-btn {
+  width: 100%;
+  height: 42px;
+  padding: 0 14px;
+  background: transparent;
+  border: 1px solid #e2e4ea;
+  color: var(--text-base);
+  border-radius: 100px !important;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 400;
+  gap: 10px;
+  backdrop-filter: blur(23px);
+  box-shadow: 5px 4px 27px 0px #0000001a;
+  border-radius: 100px;
+  font-family: var(--outfit);
+  font-family: var(--outfit);
+}
+
+.dropdown-btn img {
+  width: 14px;
+  transition: transform 0.2s ease;
+}
+
+.custom-dropdown.active .dropdown-btn img {
+  transform: rotate(180deg);
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  width: 100%;
+  background: #fff;
+  border: 1px solid #e2e4ea;
+  border-radius: 10px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+  z-index: 100;
+  overflow: hidden;
+  margin-top: 4px;
+  display: none !important;
+}
+
+/* Show dropdown menus when parent has active class */
+.custom-dropdown.active .dropdown-menu,
+.help-dropdown.active .dropdown-menu,
+.help-dropdown.active .help-menu,
+.profile-dropdown.active .dropdown-menu,
+.profile-dropdown.active .profile-menu {
+  display: block !important;
+}
+
+/* Ensure header dropdowns have higher z-index than filter dropdowns */
+.help-dropdown.active .dropdown-menu,
+.help-dropdown.active .help-menu,
+.profile-dropdown.active .dropdown-menu,
+.profile-dropdown.active .profile-menu {
+  z-index: 10001 !important;
+}
+
+/* Ensure help-menu and profile-menu are hidden by default */
+.help-dropdown .help-menu,
+.profile-dropdown .profile-menu {
+  display: none !important;
+}
+
+/* File menu should be hidden by default but shown when file-actions is active */
+.dropdown-menu.file-menu {
+  display: none !important;
+}
+
+.file-actions.active .file-menu,
+.file-actions.active .dropdown-menu.file-menu {
+  display: block !important;
+}
+
+.dropdown-menu li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 14px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.dropdown-menu li img {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+
+.dropdown-menu li:first-child {
+  border-bottom: 1px solid #eef2f7;
+  padding-bottom: 12px;
+}
+
+.dropdown-menu li.danger {
+  color: #dc2626;
+}
+
+.dropdown-menu li:hover {
+  background: #f5f7fb;
+}
+
+.help-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 10000 !important;
+}
+
+.help-dropdown .help-menu {
+  top: 32px;
+  right: 0;
+  left: auto;
+  min-width: 180px;
+  z-index: 10001 !important;
+}
+
+.help-dropdown .help-menu li a {
+  text-decoration: none;
+  color: var(--text-base);
+  width: 100%;
+  display: block;
+}
+
+.help-dropdown.active .dropdown-btn img {
+  transform: none !important;
+}
+
+.help-dropdown .dropdown-btn img {
+  width: 30px !important;
+}
+
+.help-dropdown .dropdown-btn {
+  background: transparent !important;
+  padding: 0;
+  height: auto;
+  border: 0;
+  display: contents;
+}
+
+.help-dropdown .dropdown-menu li:hover {
+  background: #f5f7fb;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: flex;
+  align-items: center;
+  z-index: 10000 !important;
+}
+
+.profile-dropdown .profile-menu {
+  top: 38px;
+  right: 0;
+  left: auto;
+  min-width: 180px;
+  padding: 10px px !important;
+  z-index: 10001 !important;
+}
+
+.profile-dropdown .profile-menu li a {
+  text-decoration: none;
+  color: var(--text-base);
+  width: 100%;
+  display: block;
+}
+
+.profile-menu li a:hover {
+  background: #f5f7fb;
+}
+
+.profile-dropdown.active .dropdown-btn img {
+  transform: none !important;
+}
+
+.profile-dropdown .dropdown-btn img {
+  width: 32px !important;
+}
+
+.profile-dropdown .dropdown-btn {
+  background: transparent !important;
+  padding: 0;
+  height: auto;
+  border: 0;
+  display: contents;
+}
+
+.profile-dropdown .dropdown-menu li:hover {
+  background: #f5f7fb;
+}
+
+.mydrive-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.page-title {
+  font-size: 22px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.view-toggle {
+  display: flex;
+  align-items: center;
+  background: #eef2ff;
+  border-radius: 14px;
+  padding: 6px;
+  gap: 2px;
+  background: #e0e2f7;
+}
+
+.view-btn {
+  width: 30px;
+  height: 30px;
+  border-radius: 10px;
+  border: none;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.view-btn.active {
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+.view-btn img {
+  width: 20px;
+  height: 20px;
+}
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px 12px;
+  margin-bottom: 20px;
+  border-radius: 20px;
+}
+
+.page-header-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+.view_detils {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--primary);
+  padding: 8px 10px;
+  gap: 6px;
+  color: #fff;
+  border-radius: 8px;
+  border: var(--primary);
+  font-family: var(--outfit);
+}
+
+.action_images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
 .storage-cta {
   display: flex;
   justify-content: space-between;
@@ -484,7 +930,18 @@
     display: none;
   }
 
+  .search-bar {
+    display: none;
+  }
+
   .file-size-col {
     display: none;
   }
+}
+
+@media(max-width: 480px) {
+  .filters {
+    justify-content: center;
+  }
+
 }

@@ -551,6 +551,10 @@
   .files-table {
     min-width: 600px;
   }
+
+  .outlet-content {
+    padding: 20px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -636,9 +640,5 @@
     flex-direction: column;
     gap: 12px;
     align-items: flex-start;
-  }
-
-  .storage-actions {
-    align-self: flex-end;
   }
 }

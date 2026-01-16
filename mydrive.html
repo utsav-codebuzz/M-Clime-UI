@@ -16,9 +16,7 @@
 
 <body>
   <div class="dashboard-wrapper">
-    <button class="mobile-menu-toggle" id="mobileMenuToggle" style="display: none">
-      <i data-feather="menu"></i>
-    </button>
+
 
     <!-- Sidebar Container -->
     <div id="sidebar-container"></div>
@@ -155,21 +153,32 @@
 
           <div class="page-header">
             <div class="page-header-info">
-              <img src="assets/images/mydrive/figam_wb.svg" alt="" />
+              <img src="assets/images/mydrive/figam_wb.svg" alt="Figma file icon" />
               <p>
-                <span>Cloud Dashboard.fig </span> • <span> 1.5 GB </span> •
-                <span> Sep 28, 2025</span>
+                <span class="file-name">Cloud Dashboard.fig</span>
+                <span class="separator">•</span>
+                <span class="file-size">1.5 GB</span>
+                <span class="separator">•</span>
+                <span class="file-date">Sep 28, 2025</span>
               </p>
-              <button class="view_detils">
-                <img src="assets/images/mydrive/search_docs.svg" alt="search" width="16" height="16" />
+              <button class="view_detils" aria-label="View file details">
+                <img src="assets/images/mydrive/search_docs.svg" alt="" width="16" height="16" aria-hidden="true" />
                 View Details
               </button>
             </div>
-            <div class="action_images">
-              <img src="assets/images/mydrive/info_circle.svg" alt="info" width="22" height="22" />
-              <img src="assets/images/mydrive/download.svg" alt="download" width="22" height="22" />
-              <img src="assets/images/mydrive/rename.svg" alt="rename" width="22" height="22" />
-              <img src="assets/images/mydrive/delete.svg" alt="delete" width="22" height="22" />
+            <div class="action_images" role="toolbar" aria-label="File actions">
+              <button class="action-btn" aria-label="File information">
+                <img src="assets/images/mydrive/info_circle.svg" alt="" width="28" height="28" aria-hidden="true" />
+              </button>
+              <button class="action-btn" aria-label="Download file">
+                <img src="assets/images/mydrive/download.svg" alt="" width="28" height="28" aria-hidden="true" />
+              </button>
+              <button class="action-btn" aria-label="Rename file">
+                <img src="assets/images/mydrive/rename.svg" alt="" width="28" height="28" aria-hidden="true" />
+              </button>
+              <button class="action-btn" aria-label="Delete file">
+                <img src="assets/images/mydrive/delete.svg" alt="" width="28" height="28" aria-hidden="true" />
+              </button>
             </div>
           </div>
 
