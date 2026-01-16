@@ -12,10 +12,6 @@
   min-height: calc(100vh - 32px);
 }
 
-.main-card .storage-header {
-  padding: 0;
-}
-
 .main-card .storage-header .storage-info {
   max-width: 295px;
 }
@@ -92,6 +88,7 @@
   border: 0;
   width: 100%;
   font-family: var(--outfit);
+  cursor: pointer;
 }
 
 .changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper {
