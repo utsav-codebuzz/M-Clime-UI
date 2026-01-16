@@ -12,10 +12,6 @@
   min-height: calc(100vh - 32px);
 }
 
-.main-card .storage-header {
-  padding: 0;
-}
-
 .main-card .storage-header .storage-info {
   max-width: 295px;
 }
@@ -28,7 +24,7 @@
   width: 100%;
 }
 
-.changepass-wrapper {
+.editprofile-wrapper {
   flex: 1;
   background: url("../images/common/global_bg.svg") center / cover no-repeat,
     rgba(255, 255, 255, 0.95);
@@ -86,6 +82,7 @@
   color: #707070;
   border: 0;
   font-family: var(--outfit);
+  cursor: pointer;
 }
 
 .auth-header .auth-header-right .save-btn {
@@ -100,40 +97,41 @@
   align-items: center;
   gap: 10px;
   font-family: var(--outfit);
+  cursor: pointer;
 }
 
-.changepass-wrapper .auth-medal {
+.editprofile-wrapper .auth-medal {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
 
-.changepass-wrapper .auth-medal h2 {
+.editprofile-wrapper .auth-medal h2 {
   font-weight: 500;
   font-size: 24px;
   line-height: 100%;
   color: var(--text-base);
 }
 
-.changepass-wrapper .auth-medal .picture-info {
+.editprofile-wrapper .auth-medal .picture-info {
   display: flex;
   align-items: center;
   gap: 40px;
 }
 
-.changepass-wrapper .auth-medal .picture-info .edit-profile {
+.editprofile-wrapper .auth-medal .picture-info .edit-profile {
   width: 120px;
   height: 120px;
   border-radius: 999px;
   border: 4px solid #FFFFFF;
 }
 
-.changepass-wrapper .auth-medal .picture-info .picture-btn {
+.editprofile-wrapper .auth-medal .picture-info .picture-btn {
   display: flex;
   gap: 20px;
 }
 
-.changepass-wrapper .auth-medal .picture-info .picture-btn .save-btn {
+.editprofile-wrapper .auth-medal .picture-info .picture-btn .save-btn {
   padding: 12px 20px;
   background-color: #0000FF;
   border-radius: 16px;
@@ -143,9 +141,10 @@
   border: 0;
   width: fit-content;
   font-family: var(--outfit);
+  cursor: pointer;
 }
 
-.changepass-wrapper .auth-medal .picture-info .picture-btn .delete-btn {
+.editprofile-wrapper .auth-medal .picture-info .picture-btn .delete-btn {
   padding: 12px 20px;
   background: #FF00001A;
   border-radius: 16px;
@@ -155,12 +154,20 @@
   border: 0;
   width: fit-content;
   font-family: var(--outfit);
+  cursor: pointer;
 }
 
 .auth-info {
   display: flex;
   flex-direction: column;
   gap: 20px;
+}
+
+.auth-info h2 {
+  font-weight: 500;
+  font-size: 24px;
+  line-height: 100%;
+  color: var(--text-base);
 }
 
 .auth-info .auth-sub-info {
@@ -228,53 +235,7 @@
   }
 }
 
-.dropdown-btn {
-  width: 100%;
-  height: 42px;
-  padding: 0 14px;
-  background: transparent;
-  border: 1px solid #e2e4ea;
-  color: var(--text-base);
-  border-radius: 10px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: 400;
-  gap: 10px;
-  backdrop-filter: blur(23px);
-  box-shadow: 5px 4px 27px 0px #0000001a;
-  border-radius: 100px;
-  font-family: var(--outfit);
-  font-family: var(--outfit);
-}
-
-.dropdown-btn img {
-  width: 14px;
-  transition: transform 0.2s ease;
-}
-
-.custom-dropdown.active .dropdown-btn img {
-  transform: rotate(180deg);
-}
-
-.dropdown-menu {
-  position: absolute;
-  top: 100%;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  border: 1px solid #e2e4ea;
-  border-radius: 10px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-  z-index: 100;
-  overflow: hidden;
-  margin-top: 4px;
-  display: none !important;
-}
-
-/* Show dropdown menus when parent has active class */
+Show dropdown menus when parent has active class
 .custom-dropdown.active .dropdown-menu,
 .help-dropdown.active .dropdown-menu,
 .help-dropdown.active .help-menu,
@@ -413,7 +374,7 @@
     gap: 12px;
   }
 
-  .changepass-wrapper .auth-medal .picture-info {
+  .editprofile-wrapper .auth-medal .picture-info {
     gap: 24px;
   }
 
@@ -425,7 +386,7 @@
 @media (max-width: 768px) {
 
   .main-card,
-  .changepass-wrapper {
+  .editprofile-wrapper {
     padding: 20px;
     border-radius: 16px;
   }
@@ -448,17 +409,17 @@
     justify-content: center;
   }
 
-  .changepass-wrapper .auth-medal .picture-info {
+  .editprofile-wrapper .auth-medal .picture-info {
     flex-direction: column;
     align-items: flex-start;
     gap: 16px;
   }
 
-  .changepass-wrapper .auth-medal .picture-info .picture-btn {
+  .editprofile-wrapper .auth-medal .picture-info .picture-btn {
     width: 100%;
   }
 
-  .changepass-wrapper .auth-medal .picture-info .picture-btn button {
+  .editprofile-wrapper .auth-medal .picture-info .picture-btn button {
     width: 100%;
   }
 }
@@ -466,7 +427,7 @@
 @media (max-width: 480px) {
 
   .main-card,
-  .changepass-wrapper {
+  .editprofile-wrapper {
     padding: 16px;
   }
 
