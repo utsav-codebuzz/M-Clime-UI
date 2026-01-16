@@ -508,7 +508,7 @@
 }
 
 .view_detils:hover {
-  background-color: var(--primary-dark);
+  /* background-color: var(--primary-dark); */
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(58, 129, 228, 0.3);
 }

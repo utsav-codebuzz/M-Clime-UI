@@ -122,7 +122,6 @@
   min-width: 280px;
   position: relative;
   font-family: var(--outfit);
-
 }
 
 .search-bar img {
@@ -436,7 +435,11 @@
   border: var(--primary);
   font-family: var(--outfit);
 }
-
+.view_detils:hover {
+  /* background-color: var(--primary-dark); */
+  transform: translateY(-1px);
+  box-shadow: 0 3px 8px rgba(58, 129, 228, 0.3);
+}
 .action_images {
   display: flex;
   justify-content: center;
