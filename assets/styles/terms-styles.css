@@ -46,10 +46,9 @@
 .terms-container {
   margin: 0 auto;
   width: 100%;
-  counter-reset: section-counter; /* Reset section counter */
+  counter-reset: section-counter;
 }
 
-/* Main title styles */
 .terms-container h1 {
   font-weight: 500;
   font-size: 28px;
@@ -63,10 +62,9 @@
   font-size: 18px;
   line-height: 100%;
   color: var(--text-base);
-  margin-bottom:20px;
+  margin-bottom: 20px;
 }
 
-/* Main headings (h2) - Numbered sections */
 .terms-container h2 {
   text-transform: uppercase;
   position: relative;
@@ -79,16 +77,6 @@
   margin-bottom: 15px;
 }
 
-/* .terms-container h2::before {
-  content: counter(section-counter) ". ";
-  position: absolute;
-  left: 0;
-  color: var(--text-base);
-  font-weight: 500;
-  font-size: 20px;
-} */
-
-/* Sub-headings (h3) - Arrow bullets */
 .terms-container h3 {
   position: relative;
   padding-left: 40px;
@@ -109,7 +97,6 @@
   font-size: 18px;
 }
 
-/* Sub-sub-headings (h4) - Smaller arrows */
 .terms-container h4 {
   position: relative;
   padding-left: 50px;
@@ -130,7 +117,6 @@
   font-size: 16px;
 }
 
-/* Paragraph styles */
 .terms-container .desc {
   font-weight: 400;
   font-size: 16px;
@@ -144,7 +130,6 @@
   margin-bottom: 15px;
 }
 
-/* First-level unordered lists - Numbered (1., 2., 3., etc.) */
 .terms-container > ul,
 .terms-container .desc + ul {
   list-style-type: none;
@@ -174,7 +159,6 @@
   color: var(--text-base);
 }
 
-/* Second-level nested lists - Regular disc bullets */
 .terms-container ul ul {
   list-style-type: disc;
   counter-reset: none;
@@ -196,20 +180,17 @@
   display: none !important;
 }
 
-/* Third-level nested lists - Circle bullets */
 .terms-container ul ul ul {
   list-style-type: circle;
   padding-left: 20px;
   margin: 8px 0;
 }
 
-/* Special case for payment methods list - Checkmarks */
 .terms-container h2:nth-of-type(5) + .desc + ul li::before {
   content: "✓" !important;
   color: var(--success, #10b981) !important;
 }
 
-/* Lists that appear directly after h3 or h4 */
 .terms-container h3 + ul,
 .terms-container h4 + ul {
   list-style-type: none;
@@ -239,7 +220,6 @@
   color: var(--text-base);
 }
 
-/* Responsive styles */
 @media (max-width: 768px) {
   .main-card {
     padding: 20px;
@@ -415,7 +395,6 @@
   }
 }
 
-/* Header and navigation styles */
 .storage-header {
   display: flex;
   justify-content: space-between;
@@ -554,7 +533,6 @@
   display: none !important;
 }
 
-/* Show dropdown menus when parent has active class */
 .custom-dropdown.active .dropdown-menu,
 .help-dropdown.active .dropdown-menu,
 .help-dropdown.active .help-menu,
@@ -563,7 +541,6 @@
   display: block !important;
 }
 
-/* Ensure help-menu and profile-menu are hidden by default */
 .help-dropdown .help-menu,
 .profile-dropdown .profile-menu {
   display: none !important;
@@ -678,14 +655,10 @@
 .profile-dropdown .dropdown-menu li:hover {
   background: #f5f7fb;
 }
-/* Table of Contents Styles */
+
 .table-of-contents {
-  /* background: rgba(248, 250, 252, 0.8); */
   border-radius: 12px;
   text-transform: uppercase;
-  /* padding: 20px 25px; */
-  /* margin: 25px 0; */
-  /* border-left: 4px solid var(--primary, #4f46e5); */
 }
 
 .table-of-contents h2 {
@@ -723,7 +696,7 @@
   position: absolute;
   left: 0;
   font-weight: 500;
-  /* color: var(--primary, #4f46e5); */
+
   font-size: 14px;
 }
 
@@ -738,24 +711,23 @@
   text-decoration: underline;
 }
 
-/* Responsive Table of Contents */
 @media (max-width: 768px) {
   .table-of-contents {
     padding: 15px 20px;
     margin: 20px 0;
   }
-  
+
   .table-of-contents h2 {
     font-size: 16px;
     margin-bottom: 12px;
   }
-  
+
   .toc-list li {
     font-size: 14px;
     padding-left: 22px;
     margin-bottom: 8px;
   }
-  
+
   .toc-list li::before {
     font-size: 13px;
   }
@@ -766,18 +738,18 @@
     padding: 12px 16px;
     margin: 16px 0;
   }
-  
+
   .table-of-contents h2 {
     font-size: 15px;
     margin-bottom: 10px;
   }
-  
+
   .toc-list li {
     font-size: 13px;
     padding-left: 20px;
     margin-bottom: 6px;
   }
-  
+
   .toc-list li::before {
     font-size: 12px;
   }

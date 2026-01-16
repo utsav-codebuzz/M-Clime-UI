@@ -1,27 +1,27 @@
-// components/load-components.js
 class ComponentLoader {
-    constructor() {
-        this.components = {
-            sidebar: 'components/sidebar/sidebar.html',
-            header: 'components/header/header.html',
-            changePictureModal: 'components/change-picture-modal/change-picture-modal.html'
-        };
-        this.stylesheets = {
-            changePictureModal: 'components/change-picture-modal/change-picture-modal.css'
-        };
-    }
+  constructor() {
+    this.components = {
+      sidebar: "components/sidebar/sidebar.html",
+      header: "components/header/header.html",
+      changePictureModal:
+        "components/change-picture-modal/change-picture-modal.html",
+    };
+    this.stylesheets = {
+      changePictureModal:
+        "components/change-picture-modal/change-picture-modal.css",
+    };
+  }
 
-    async loadComponent(componentName, targetElementId) {
-        try {
-            const container = document.getElementById(targetElementId);
-            if (!container) return;
+  async loadComponent(componentName, targetElementId) {
+    try {
+      const container = document.getElementById(targetElementId);
+      if (!container) return;
 
-            // Add loading class for animation
-            container.classList.add('component-loading');
+      container.classList.add("component-loading");
 
-            const response = await fetch(this.components[componentName]);
-            const html = await response.text();
-            container.innerHTML = html;
+      const response = await fetch(this.components[componentName]);
+      const html = await response.text();
+      container.innerHTML = html;
 
             // Add loaded class and trigger animation
             requestAnimationFrame(() => {
@@ -59,37 +59,29 @@ class ComponentLoader {
         }
     }
 
-    initializeSidebar() {
-        const currentPage = window.location.pathname.split('/').pop();
-        const navLinks = document.querySelectorAll('.nav-link');
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === currentPage) {
-                link.classList.add('active');
-            }
-        });
+  initializeSidebar() {
+    const currentPage = window.location.pathname.split("/").pop();
+    const navLinks = document.querySelectorAll(".nav-link");
+    navLinks.forEach((link) => {
+      link.classList.remove("active");
+      if (link.getAttribute("href") === currentPage) {
+        link.classList.add("active");
+      }
+    });
+  }
+
+  initializeHeader() {}
+
+  initializeChangePictureModal() {}
+
+  async loadAllComponents() {
+    if (document.getElementById("sidebar-container")) {
+      await this.loadComponent("sidebar", "sidebar-container");
     }
 
-    initializeHeader() {
-        // Header dropdown initialization will be handled by dropdown.js
-        // This is just a placeholder for any header-specific initialization
+    if (document.getElementById("header-container")) {
+      await this.loadComponent("header", "header-container");
     }
-
-    initializeChangePictureModal() {
-        // This will be initialized by the modal's own script
-        // We just ensure the modal exists in the DOM
-    }
-
-    async loadAllComponents() {
-        // Load sidebar if element exists
-        if (document.getElementById('sidebar-container')) {
-            await this.loadComponent('sidebar', 'sidebar-container');
-        }
-
-        // Load header if element exists
-        if (document.getElementById('header-container')) {
-            await this.loadComponent('header', 'header-container');
-        }
 
         try {
             const response = await fetch(this.components.changePictureModal);
@@ -110,8 +102,8 @@ class ComponentLoader {
             throw new Error('Failed to load change picture modal');
         }
 
-        document.dispatchEvent(new Event('componentsLoaded'));
-    }
+    document.dispatchEvent(new Event("componentsLoaded"));
+  }
 
     loadModalStylesheet(modalName) {
         if (!this.stylesheets[modalName]) return;
@@ -127,8 +119,7 @@ class ComponentLoader {
     }
 }
 
-// Initialize when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    window.componentLoader = new ComponentLoader();
-    window.componentLoader.loadAllComponents();
+document.addEventListener("DOMContentLoaded", () => {
+  window.componentLoader = new ComponentLoader();
+  window.componentLoader.loadAllComponents();
 });
