@@ -498,57 +498,58 @@ function initFilterDropdowns() {
     }
   });
 
-  document.querySelectorAll(".custom-dropdown:not(#sortDropdown)").forEach((dropdown) => {
-    const button = dropdown.querySelector(".dropdown-btn");
-    const menu = dropdown.querySelector(".dropdown-menu");
+  document
+    .querySelectorAll(".custom-dropdown:not(#sortDropdown)")
+    .forEach((dropdown) => {
+      const button = dropdown.querySelector(".dropdown-btn");
+      const menu = dropdown.querySelector(".dropdown-menu");
 
-    if (!button || !menu) return;
+      if (!button || !menu) return;
 
-    menu.style.display = "none";
+      menu.style.display = "none";
 
-    button.addEventListener("click", function (e) {
-      e.stopPropagation();
-
-      document
-        .querySelectorAll(".custom-dropdown .dropdown-menu")
-        .forEach((m) => {
-          if (m !== menu) m.style.display = "none";
-        });
-
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-
-      menu.style.zIndex = "1000";
-    });
-
-    menu.querySelectorAll("li").forEach((item) => {
-      item.addEventListener("click", function (e) {
+      button.addEventListener("click", function (e) {
         e.stopPropagation();
 
-        if (
-          !dropdown.hasAttribute("data-filter") &&
-          !dropdown.hasAttribute("data-type")
-        ) {
-          return;
-        }
+        document
+          .querySelectorAll(".custom-dropdown .dropdown-menu")
+          .forEach((m) => {
+            if (m !== menu) m.style.display = "none";
+          });
 
-        const value = this.getAttribute("data-value");
-        const text = this.textContent;
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
 
-        const buttonText = button.querySelector("span");
-        if (buttonText) buttonText.textContent = text;
+        menu.style.zIndex = "1000";
+      });
 
-        menu.style.display = "none";
+      menu.querySelectorAll("li").forEach((item) => {
+        item.addEventListener("click", function (e) {
+          e.stopPropagation();
 
-        const dropdownType =
-          dropdown.getAttribute("data-filter") ||
-          dropdown.getAttribute("data-type");
+          if (
+            !dropdown.hasAttribute("data-filter") &&
+            !dropdown.hasAttribute("data-type")
+          ) {
+            return;
+          }
 
-        applyFilters(dropdownType, value);
+          const value = this.getAttribute("data-value");
+          const text = this.textContent;
+
+          const buttonText = button.querySelector("span");
+          if (buttonText) buttonText.textContent = text;
+
+          menu.style.display = "none";
+
+          const dropdownType =
+            dropdown.getAttribute("data-filter") ||
+            dropdown.getAttribute("data-type");
+
+          applyFilters(dropdownType, value);
+        });
       });
     });
-  });
 
-  // Special handling for sort dropdown
   const sortDropdown = document.getElementById("sortDropdown");
   if (sortDropdown) {
     const sortButton = document.getElementById("sortButton");
@@ -561,16 +562,13 @@ function initFilterDropdowns() {
     if (startDateInput) startDateInput.max = today;
     if (endDateInput) endDateInput.max = today;
 
-    // Sort items click
     const sortItems = sortMenu.querySelectorAll(".sort-item");
     sortItems.forEach((item) => {
       item.addEventListener("click", function (e) {
         e.stopPropagation();
 
-        // Remove active class from all sort items
         sortItems.forEach((i) => i.classList.remove("active"));
 
-        // Add active class to clicked item
         this.classList.add("active");
 
         const value = this.getAttribute("data-value");
@@ -580,20 +578,17 @@ function initFilterDropdowns() {
         } else {
           sortMenu.classList.remove("show-custom");
 
-          // Update button text
           const buttonText = sortButton.querySelector("span");
           if (buttonText) {
             buttonText.textContent = this.textContent.replace("›", "").trim();
           }
 
-          // Close dropdown and apply filter
           sortDropdown.classList.remove("active");
           applyFilters("sort", value);
         }
       });
     });
 
-    // Apply custom date
     if (applyCustomDateBtn) {
       applyCustomDateBtn.addEventListener("click", function (e) {
         e.preventDefault();
@@ -612,13 +607,11 @@ function initFilterDropdowns() {
           return;
         }
 
-        // Update button text
         const buttonText = sortButton.querySelector("span");
         if (buttonText) {
           buttonText.textContent = "Custom Date";
         }
 
-        // Close dropdown and apply filter
         sortDropdown.classList.remove("active");
         sortMenu.classList.remove("show-custom");
 
@@ -655,18 +648,19 @@ function applyFilters(filterType, value, customData = null) {
           return fileDate >= startDate && fileDate <= endDate;
         });
 
-        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+        filteredFiles.sort(
+          (a, b) =>
+            new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date)
+        );
       } else if (value === "yesterday") {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-        filteredFiles = filteredFiles.filter(
-          (file) => {
-            const fileDate = new Date(file.uploaded || file.date);
-            return fileDate.toISOString().split("T")[0] === yesterdayStr;
-          }
-        );
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate.toISOString().split("T")[0] === yesterdayStr;
+        });
       } else if (value === "7days") {
         const weekAgo = new Date();
         weekAgo.setDate(weekAgo.getDate() - 7);
@@ -705,10 +699,14 @@ function applyFilters(filterType, value, customData = null) {
           if (sizeStr.includes("MB")) return num;
           return num;
         };
-        filteredFiles.sort((a, b) => getSizeValue(b.size) - getSizeValue(a.size));
+        filteredFiles.sort(
+          (a, b) => getSizeValue(b.size) - getSizeValue(a.size)
+        );
       } else if (value === "all") {
-        // Show all files, sorted by date (newest first)
-        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+        filteredFiles.sort(
+          (a, b) =>
+            new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date)
+        );
       }
       break;
 
@@ -725,21 +723,17 @@ function applyFilters(filterType, value, customData = null) {
   }
 }
 
-// Flag to prevent duplicate event listeners
 let starredFileActionHandlersAttached = false;
 
 window.attachFileActionHandlers = function () {
-  // Use event delegation - only attach once
   if (starredFileActionHandlersAttached) return;
   starredFileActionHandlersAttached = true;
 
-  // Single document-level click handler for all file actions
   document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
 
-    // Handle three dots click
     if (threeDots) {
       e.stopPropagation();
       e.preventDefault();
@@ -748,16 +742,21 @@ window.attachFileActionHandlers = function () {
       if (!container) return;
 
       const menu = threeDots.nextElementSibling;
-      if (!menu || !menu.classList.contains("dropdown-menu") || !menu.classList.contains("file-menu")) return;
+      if (
+        !menu ||
+        !menu.classList.contains("dropdown-menu") ||
+        !menu.classList.contains("file-menu")
+      )
+        return;
 
-      // Check current state - handle both inline display and class-based
-      const isOpen = menu.style.display === "block" || container.classList.contains("active");
+      const isOpen =
+        menu.style.display === "block" ||
+        container.classList.contains("active");
 
       if (isOpen) {
         menu.style.display = "none";
         container.classList.remove("active");
       } else {
-        // Close all other menus first
         document.querySelectorAll(".file-menu").forEach((m) => {
           m.style.display = "none";
         });
@@ -765,7 +764,6 @@ window.attachFileActionHandlers = function () {
           fa.classList.remove("active");
         });
 
-        // Open this menu
         menu.style.display = "block";
         menu.style.position = "absolute";
         menu.style.left = "auto";
@@ -777,7 +775,6 @@ window.attachFileActionHandlers = function () {
       return;
     }
 
-    // Handle menu item clicks
     if (menuItem) {
       e.stopPropagation();
       e.preventDefault();
@@ -789,7 +786,6 @@ window.attachFileActionHandlers = function () {
       const fileId = container.dataset.fileId;
       const menu = menuItem.closest(".dropdown-menu");
 
-      // Close menu
       if (menu) {
         menu.style.display = "none";
         container.classList.remove("active");
@@ -813,7 +809,6 @@ window.attachFileActionHandlers = function () {
       return;
     }
 
-    // Close menus when clicking outside
     if (!fileActions && !threeDots && !menuItem) {
       document.querySelectorAll(".file-menu").forEach((menu) => {
         menu.style.display = "none";
@@ -1056,8 +1051,13 @@ function initializeStarred() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.getElementById("sidebar-container") || document.getElementById("header-container")) {
-    document.addEventListener("componentsLoaded", initializeStarred, { once: true });
+  if (
+    document.getElementById("sidebar-container") ||
+    document.getElementById("header-container")
+  ) {
+    document.addEventListener("componentsLoaded", initializeStarred, {
+      once: true,
+    });
     setTimeout(initializeStarred, 500);
   } else {
     initializeStarred();

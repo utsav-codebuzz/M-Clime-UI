@@ -115,8 +115,9 @@ function renderFilesList() {
     row.className = "file-row";
     row.innerHTML = `
       <div class="file-left">
-        <div class="file-icon"><img src="${item.icon || "assets/images/file-icons/default.svg"
-      }" alt="icon" width="24" height="24"/></div>
+        <div class="file-icon"><img src="${
+          item.icon || "assets/images/file-icons/default.svg"
+        }" alt="icon" width="24" height="24"/></div>
         <div class="file-meta">
           <div class="file-name">${item.name}</div>
           <div class="file-sub">
@@ -150,9 +151,9 @@ function updateStorageUsage(usedBytes) {
   );
   headerStorageEls.forEach(
     (el) =>
-    (el.textContent = `${formatBytes(usedBytes)} / ${formatBytes(
-      config.totalBytes
-    )}`)
+      (el.textContent = `${formatBytes(usedBytes)} / ${formatBytes(
+        config.totalBytes
+      )}`)
   );
 
   const progressEls = document.querySelectorAll(
@@ -168,9 +169,8 @@ function updateStorageUsage(usedBytes) {
   }
 }
 
-// SIMPLIFIED DROPDOWN MANAGEMENT
 function initDropdowns() {
-  // Function to close all dropdowns except the one passed
+
   function closeAllDropdowns(except = null) {
     document.querySelectorAll(".custom-dropdown").forEach((dropdown) => {
       if (dropdown !== except && dropdown.classList.contains("open")) {
@@ -179,7 +179,6 @@ function initDropdowns() {
     });
   }
 
-  // Handle click outside to close dropdowns
   document.addEventListener("click", function (e) {
     const isDropdownClick = e.target.closest(".custom-dropdown");
     if (!isDropdownClick) {
@@ -187,65 +186,58 @@ function initDropdowns() {
     }
   });
 
-  // Handle escape key
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape") {
       closeAllDropdowns();
     }
   });
 
-  // Initialize all regular dropdowns (category, type, filter)
-  document.querySelectorAll(".custom-dropdown:not(#sortDropdown)").forEach((dropdown) => {
-    const button = dropdown.querySelector(".dropdown-btn");
-    const menu = dropdown.querySelector(".dropdown-menu");
+  document
+    .querySelectorAll(".custom-dropdown:not(#sortDropdown)")
+    .forEach((dropdown) => {
+      const button = dropdown.querySelector(".dropdown-btn");
+      const menu = dropdown.querySelector(".dropdown-menu");
 
-    if (!button || !menu) return;
+      if (!button || !menu) return;
 
-    button.addEventListener("click", function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const isOpen = dropdown.classList.contains("open");
-
-      // Close all other dropdowns first
-      closeAllDropdowns(dropdown);
-
-      // Toggle current dropdown
-      if (isOpen) {
-        dropdown.classList.remove("open");
-      } else {
-        dropdown.classList.add("open");
-      }
-    });
-
-    // Handle menu item clicks
-    menu.querySelectorAll("li").forEach((item) => {
-      item.addEventListener("click", function (e) {
+      button.addEventListener("click", function (e) {
+        e.preventDefault();
         e.stopPropagation();
 
-        const value = this.getAttribute("data-value");
-        const text = this.textContent;
+        const isOpen = dropdown.classList.contains("open");
 
-        // Update button text
-        const buttonText = button.querySelector("span");
-        if (buttonText) buttonText.textContent = text;
+        closeAllDropdowns(dropdown);
 
-        // Close dropdown
-        dropdown.classList.remove("open");
-
-        // Apply filter
-        const dropdownType =
-          dropdown.getAttribute("data-filter") ||
-          dropdown.getAttribute("data-type");
-
-        if (dropdownType) {
-          applyFilters(dropdownType, value);
+        if (isOpen) {
+          dropdown.classList.remove("open");
+        } else {
+          dropdown.classList.add("open");
         }
       });
-    });
-  });
 
-  // Special handling for sort dropdown
+      menu.querySelectorAll("li").forEach((item) => {
+        item.addEventListener("click", function (e) {
+          e.stopPropagation();
+
+          const value = this.getAttribute("data-value");
+          const text = this.textContent;
+
+          const buttonText = button.querySelector("span");
+          if (buttonText) buttonText.textContent = text;
+
+          dropdown.classList.remove("open");
+
+          const dropdownType =
+            dropdown.getAttribute("data-filter") ||
+            dropdown.getAttribute("data-type");
+
+          if (dropdownType) {
+            applyFilters(dropdownType, value);
+          }
+        });
+      });
+    });
+
   const sortDropdown = document.getElementById("sortDropdown");
   if (sortDropdown) {
     const sortButton = document.getElementById("sortButton");
@@ -259,17 +251,14 @@ function initDropdowns() {
     if (startDateInput) startDateInput.max = today;
     if (endDateInput) endDateInput.max = today;
 
-    // Sort button click
     sortButton.addEventListener("click", function (e) {
       e.preventDefault();
       e.stopPropagation();
 
       const isOpen = sortDropdown.classList.contains("open");
 
-      // Close all other dropdowns first
       closeAllDropdowns(sortDropdown);
 
-      // Toggle sort dropdown
       if (isOpen) {
         sortDropdown.classList.remove("open");
         sortMenu.classList.remove("show-custom");
@@ -278,16 +267,13 @@ function initDropdowns() {
       }
     });
 
-    // Sort items click
     const sortItems = sortMenu.querySelectorAll(".sort-item");
     sortItems.forEach((item) => {
       item.addEventListener("click", function (e) {
         e.stopPropagation();
 
-        // Remove active class from all sort items
         sortItems.forEach((i) => i.classList.remove("active"));
 
-        // Add active class to clicked item
         this.classList.add("active");
 
         const value = this.getAttribute("data-value");
@@ -297,20 +283,17 @@ function initDropdowns() {
         } else {
           sortMenu.classList.remove("show-custom");
 
-          // Update button text
           const buttonText = sortButton.querySelector("span");
           if (buttonText) {
             buttonText.textContent = this.textContent.replace("›", "").trim();
           }
 
-          // Close dropdown and apply filter
           sortDropdown.classList.remove("open");
           applyFilters("sort", value);
         }
       });
     });
 
-    // Apply custom date
     if (applyCustomDateBtn) {
       applyCustomDateBtn.addEventListener("click", function (e) {
         e.preventDefault();
@@ -329,13 +312,11 @@ function initDropdowns() {
           return;
         }
 
-        // Update button text
         const buttonText = sortButton.querySelector("span");
         if (buttonText) {
           buttonText.textContent = "Custom Date";
         }
 
-        // Close dropdown and apply filter
         sortDropdown.classList.remove("open");
         sortMenu.classList.remove("show-custom");
 
@@ -440,7 +421,6 @@ window.initStorage = function () {
   initStoragePage();
 };
 
-// Add CSS for dropdowns if not already in stylesheet
 function addDropdownCSS() {
   if (document.getElementById("storage-dropdown-css")) return;
 

@@ -10,57 +10,58 @@ function initFilterDropdowns() {
     }
   });
 
-  document.querySelectorAll(".custom-dropdown:not(#sortDropdown)").forEach((dropdown) => {
-    const button = dropdown.querySelector(".dropdown-btn");
-    const menu = dropdown.querySelector(".dropdown-menu");
+  document
+    .querySelectorAll(".custom-dropdown:not(#sortDropdown)")
+    .forEach((dropdown) => {
+      const button = dropdown.querySelector(".dropdown-btn");
+      const menu = dropdown.querySelector(".dropdown-menu");
 
-    if (!button || !menu) return;
+      if (!button || !menu) return;
 
-    menu.style.display = "none";
+      menu.style.display = "none";
 
-    button.addEventListener("click", function (e) {
-      e.stopPropagation();
-
-      document
-        .querySelectorAll(".custom-dropdown .dropdown-menu")
-        .forEach((m) => {
-          if (m !== menu) m.style.display = "none";
-        });
-
-      menu.style.display = menu.style.display === "block" ? "none" : "block";
-
-      menu.style.zIndex = "1000";
-    });
-
-    menu.querySelectorAll("li").forEach((item) => {
-      item.addEventListener("click", function (e) {
+      button.addEventListener("click", function (e) {
         e.stopPropagation();
 
-        if (
-          !dropdown.hasAttribute("data-filter") &&
-          !dropdown.hasAttribute("data-type")
-        ) {
-          return;
-        }
+        document
+          .querySelectorAll(".custom-dropdown .dropdown-menu")
+          .forEach((m) => {
+            if (m !== menu) m.style.display = "none";
+          });
 
-        const value = this.getAttribute("data-value");
-        const text = this.textContent;
+        menu.style.display = menu.style.display === "block" ? "none" : "block";
 
-        const buttonText = button.querySelector("span");
-        if (buttonText) buttonText.textContent = text;
+        menu.style.zIndex = "1000";
+      });
 
-        menu.style.display = "none";
+      menu.querySelectorAll("li").forEach((item) => {
+        item.addEventListener("click", function (e) {
+          e.stopPropagation();
 
-        const dropdownType =
-          dropdown.getAttribute("data-filter") ||
-          dropdown.getAttribute("data-type");
+          if (
+            !dropdown.hasAttribute("data-filter") &&
+            !dropdown.hasAttribute("data-type")
+          ) {
+            return;
+          }
 
-        applyFilters(dropdownType, value);
+          const value = this.getAttribute("data-value");
+          const text = this.textContent;
+
+          const buttonText = button.querySelector("span");
+          if (buttonText) buttonText.textContent = text;
+
+          menu.style.display = "none";
+
+          const dropdownType =
+            dropdown.getAttribute("data-filter") ||
+            dropdown.getAttribute("data-type");
+
+          applyFilters(dropdownType, value);
+        });
       });
     });
-  });
 
-  // Special handling for sort dropdown
   const sortDropdown = document.getElementById("sortDropdown");
   if (sortDropdown) {
     const sortButton = document.getElementById("sortButton");
@@ -73,16 +74,13 @@ function initFilterDropdowns() {
     if (startDateInput) startDateInput.max = today;
     if (endDateInput) endDateInput.max = today;
 
-    // Sort items click
     const sortItems = sortMenu.querySelectorAll(".sort-item");
     sortItems.forEach((item) => {
       item.addEventListener("click", function (e) {
         e.stopPropagation();
 
-        // Remove active class from all sort items
         sortItems.forEach((i) => i.classList.remove("active"));
 
-        // Add active class to clicked item
         this.classList.add("active");
 
         const value = this.getAttribute("data-value");
@@ -92,20 +90,17 @@ function initFilterDropdowns() {
         } else {
           sortMenu.classList.remove("show-custom");
 
-          // Update button text
           const buttonText = sortButton.querySelector("span");
           if (buttonText) {
             buttonText.textContent = this.textContent.replace("›", "").trim();
           }
 
-          // Close dropdown and apply filter
           sortDropdown.classList.remove("active");
           applyFilters("sort", value);
         }
       });
     });
 
-    // Apply custom date
     if (applyCustomDateBtn) {
       applyCustomDateBtn.addEventListener("click", function (e) {
         e.preventDefault();
@@ -124,13 +119,11 @@ function initFilterDropdowns() {
           return;
         }
 
-        // Update button text
         const buttonText = sortButton.querySelector("span");
         if (buttonText) {
           buttonText.textContent = "Custom Date";
         }
 
-        // Close dropdown and apply filter
         sortDropdown.classList.remove("active");
         sortMenu.classList.remove("show-custom");
 
@@ -167,18 +160,19 @@ function applyFilters(filterType, value, customData = null) {
           return fileDate >= startDate && fileDate <= endDate;
         });
 
-        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+        filteredFiles.sort(
+          (a, b) =>
+            new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date)
+        );
       } else if (value === "yesterday") {
         const yesterday = new Date();
         yesterday.setDate(yesterday.getDate() - 1);
         const yesterdayStr = yesterday.toISOString().split("T")[0];
 
-        filteredFiles = filteredFiles.filter(
-          (file) => {
-            const fileDate = new Date(file.uploaded || file.date);
-            return fileDate.toISOString().split("T")[0] === yesterdayStr;
-          }
-        );
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate.toISOString().split("T")[0] === yesterdayStr;
+        });
       } else if (value === "7days") {
         const weekAgo = new Date();
         weekAgo.setDate(weekAgo.getDate() - 7);
@@ -217,10 +211,14 @@ function applyFilters(filterType, value, customData = null) {
           if (sizeStr.includes("MB")) return num;
           return num;
         };
-        filteredFiles.sort((a, b) => getSizeValue(b.size) - getSizeValue(a.size));
+        filteredFiles.sort(
+          (a, b) => getSizeValue(b.size) - getSizeValue(a.size)
+        );
       } else if (value === "all") {
-        // Show all files, sorted by date (newest first)
-        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+        filteredFiles.sort(
+          (a, b) =>
+            new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date)
+        );
       }
       break;
 
@@ -345,8 +343,8 @@ function renderListViewStarred() {
       </thead>
       <tbody>
         ${window.binFilesData
-      .map(
-        (file) => `
+          .map(
+            (file) => `
           <tr class="file-row" data-file-id="${file.id}">
             <td class="td-name">
               <div class="file-info-cell">
@@ -366,15 +364,16 @@ function renderListViewStarred() {
             <td class="td-size">${file.size}</td>
             <td class="td-actions">
               <div class="action-buttons">
-               ${file.isStarred
-            ? `
+               ${
+                 file.isStarred
+                   ? `
 <button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/star.svg" alt="info" width="16" height="16">
                 </button>                  `
-            : `<button class="action-btn info-btn" title="Info">
+                   : `<button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/inactive_star.svg" alt="info" width="16" height="16">
                 </button>`
-          }
+               }
                 
                 <div class="file-actions" data-file-id="${file.id}">
                   <img
@@ -392,8 +391,8 @@ function renderListViewStarred() {
             </td>
           </tr>
         `
-      )
-      .join("")}
+          )
+          .join("")}
       </tbody>
     </table>
   `;
@@ -452,8 +451,13 @@ function initializeBin() {
 }
 
 document.addEventListener("DOMContentLoaded", function () {
-  if (document.getElementById("sidebar-container") || document.getElementById("header-container")) {
-    document.addEventListener("componentsLoaded", initializeBin, { once: true });
+  if (
+    document.getElementById("sidebar-container") ||
+    document.getElementById("header-container")
+  ) {
+    document.addEventListener("componentsLoaded", initializeBin, {
+      once: true,
+    });
     setTimeout(initializeBin, 500);
   } else {
     initializeBin();
