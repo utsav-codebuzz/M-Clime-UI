@@ -240,12 +240,10 @@ function applyFilters(filterType, value, customData = null) {
 function renderGridViewStarred() {
   const filesContainer = document.getElementById("filesContainer");
   if (!filesContainer) {
-    console.error("Files container element not found!");
     return;
   }
 
   if (!window.binFilesData || !Array.isArray(window.binFilesData)) {
-    console.error("binFilesData is not defined!");
     filesContainer.innerHTML = '<p class="no-files">No files available</p>';
     return;
   }
@@ -303,12 +301,10 @@ function renderGridViewStarred() {
 function renderListViewStarred() {
   const filesContainer = document.getElementById("filesContainer");
   if (!filesContainer) {
-    console.error("Files container element not found!");
     return;
   }
 
   if (!window.binFilesData || !Array.isArray(window.binFilesData)) {
-    console.error("binFilesData is not defined!");
     filesContainer.innerHTML = '<p class="no-files">No files available</p>';
     return;
   }
@@ -438,7 +434,7 @@ function initViewToggleStarred() {
 
 function initializeBin() {
   initViewToggleStarred();
-  
+
   const filesContainer = document.getElementById("filesContainer");
   if (filesContainer) {
     renderGridViewStarred();

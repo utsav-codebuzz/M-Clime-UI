@@ -4,7 +4,6 @@ let changePictureHandler = null;
 function initChangePictureModal() {
     const modal = document.getElementById('changePictureModal');
     if (!modal) {
-        console.error('Change picture modal not found in DOM');
         return;
     }
 

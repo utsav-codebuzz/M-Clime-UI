@@ -41,7 +41,6 @@ class AuthManager {
         feather.replace();
       }
     } catch (error) {
-      console.error(`Error loading auth page ${pageName}:`, error);
       this.showError("Error loading page. Please try again.");
     }
   }

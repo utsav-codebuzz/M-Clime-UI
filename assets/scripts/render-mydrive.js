@@ -4,7 +4,6 @@ let modalInitialized = false;
 function showFileInfoModal(fileId) {
   const file = window.mydriveFilesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -64,7 +63,6 @@ function showFileInfoModal(fileId) {
 function showRenameModal(fileId) {
   const file = window.mydriveFilesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -130,7 +128,6 @@ function showRenameModal(fileId) {
 function showDeleteModal(fileId) {
   const file = window.mydriveFilesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -239,7 +236,6 @@ function attachDeleteModalEvents(fileId) {
       const file = window.mydriveFilesData.find((f) => f.id == fileId);
 
       if (!file) {
-        console.error("File not found for deletion:", fileId);
         closeModal();
         return;
       }
@@ -719,7 +715,7 @@ window.attachFileActionHandlers = function () {
   mydriveFileActionHandlersAttached = true;
 
   // Single document-level click handler for all file actions
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     // Don't interfere with header dropdowns or regular dropdowns
     if (
       e.target.closest(".help-dropdown") ||
@@ -820,12 +816,10 @@ window.attachFileActionHandlers = function () {
 function renderGridView() {
   const filesContainer = document.getElementById("filesContainer");
   if (!filesContainer) {
-    console.error("Files container element not found!");
     return;
   }
 
   if (!window.mydriveFilesData || !Array.isArray(window.mydriveFilesData)) {
-    console.error("mydriveFilesData is not defined!");
     filesContainer.innerHTML = '<p class="no-files">No files available</p>';
     return;
   }
@@ -892,12 +886,10 @@ function renderGridView() {
 function renderListView() {
   const filesContainer = document.getElementById("filesContainer");
   if (!filesContainer) {
-    console.error("Files container element not found!");
     return;
   }
 
   if (!window.mydriveFilesData || !Array.isArray(window.mydriveFilesData)) {
-    console.error("mydriveFilesData is not defined!");
     filesContainer.innerHTML = '<p class="no-files">No files available</p>';
     return;
   }
@@ -1034,7 +1026,7 @@ function initializeMyDrive() {
   }
 
   initViewToggle();
-  
+
   const filesContainer = document.getElementById("filesContainer");
   if (filesContainer) {
     renderGridView();

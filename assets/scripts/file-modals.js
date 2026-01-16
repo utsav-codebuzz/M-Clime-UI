@@ -53,7 +53,6 @@ window.FileModals = {
     this.currentFile = this.fileData.find((f) => f.id == fileId);
 
     if (!this.currentFile) {
-      console.error("File not found:", fileId);
       return;
     }
 

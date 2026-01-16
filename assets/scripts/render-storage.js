@@ -170,8 +170,6 @@ function updateStorageUsage(usedBytes) {
 
 // SIMPLIFIED DROPDOWN MANAGEMENT
 function initDropdowns() {
-  console.log("Initializing dropdowns...");
-
   // Function to close all dropdowns except the one passed
   function closeAllDropdowns(except = null) {
     document.querySelectorAll(".custom-dropdown").forEach((dropdown) => {
@@ -349,7 +347,6 @@ function initDropdowns() {
 
 function applyFilters(filterType, value, customData = null) {
   if (!window.storageFilesData || !window.originalFilesData) {
-    console.error("Storage data not available");
     return;
   }
 
@@ -590,7 +587,6 @@ function addDropdownCSS() {
   `;
 
   document.head.insertAdjacentHTML("beforeend", css);
-  console.log("Dropdown CSS added");
 }
 
 addDropdownCSS();
