@@ -504,7 +504,7 @@ function addDropdownCSS() {
         border: 1px solid #ddd;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        min-width: 120px;
+        min-width: max-content;
         z-index: 1000;
         margin-top: 4px;
         list-style: none;

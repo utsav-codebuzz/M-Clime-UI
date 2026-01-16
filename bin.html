@@ -7,10 +7,12 @@
   <title>Bin - M'Clime</title>
   <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
   <link rel="stylesheet" href="assets/styles/common.css" />
+  <link rel="stylesheet" href="assets/styles/sortby.css" />
   <link rel="stylesheet" href="assets/styles/bin-styles.css" />
-  <link rel="stylesheet" href="assets/styles/storage-styles.css" />
   <link rel="stylesheet" href="styles/main.css" />
   <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
+  <link rel="stylesheet" href="components/delete-permanently-modal/delete-permanently-modal.css" />
+  <link rel="stylesheet" href="components/restore-modal/restore-modal.css" />
   <link rel="icon" type="image/svg+xml" href="/assets/images/logos/logo_without_bg.svg" />
 </head>
 
@@ -111,7 +113,7 @@
                     </div>
                     <div class="sort-item custom-trigger" data-value="custom">
                       Custom Date
-                      <span class="arrow">›</span>
+                      <span class="arrow"><img src="assets/images/arrow-down.svg" /></span>
                     </div>
                   </div>
 
@@ -181,6 +183,8 @@
   <script src="components/load-components.js"></script>
   <!-- Then load other scripts -->
   <script src="components/logout-modal/logout-modal.js"></script>
+  <script src="components/delete-permanently-modal/delete-permanently-modal.js"></script>
+  <script src="components/restore-modal/restore-modal.js"></script>
   <script src="assets/scripts/bin-data.js"></script>
   <script src="assets/scripts/file-modals.js"></script>
   <script src="assets/scripts/render-bin.js"></script>

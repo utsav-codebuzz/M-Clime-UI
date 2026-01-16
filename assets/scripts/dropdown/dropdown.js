@@ -1,5 +1,22 @@
 // Use capture phase to ensure this runs before other click handlers
 document.addEventListener("click", function (e) {
+  // Check for logout links first - don't interfere with them
+  const logoutLink = e.target.closest('[data-logout]');
+  if (logoutLink) {
+    // Close any open dropdowns
+    const dropdown = logoutLink.closest(".custom-dropdown");
+    if (dropdown) {
+      dropdown.classList.remove("active");
+      const menu = dropdown.querySelector(".dropdown-menu");
+      if (menu) {
+        menu.style.display = "";
+      }
+    }
+    // Let the logout modal handle the click - don't stop propagation
+    // The logout modal will handle preventDefault and showModal
+    return;
+  }
+
   // Handle clicks on buttons or any elements inside dropdown buttons (including images)
   const dropdownBtn = e.target.closest(".dropdown-btn");
   const dropdownItem = e.target.closest(".dropdown-menu li");
@@ -111,31 +128,46 @@ document.addEventListener("click", function (e) {
 
   /* ===========================
      FILE THREE DOTS MENU
+     Only handle if not already handled by page-specific handlers
   ============================ */
   if (threeDots) {
-    e.stopPropagation();
-
-    document.querySelectorAll(".file-actions").forEach((el) => {
-      el.classList.remove("active");
-      const m = el.querySelector(".file-menu");
-      if (m) m.classList.remove("open-left");
-    });
-
     const container = threeDots.closest(".file-actions");
-    container.classList.add("active");
-
+    if (!container) return;
+    
     const menu = container.querySelector(".file-menu");
-    if (menu) {
-      requestAnimationFrame(() => {
-        const rect = menu.getBoundingClientRect();
-        if (rect.right > window.innerWidth - 8) {
-          menu.classList.add("open-left");
-        } else {
-          menu.classList.remove("open-left");
-        }
+    // Only handle if this is a file-menu and it's not using inline display style
+    // (render-files.js and render-starred.js use inline styles, so skip those)
+    if (menu && !menu.style.display) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const isCurrentlyActive = container.classList.contains("active");
+
+      // Close all other file menus first
+      document.querySelectorAll(".file-actions").forEach((el) => {
+        el.classList.remove("active");
+        const m = el.querySelector(".file-menu");
+        if (m) m.classList.remove("open-left");
       });
+
+      // Toggle the clicked file menu
+      if (isCurrentlyActive) {
+        container.classList.remove("active");
+      } else {
+        container.classList.add("active");
+
+        // Check if menu needs to open on the left (if it would overflow)
+        requestAnimationFrame(() => {
+          const rect = menu.getBoundingClientRect();
+          if (rect.right > window.innerWidth - 8) {
+            menu.classList.add("open-left");
+          } else {
+            menu.classList.remove("open-left");
+          }
+        });
+      }
+      return;
     }
-    return;
   }
 
   /* ===========================
@@ -148,7 +180,11 @@ document.addEventListener("click", function (e) {
       // Remove inline styles to let CSS handle it
       const menu = el.querySelector(".dropdown-menu");
       if (menu) {
-        menu.style.display = "";
+        // Only reset display if it's not a file-menu using inline styles
+        // (file-menus in render-files.js and render-starred.js manage their own display)
+        if (!menu.classList.contains("file-menu") || !menu.style.display) {
+          menu.style.display = "";
+        }
       }
     });
   }
