@@ -36,7 +36,7 @@ class Sidebar {
 
       // Add fade-in animation
       setTimeout(() => {
-        this.sidebar.classList.add('fade-in');
+        this.sidebar.classList.add("fade-in");
       }, 100);
     };
 
@@ -46,8 +46,8 @@ class Sidebar {
 
   createOverlay() {
     // Create overlay for mobile
-    this.overlay = document.createElement('div');
-    this.overlay.className = 'mobile-sidebar-overlay';
+    this.overlay = document.createElement("div");
+    this.overlay.className = "mobile-sidebar-overlay";
     document.body.appendChild(this.overlay);
   }
 
@@ -75,25 +75,27 @@ class Sidebar {
 
     // Close sidebar when clicking overlay
     if (this.overlay) {
-      this.overlay.addEventListener('click', () => {
+      this.overlay.addEventListener("click", () => {
         this.closeMobileSidebar();
       });
     }
 
     // Close sidebar when clicking outside on mobile
-    document.addEventListener('click', (e) => {
-      if (window.innerWidth <= 768 &&
+    document.addEventListener("click", (e) => {
+      if (
+        window.innerWidth <= 768 &&
         this.sidebar &&
-        this.sidebar.classList.contains('mobile-open') &&
+        this.sidebar.classList.contains("mobile-open") &&
         !this.sidebar.contains(e.target) &&
-        !e.target.closest('.mobile-menu-toggle')) {
+        !e.target.closest(".mobile-menu-toggle")
+      ) {
         this.closeMobileSidebar();
       }
     });
 
     // Close sidebar with Escape key
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && window.innerWidth <= 768) {
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && window.innerWidth <= 768) {
         this.closeMobileSidebar();
       }
     });
@@ -113,14 +115,14 @@ class Sidebar {
 
       // Show overlay
       if (this.overlay) {
-        this.overlay.classList.add('active');
+        this.overlay.classList.add("active");
       }
 
       // Prevent body scrolling
-      document.body.classList.add('sidebar-open');
+      document.body.classList.add("sidebar-open");
 
       // Add fade-in effect
-      this.sidebar.style.transform = 'translateX(0)';
+      this.sidebar.style.transform = "translateX(0)";
     }
   }
 
@@ -130,14 +132,14 @@ class Sidebar {
 
       // Hide overlay
       if (this.overlay) {
-        this.overlay.classList.remove('active');
+        this.overlay.classList.remove("active");
       }
 
       // Restore body scrolling
-      document.body.classList.remove('sidebar-open');
+      document.body.classList.remove("sidebar-open");
 
       // Add slide-out effect
-      this.sidebar.style.transform = 'translateX(-100%)';
+      this.sidebar.style.transform = "translateX(-100%)";
     }
   }
 
@@ -196,7 +198,7 @@ class Sidebar {
 
       // Make sure sidebar has proper mobile styles
       // this.sidebar.style.width = '250px';
-      this.sidebar.style.transform = 'translateX(-100%)';
+      this.sidebar.style.transform = "translateX(-100%)";
     } else {
       // On desktop, restore state and close mobile-open class
       this.closeMobileSidebar();
@@ -204,15 +206,15 @@ class Sidebar {
 
       // Ensure mobile-open class is removed
       this.sidebar.classList.remove("mobile-open");
-      document.body.classList.remove('sidebar-open');
+      document.body.classList.remove("sidebar-open");
 
       // Hide overlay
       if (this.overlay) {
-        this.overlay.classList.remove('active');
+        this.overlay.classList.remove("active");
       }
 
       // Reset transform for desktop
-      this.sidebar.style.transform = 'translateX(0)';
+      this.sidebar.style.transform = "translateX(0)";
     }
   }
 
@@ -241,7 +243,7 @@ function initSidebar() {
 }
 
 // Listen for components loaded event
-document.addEventListener('componentsLoaded', () => {
+document.addEventListener("componentsLoaded", () => {
   initSidebar();
 });
 
@@ -258,8 +260,8 @@ window.addEventListener("resize", () => {
 });
 
 // Close sidebar when a navigation link is clicked on mobile
-document.addEventListener('click', (e) => {
-  if (window.innerWidth <= 768 && e.target.closest('.nav-link')) {
+document.addEventListener("click", (e) => {
+  if (window.innerWidth <= 768 && e.target.closest(".nav-link")) {
     setTimeout(() => {
       if (window.sidebar) {
         window.sidebar.closeMobileSidebar();
@@ -269,6 +271,6 @@ document.addEventListener('click', (e) => {
 });
 
 // Export for module usage if needed
-if (typeof module !== 'undefined' && module.exports) {
+if (typeof module !== "undefined" && module.exports) {
   module.exports = Sidebar;
 }

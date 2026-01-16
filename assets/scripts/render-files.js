@@ -150,8 +150,9 @@ function showDeleteModal(fileId) {
           </div>
           
           <div class="delete-message">
-            <p>Are you sure you want to delete <strong>"${file.name
-    }"</strong>?</p>
+            <p>Are you sure you want to delete <strong>"${
+              file.name
+            }"</strong>?</p>
             <p class="delete-subtext">This action cannot be undone. The file will be permanently removed from your drive.</p>
           </div>
           
@@ -166,8 +167,9 @@ function showDeleteModal(fileId) {
             </div>
             <div class="delete-info-row">
               <span class="delete-info-label">Uploaded:</span>
-              <span class="delete-info-value">${file.date || file.uploaded || "N/A"
-    }</span>
+              <span class="delete-info-value">${
+                file.date || file.uploaded || "N/A"
+              }</span>
             </div>
           </div>
         </div>
@@ -243,9 +245,7 @@ function attachDeleteModalEvents(fileId) {
         return;
       }
 
-      const fileIndex = window.filesData.findIndex(
-        (f) => f.id == fileId
-      );
+      const fileIndex = window.filesData.findIndex((f) => f.id == fileId);
       if (fileIndex !== -1) {
         window.filesData.splice(fileIndex, 1);
 
@@ -412,7 +412,7 @@ function attachFileActionHandlers() {
   fileActionHandlersAttached = true;
 
   // Single document-level click handler for all file actions
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
@@ -426,10 +426,17 @@ function attachFileActionHandlers() {
       if (!container) return;
 
       const menu = threeDots.nextElementSibling;
-      if (!menu || !menu.classList.contains("dropdown-menu") || !menu.classList.contains("file-menu")) return;
+      if (
+        !menu ||
+        !menu.classList.contains("dropdown-menu") ||
+        !menu.classList.contains("file-menu")
+      )
+        return;
 
       // Check current state - handle both inline display and class-based
-      const isOpen = menu.style.display === "block" || container.classList.contains("active");
+      const isOpen =
+        menu.style.display === "block" ||
+        container.classList.contains("active");
 
       if (isOpen) {
         menu.style.display = "none";
@@ -477,7 +484,13 @@ function attachFileActionHandlers() {
         case "file_info":
           const file = window.filesData.find((f) => f.id == fileId);
           if (file) {
-            alert(`File Information:\n\nName: ${file.name}\nType: ${file.category || "File"}\nSize: ${file.size}\nDate: ${file.date}\nStarred: ${file.isStarred ? "Yes" : "No"}`);
+            alert(
+              `File Information:\n\nName: ${file.name}\nType: ${
+                file.category || "File"
+              }\nSize: ${file.size}\nDate: ${file.date}\nStarred: ${
+                file.isStarred ? "Yes" : "No"
+              }`
+            );
           }
           break;
         case "rename":
@@ -492,7 +505,9 @@ function attachFileActionHandlers() {
           }
           break;
         case "download":
-          alert(`Downloading file ${fileId}...\n(This would trigger actual download in production)`);
+          alert(
+            `Downloading file ${fileId}...\n(This would trigger actual download in production)`
+          );
           break;
         case "delete":
           if (confirm("Are you sure you want to delete this file?")) {
@@ -676,7 +691,7 @@ window.attachFileActionHandlers = function () {
   windowFileActionHandlersAttached = true;
 
   // Single document-level click handler for all file actions
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
@@ -690,10 +705,17 @@ window.attachFileActionHandlers = function () {
       if (!container) return;
 
       const menu = threeDots.nextElementSibling;
-      if (!menu || !menu.classList.contains("dropdown-menu") || !menu.classList.contains("file-menu")) return;
+      if (
+        !menu ||
+        !menu.classList.contains("dropdown-menu") ||
+        !menu.classList.contains("file-menu")
+      )
+        return;
 
       // Check current state - handle both inline display and class-based
-      const isOpen = menu.style.display === "block" || container.classList.contains("active");
+      const isOpen =
+        menu.style.display === "block" ||
+        container.classList.contains("active");
 
       if (isOpen) {
         menu.style.display = "none";
@@ -834,14 +856,6 @@ function renderFilesGrid() {
     card.addEventListener("click", function (e) {
       if (e.target.closest(".file-actions") || e.target.closest(".three-dots"))
         return;
-      const fileId = this.getAttribute("data-file-id");
-      const file = window.filesData.find((f) => f.id == fileId);
-      if (file) {
-
-        alert(
-          `Opening file: ${file.name}\nType: ${file.type}\nSize: ${file.size}`
-        );
-      }
     });
   });
 }
@@ -879,7 +893,6 @@ window.initHomePage = function () {
 };
 
 window.addEventListener("load", function () {
-
   const filesGrid = document.getElementById("filesGrid");
   if (filesGrid && filesGrid.innerHTML.trim() === "") {
     renderFilesGrid();
