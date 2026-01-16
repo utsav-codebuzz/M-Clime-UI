@@ -10,6 +10,8 @@
   <link rel="stylesheet" href="styles/main.css" />
   <link rel="stylesheet" href="assets/styles/editprofile.css" />
   <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
+  <link rel="stylesheet" href="components/change-picture-modal/change-picture-modal.css" />
+  <link rel="stylesheet" href="components/delete-picture-modal/delete-picture-modal.css" />
   <link rel="icon" type="image/svg+xml" href="assets/images/logos/logo_without_bg.svg" />
 </head>
 
@@ -43,8 +45,8 @@
             <div class="picture-info">
               <img src="assets/images/header/profile.svg" alt="profile" class="edit-profile" />
               <div class="picture-btn">
-                <button class="auth-btn save-btn">Change Picture</button>
-                <button class="auth-btn delete-btn">Delete Picture</button>
+                <button class="auth-btn save-btn" id="changePictureBtn">Change Picture</button>
+                <button class="auth-btn delete-btn" id="deletePictureBtn"> Delete Picture</button>
               </div>
             </div>
           </div>
@@ -84,7 +86,10 @@
   <script src="components/sidebar/sidebar.js"></script>
   <script src="components/logout-modal/logout-modal.js"></script>
   <script src="assets/scripts/dropdown/dropdown.js"></script>
-  <script src="assets/scripts/render-bin.js"></script>
+  <!-- Add change picture modal script -->
+  <script src="components/change-picture-modal/change-picture-modal.js"></script>
+  <script src="assets/scripts/render-editprofile.js"></script>
+  <script src="components/delete-picture-modal/delete-picture-modal.js"></script>
 
   <!-- Initialize feather icons after components are loaded -->
   <script>
@@ -92,8 +97,39 @@
       if (feather) {
         feather.replace();
       }
+
+      if (window.initChangePictureModal) {
+        window.initChangePictureModal();
+      }
     });
   </script>
+
+  <!-- Delete Picture Confirmation Modal -->
+  <div class="modal-overlay" id="deletePictureModal" style="display: none;">
+    <div class="modal-content small-modal">
+
+      <div class="modal-header">
+        <h2>Delete Profile Picture</h2>
+        <button class="close-modal-btn" id="closeDeletePictureModal">
+          <i data-feather="x"></i>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <p>Are you sure you want to delete your profile picture?</p>
+      </div>
+
+      <div class="modal-footer">
+        <button class="auth-btn cancel-btn" id="cancelDeletePicture">
+          Cancel
+        </button>
+        <button class="auth-btn delete-btn" id="confirmDeletePicture">
+          Delete
+        </button>
+      </div>
+
+    </div>
+  </div>
 </body>
 
 </html>

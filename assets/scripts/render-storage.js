@@ -252,26 +252,14 @@ function initDropdowns() {
   if (sortDropdown) {
     const sortButton = document.getElementById("sortButton");
     const sortMenu = document.getElementById("sortMenu");
-    const customDateSection = document.getElementById("customDateSection");
     const applyCustomDateBtn = document.getElementById("applyCustomDate");
     const startDateInput = document.getElementById("startDate");
     const endDateInput = document.getElementById("endDate");
 
-    // Set default dates
     const today = new Date().toISOString().split("T")[0];
-    const lastWeek = new Date();
-    lastWeek.setDate(lastWeek.getDate() - 7);
-    const lastWeekStr = lastWeek.toISOString().split("T")[0];
 
-    if (endDateInput) {
-      endDateInput.value = today;
-      endDateInput.max = today;
-    }
-
-    if (startDateInput) {
-      startDateInput.value = lastWeekStr;
-      startDateInput.max = today;
-    }
+    if (startDateInput) startDateInput.max = today;
+    if (endDateInput) endDateInput.max = today;
 
     // Sort button click
     sortButton.addEventListener("click", function (e) {
@@ -286,9 +274,7 @@ function initDropdowns() {
       // Toggle sort dropdown
       if (isOpen) {
         sortDropdown.classList.remove("open");
-        if (customDateSection) {
-          customDateSection.classList.remove("show");
-        }
+        sortMenu.classList.remove("show-custom");
       } else {
         sortDropdown.classList.add("open");
       }
@@ -309,15 +295,9 @@ function initDropdowns() {
         const value = this.getAttribute("data-value");
 
         if (value === "custom") {
-          // Show custom date section
-          if (customDateSection) {
-            customDateSection.classList.add("show");
-          }
+          sortMenu.classList.add("show-custom");
         } else {
-          // Hide custom date section for other options
-          if (customDateSection) {
-            customDateSection.classList.remove("show");
-          }
+          sortMenu.classList.remove("show-custom");
 
           // Update button text
           const buttonText = sortButton.querySelector("span");
@@ -338,13 +318,8 @@ function initDropdowns() {
         e.preventDefault();
         e.stopPropagation();
 
-        if (!startDateInput || !endDateInput) {
-          console.error("Date inputs not found");
-          return;
-        }
-
-        const startDate = startDateInput.value;
-        const endDate = endDateInput.value;
+        const startDate = startDateInput?.value;
+        const endDate = endDateInput?.value;
 
         if (!startDate || !endDate) {
           alert("Please select both start and end dates");
@@ -364,9 +339,7 @@ function initDropdowns() {
 
         // Close dropdown and apply filter
         sortDropdown.classList.remove("open");
-        if (customDateSection) {
-          customDateSection.classList.remove("show");
-        }
+        sortMenu.classList.remove("show-custom");
 
         applyFilters("sort", "custom", { startDate, endDate });
       });
@@ -517,7 +490,7 @@ function addDropdownCSS() {
 
       .dropdown-menu.sort-dropdown {
         display: none;
-        min-width: 375px;
+        min-width: max-content;
         padding: 8px;
         max-height: 350px;
         flex-direction: row;
@@ -527,8 +500,8 @@ function addDropdownCSS() {
         display: block;
       }
 
-      .custom-dropdown.open .dropdown-menu.sort-dropdown {
-        display: flex;
+      .custom-dropdown.active .dropdown-menu.sort-dropdown {
+        display: flex !important;
       }
 
       .dropdown-menu li {
@@ -550,7 +523,6 @@ function addDropdownCSS() {
         display: flex;
         flex-direction: column;
         gap: 8px;
-        border-right: 1px solid #f3f4f6;
         padding-right: 10px;
         min-width: 180px;
         max-width: 180px;
@@ -558,11 +530,12 @@ function addDropdownCSS() {
 
       .sort-right {
         flex: 1;
-        padding-left: 10px;
+        padding-inline: 10px;
         display: none;
+        border-left: 1px solid #f3f4f6;
       }
 
-      .sort-right.show {
+      .sort-dropdown.show-custom .sort-right {
         display: block;
       }
 

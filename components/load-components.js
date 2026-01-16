@@ -3,7 +3,11 @@ class ComponentLoader {
     constructor() {
         this.components = {
             sidebar: 'components/sidebar/sidebar.html',
-            header: 'components/header/header.html'
+            header: 'components/header/header.html',
+            changePictureModal: 'components/change-picture-modal/change-picture-modal.html'
+        };
+        this.stylesheets = {
+            changePictureModal: 'components/change-picture-modal/change-picture-modal.css'
         };
     }
 
@@ -44,6 +48,8 @@ class ComponentLoader {
                 this.initializeSidebar();
             } else if (componentName === 'header') {
                 this.initializeHeader();
+            } else if (componentName === 'changePictureModal') {
+                this.initializeChangePictureModal();
             }
         } catch (error) {
             console.error(`Error loading ${componentName}:`, error);
@@ -70,6 +76,11 @@ class ComponentLoader {
         // This is just a placeholder for any header-specific initialization
     }
 
+    initializeChangePictureModal() {
+        // This will be initialized by the modal's own script
+        // We just ensure the modal exists in the DOM
+    }
+
     async loadAllComponents() {
         // Load sidebar if element exists
         if (document.getElementById('sidebar-container')) {
@@ -81,8 +92,39 @@ class ComponentLoader {
             await this.loadComponent('header', 'header-container');
         }
 
-        // Dispatch event after all components are loaded
+        try {
+            const response = await fetch(this.components.changePictureModal);
+            const html = await response.text();
+            
+            const tempContainer = document.createElement('div');
+            tempContainer.style.display = 'none';
+            tempContainer.innerHTML = html;
+            
+            const modal = tempContainer.querySelector('.modal-overlay');
+            if (modal) {
+                document.body.appendChild(modal);
+            }
+            
+            this.loadModalStylesheet('changePictureModal');
+            
+        } catch (error) {
+            console.error('Error loading change picture modal:', error);
+        }
+
         document.dispatchEvent(new Event('componentsLoaded'));
+    }
+
+    loadModalStylesheet(modalName) {
+        if (!this.stylesheets[modalName]) return;
+        
+        const linkId = `${modalName}-stylesheet`;
+        if (document.getElementById(linkId)) return;
+        
+        const link = document.createElement('link');
+        link.id = linkId;
+        link.rel = 'stylesheet';
+        link.href = this.stylesheets[modalName];
+        document.head.appendChild(link);
     }
 }
 

@@ -1,0 +1,108 @@
+#deletePictureModal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.45);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+
+#deletePictureModal .modal-content {
+    background: #ffffff;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 500px;
+    padding: 0;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    animation: deleteModalFadeIn 0.25s ease;
+}
+
+#deletePictureModal .modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 20px;
+    padding-bottom: 0;
+}
+
+#deletePictureModal .modal-header h2 {
+    font-size: 20px;
+    font-weight: 400;
+    margin: 0;
+    color: var(--text-base);
+    line-height: 100%;
+}
+
+#deletePictureModal .close-modal-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 4px;
+    display: flex;
+    align-items: center;
+    color: #707070;
+}
+
+#deletePictureModal .modal-body {
+    padding: 20px;
+    padding-bottom: 25px;
+    font-size: 16px;
+    color: #718096;
+    line-height: 1.5;
+    margin: 0;
+    text-align: start;
+}
+
+#deletePictureModal .modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 20px;
+    padding-top: 0;
+}
+
+#deletePictureModal .delete-btn {
+    padding: 10px 20px;
+    background: #FF00001A;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #FF0000;
+    border: 0;
+    width: fit-content;
+    font-family: var(--outfit);
+    cursor: pointer;
+}
+
+#deletePictureModal .cancel-btn {
+    background: #e0e0e0;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 16px;
+    font-size: 16px;
+    font-weight: 500;
+    width: fit-content;
+    font-family: var(--outfit);
+    cursor: pointer;
+}
+
+@keyframes deleteModalFadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+@media (max-width: 640px) {
+    #deletePictureModal .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+}

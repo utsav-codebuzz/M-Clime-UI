@@ -111,18 +111,23 @@
                   </div>
 
                   <div class="sort-right" id="customDateSection">
-                    <div class="date-range-label">Custom Date Range</div>
+                    <!-- <div class="date-range-label">Custom Date Range</div> -->
                     <div class="date-input-wrapper">
                       <label for="startDate">Start Date</label>
-                      <input type="date" class="date-input" id="startDate" />
+                      <div class="date-input-container">
+                        <input type="date" class="date-input" id="startDate" placeholder="Start Date"/>
+                        <img src="assets/images/storage/date.svg" alt="date" />
+                      </div>
                     </div>
                     <div class="date-input-wrapper">
                       <label for="endDate">End Date</label>
-                      <input type="date" class="date-input" id="endDate" />
+                      <div class="date-input-container">
+                        <input type="date" class="date-input" id="endDate" placeholder="End Date"/>
+                        <img src="assets/images/storage/date.svg" alt="date" />
+                      </div>
                     </div>
-                    <button class="apply-btn" id="applyCustomDate">
-                      Apply
-                    </button>
+
+                    <button class="apply-btn" id="applyCustomDate">Apply</button>
                   </div>
                 </div>
               </div>
