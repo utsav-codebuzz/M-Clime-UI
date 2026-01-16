@@ -46,14 +46,16 @@
 .terms-container {
   margin: 0 auto;
   width: 100%;
+  counter-reset: section-counter; /* Reset section counter */
 }
 
+/* Main title styles */
 .terms-container h1 {
   font-weight: 500;
   font-size: 28px;
   line-height: 100%;
   color: var(--text-base);
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .terms-container .updated {
@@ -61,9 +63,74 @@
   font-size: 18px;
   line-height: 100%;
   color: var(--text-base);
-  margin-bottom: 6px;
+  margin-bottom:20px;
 }
 
+/* Main headings (h2) - Numbered sections */
+.terms-container h2 {
+  text-transform: uppercase;
+  position: relative;
+  counter-increment: section-counter;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 100%;
+  color: var(--text-base);
+  margin-top: 30px;
+  margin-bottom: 15px;
+}
+
+/* .terms-container h2::before {
+  content: counter(section-counter) ". ";
+  position: absolute;
+  left: 0;
+  color: var(--text-base);
+  font-weight: 500;
+  font-size: 20px;
+} */
+
+/* Sub-headings (h3) - Arrow bullets */
+.terms-container h3 {
+  position: relative;
+  padding-left: 40px;
+  margin-left: 10px;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 100%;
+  color: var(--text-base);
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.terms-container h3::before {
+  content: "⮞";
+  position: absolute;
+  left: 20px;
+  font-weight: bold;
+  font-size: 18px;
+}
+
+/* Sub-sub-headings (h4) - Smaller arrows */
+.terms-container h4 {
+  position: relative;
+  padding-left: 50px;
+  margin-left: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 100%;
+  color: var(--text-base);
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.terms-container h4::before {
+  content: "›";
+  position: absolute;
+  left: 30px;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Paragraph styles */
 .terms-container .desc {
   font-weight: 400;
   font-size: 16px;
@@ -73,41 +140,106 @@
   margin-bottom: 20px;
 }
 
-.terms-container h2 {
-  font-weight: 500;
-  font-size: 20px;
-  line-height: 100%;
-  color: var(--text-base);
-  margin-top: 30px;
-  margin-bottom: 15px;
-}
-
-.terms-container h3 {
-  font-weight: 500;
-  font-size: 18px;
-  line-height: 100%;
-  color: var(--text-base);
-  margin-top: 20px;
-  margin-bottom: 10px;
-}
-
-.terms-container ul {
-  padding-left: 30px;
-  margin: 15px 0;
-}
-
-.terms-container ul li {
-  font-weight: 400;
-  font-size: 16px;
-  line-height: 30px;
-  color: var(--text-base);
-  margin-bottom: 8px;
-}
-
 .terms-container p {
   margin-bottom: 15px;
 }
 
+/* First-level unordered lists - Numbered (1., 2., 3., etc.) */
+.terms-container > ul,
+.terms-container .desc + ul {
+  list-style-type: none;
+  counter-reset: list-counter;
+  padding-left: 50px;
+  margin: 15px 0;
+}
+
+.terms-container > ul > li,
+.terms-container .desc + ul > li {
+  position: relative;
+  padding-left: 30px;
+  counter-increment: list-counter;
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  color: var(--text-base);
+}
+
+.terms-container > ul > li::before,
+.terms-container .desc + ul > li::before {
+  content: counter(list-counter) ". ";
+  position: absolute;
+  left: 0;
+  font-weight: 500;
+  color: var(--text-base);
+}
+
+/* Second-level nested lists - Regular disc bullets */
+.terms-container ul ul {
+  list-style-type: disc;
+  counter-reset: none;
+  padding-left: 30px;
+  margin: 10px 0;
+}
+
+.terms-container ul ul li {
+  padding-left: 0;
+  margin-bottom: 8px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  color: var(--text-base);
+}
+
+.terms-container ul ul li::before {
+  content: "" !important;
+  display: none !important;
+}
+
+/* Third-level nested lists - Circle bullets */
+.terms-container ul ul ul {
+  list-style-type: circle;
+  padding-left: 20px;
+  margin: 8px 0;
+}
+
+/* Special case for payment methods list - Checkmarks */
+.terms-container h2:nth-of-type(5) + .desc + ul li::before {
+  content: "✓" !important;
+  color: var(--success, #10b981) !important;
+}
+
+/* Lists that appear directly after h3 or h4 */
+.terms-container h3 + ul,
+.terms-container h4 + ul {
+  list-style-type: none;
+  counter-reset: list-counter;
+  padding-left: 50px;
+  margin: 15px 0;
+}
+
+.terms-container h3 + ul > li,
+.terms-container h4 + ul > li {
+  position: relative;
+  padding-left: 30px;
+  counter-increment: list-counter;
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 30px;
+  color: var(--text-base);
+}
+
+.terms-container h3 + ul > li::before,
+.terms-container h4 + ul > li::before {
+  content: counter(list-counter) ". ";
+  position: absolute;
+  left: 0;
+  font-weight: 500;
+  color: var(--text-base);
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
   .main-card {
     padding: 20px;
@@ -124,16 +256,72 @@
 
   .terms-container h2 {
     font-size: 18px;
+    margin-top: 25px;
+    margin-bottom: 12px;
+  }
+
+  .terms-container h2::before {
+    font-size: 18px;
   }
 
   .terms-container h3 {
     font-size: 16px;
+    padding-left: 35px;
+    margin-left: 5px;
+    margin-top: 18px;
+    margin-bottom: 8px;
   }
 
-  .terms-container .desc,
-  .terms-container ul li {
+  .terms-container h3::before {
+    left: 15px;
+    font-size: 16px;
+  }
+
+  .terms-container h4 {
+    font-size: 15px;
+    padding-left: 45px;
+    margin-left: 15px;
+    margin-top: 15px;
+    margin-bottom: 8px;
+  }
+
+  .terms-container h4::before {
+    left: 25px;
+    font-size: 15px;
+  }
+
+  .terms-container .desc {
     font-size: 14px;
     line-height: 24px;
+    margin-top: 6px;
+    margin-bottom: 16px;
+  }
+
+  .terms-container > ul,
+  .terms-container .desc + ul,
+  .terms-container h3 + ul,
+  .terms-container h4 + ul {
+    padding-left: 40px;
+    margin: 12px 0;
+  }
+
+  .terms-container > ul > li,
+  .terms-container .desc + ul > li,
+  .terms-container h3 + ul > li,
+  .terms-container h4 + ul > li {
+    padding-left: 25px;
+    font-size: 14px;
+    line-height: 24px;
+    margin-bottom: 8px;
+  }
+
+  .terms-container ul ul {
+    padding-left: 25px;
+  }
+
+  .terms-container ul ul li {
+    font-size: 14px;
+    line-height: 22px;
   }
 }
 
@@ -148,13 +336,86 @@
 
   .terms-container h1 {
     font-size: 20px;
+    margin-bottom: 16px;
   }
 
   .terms-container .updated {
     font-size: 16px;
+    margin-bottom: 4px;
+  }
+
+  .terms-container h2 {
+    font-size: 17px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+  }
+
+  .terms-container h2::before {
+    font-size: 17px;
+  }
+
+  .terms-container h3 {
+    padding-left: 30px;
+    font-size: 15px;
+    margin-left: 0;
+    margin-top: 15px;
+    margin-bottom: 6px;
+  }
+
+  .terms-container h3::before {
+    left: 10px;
+    font-size: 15px;
+  }
+
+  .terms-container h4 {
+    padding-left: 40px;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
+
+  .terms-container h4::before {
+    left: 20px;
+    font-size: 14px;
+  }
+
+  .terms-container .desc {
+    font-size: 13px;
+    line-height: 22px;
+    margin-top: 4px;
+    margin-bottom: 14px;
+  }
+
+  .terms-container > ul,
+  .terms-container .desc + ul,
+  .terms-container h3 + ul,
+  .terms-container h4 + ul {
+    padding-left: 30px;
+    margin: 10px 0;
+  }
+
+  .terms-container > ul > li,
+  .terms-container .desc + ul > li,
+  .terms-container h3 + ul > li,
+  .terms-container h4 + ul > li {
+    padding-left: 20px;
+    font-size: 13px;
+    line-height: 22px;
+    margin-bottom: 6px;
+  }
+
+  .terms-container ul ul {
+    padding-left: 20px;
+  }
+
+  .terms-container ul ul li {
+    font-size: 13px;
+    line-height: 20px;
   }
 }
 
+/* Header and navigation styles */
 .storage-header {
   display: flex;
   justify-content: space-between;
@@ -266,7 +527,6 @@
   backdrop-filter: blur(23px);
   box-shadow: 5px 4px 27px 0px #0000001a;
   border-radius: 100px;
-  font-family: var(--outfit);
   font-family: var(--outfit);
 }
 
@@ -417,4 +677,108 @@
 
 .profile-dropdown .dropdown-menu li:hover {
   background: #f5f7fb;
+}
+/* Table of Contents Styles */
+.table-of-contents {
+  /* background: rgba(248, 250, 252, 0.8); */
+  border-radius: 12px;
+  text-transform: uppercase;
+  /* padding: 20px 25px; */
+  /* margin: 25px 0; */
+  /* border-left: 4px solid var(--primary, #4f46e5); */
+}
+
+.table-of-contents h2 {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-base);
+  margin-top: 0 !important;
+  margin-bottom: 15px;
+  padding-left: 0 !important;
+}
+
+.table-of-contents h2::before {
+  content: "" !important;
+  display: none !important;
+}
+
+.toc-list {
+  list-style-type: none;
+  counter-reset: toc-counter;
+  padding-left: 0;
+  margin: 0;
+}
+
+.toc-list li {
+  position: relative;
+  padding-left: 25px;
+  margin-bottom: 10px;
+  font-size: 15px;
+  line-height: 1.5;
+  counter-increment: toc-counter;
+}
+
+.toc-list li::before {
+  content: counter(toc-counter) ". ";
+  position: absolute;
+  left: 0;
+  font-weight: 500;
+  /* color: var(--primary, #4f46e5); */
+  font-size: 14px;
+}
+
+.toc-list li a {
+  color: var(--text-base);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.toc-list li a:hover {
+  color: var(--primary, #4f46e5);
+  text-decoration: underline;
+}
+
+/* Responsive Table of Contents */
+@media (max-width: 768px) {
+  .table-of-contents {
+    padding: 15px 20px;
+    margin: 20px 0;
+  }
+  
+  .table-of-contents h2 {
+    font-size: 16px;
+    margin-bottom: 12px;
+  }
+  
+  .toc-list li {
+    font-size: 14px;
+    padding-left: 22px;
+    margin-bottom: 8px;
+  }
+  
+  .toc-list li::before {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .table-of-contents {
+    padding: 12px 16px;
+    margin: 16px 0;
+  }
+  
+  .table-of-contents h2 {
+    font-size: 15px;
+    margin-bottom: 10px;
+  }
+  
+  .toc-list li {
+    font-size: 13px;
+    padding-left: 20px;
+    margin-bottom: 6px;
+  }
+  
+  .toc-list li::before {
+    font-size: 12px;
+  }
 }
