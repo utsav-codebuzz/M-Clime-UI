@@ -1,206 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Plan - M'Clime</title>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <link rel="stylesheet" href="assets/styles/common.css" />
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="assets/styles/plan-styles.css" />
-    <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/assets/images/logos/logo_without_bg.svg"
-    />
-  </head>
 
-  <body>
-    <div class="dashboard-wrapper">
-     
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#0000ff" />
+  <title>Plan - M'Clime</title>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <link rel="stylesheet" href="assets/styles/common.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="assets/styles/plan-styles.css" />
+  <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logos/logo_without_bg.svg" />
+</head>
 
-      <!-- Sidebar Container -->
-      <div id="sidebar-container"></div>
+<body>
+  <div class="dashboard-wrapper">
+    <!-- Sidebar Container -->
+    <div id="sidebar-container"></div>
 
-      <main class="main-content" id="mainContent">
-        <div class="main-card">
-          <!-- Header Container -->
-          <div id="header-container"></div>
+    <main class="main-content" id="mainContent">
+      <div class="main-card">
+        <!-- Header Container -->
+        <div id="header-container"></div>
 
-          <div class="plan-content">
-            <div class="plan-header">
-              <img src="assets/images/logos/main_logo.svg" alt="Premium" />
-              <h1 class="plan-title">Get More Storage</h1>
-              <p class="plan-subtitle">
-                M'Clime accounts come with 25 GB of storage, which is included
-                as part of the total storage offered in other subscription
-                plans.
-              </p>
+        <div class="plan-content">
+          <div class="plan-header">
+            <img src="assets/images/logos/main_logo.svg" alt="Premium" loading="lazy" width="120" height="120" />
+            <h1 class="plan-title">Get More Storage</h1>
+            <p class="plan-subtitle">
+              M'Clime accounts come with 25 GB of storage, which is included
+              as part of the total storage offered in other subscription
+              plans.
+            </p>
+          </div>
+
+          <div class="plan-toggle-section">
+            <div class="plan-toggle">
+              <button class="toggle-btn active" data-period="monthly" data-target="lite">
+                Monthly
+              </button>
+              <button class="toggle-btn" data-period="annual" data-target="lite">
+                Annual
+                <span class="save-badge">Save up to 15%</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="pricing-cards">
+            <div class="pricing-card lite-card">
+              <div class="card-header">
+                <h3 class="card-title">Lite (50 GB)</h3>
+                <div class="card-price">
+                  <span class="original-price" data-monthly="₹150" data-annual="₹1800">₹150</span>
+                  <span class="discounted-price" data-monthly="₹135" data-annual="₹1620">₹135</span>
+                  <span class="price-unit">/month</span>
+                </div>
+                <p class="card-offer">Save up to 10% with offer</p>
+              </div>
+              <hr class="flex-grow-1" />
+              <ul class="card-features">
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>50 GB total storage</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Share storage with up to 2 others</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Limited drive access</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>15 days bin data restore</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Limited AI searching per month</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Priority support (email)</span>
+                </li>
+              </ul>
+
+              <button class="card-btn" data-plan="lite">
+                Get Started <img src="assets/images/arrow.svg" alt="arrow" loading="lazy" />
+              </button>
             </div>
 
-            <div class="plan-toggle-section">
-              <div class="plan-toggle">
-                <button class="toggle-btn active" data-period="monthly">
-                  Monthly
-                </button>
-                <button class="toggle-btn" data-period="annual">
-                  Annual
-                  <span class="save-badge">Save up to 15%</span>
-                </button>
+            <div class="pricing-card standard-card featured">
+              <div class="popular-badge">MOST POPULAR</div>
+              <div class="card-header">
+                <h3 class="card-title">Standard (100 GB)</h3>
+                <div class="card-price">
+                  <span class="original-price" data-monthly="₹200" data-annual="₹2400">₹200</span>
+                  <span class="discounted-price" data-monthly="₹170" data-annual="₹2040">₹170</span>
+                  <span class="price-unit">/month</span>
+                </div>
+                <p class="card-offer">Save up to 15% with offer</p>
               </div>
+              <hr class="flex-grow-1" />
+              <ul class="card-features">
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>100 GB total storage</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Share storage with up to 5 others</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Limited drive access</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>30 days bin data restore</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Limited AI searching per month</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Priority support (email + chat)</span>
+                </li>
+              </ul>
+
+              <button class="card-btn btn-primary" data-plan="standard">
+                Get Started <img src="assets/images/arrow.svg" alt="arrow" loading="lazy" />
+              </button>
             </div>
 
-            <div class="pricing-cards">
-              <div class="pricing-card lite-card">
-                <div class="card-header">
-                  <h3 class="card-title">Lite (50 GB)</h3>
-                  <div class="card-price">
-                    <span class="original-price">₹150</span>
-                    <span class="discounted-price">₹135</span>
-                    <span class="price-unit">/month</span>
-                  </div>
-                  <p class="card-offer">Save up to 10% with offer</p>
+            <div class="pricing-card enterprise-card">
+              <div class="card-header">
+                <h3 class="card-title">Enterprise (250+ GB)</h3>
+                <div class="card-price">
+                  <span class="discounted-price">Pay as You Use</span>
+                  <span class="price-unit">/month</span>
                 </div>
-                <hr class="flex-grow-1" />
-                <ul class="card-features">
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>50 GB total storage</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Share storage with up to 2 others</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Limited drive access</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>15 days bin data restore</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Limited AI searching per month</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Priority support (email)</span>
-                  </li>
-                </ul>
-
-                <button class="card-btn">
-                  Get Started <img src="assets/images/arrow.svg" alt="arrow" />
-                </button>
+                <p class="card-offer">Save up to 25% with offer</p>
               </div>
+              <hr class="flex-grow-1" />
+              <ul class="card-features">
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Unlimited GB total storage</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Share storage with up to 10 others</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Unlimited drive access</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>60 days bin data restore</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>Unlimited AI searching per month</span>
+                </li>
+                <li>
+                  <img src="assets/images/true.svg" alt="check" loading="lazy" width="16" height="16" />
+                  <span>24/7 Premium support</span>
+                </li>
+              </ul>
 
-              <div class="pricing-card standard-card featured">
-                <div class="popular-badge">MOST POPULAR</div>
-                <div class="card-header">
-                  <h3 class="card-title">Standard (100 GB)</h3>
-                  <div class="card-price">
-                    <span class="original-price">₹200</span>
-                    <span class="discounted-price">₹170</span>
-                    <span class="price-unit">/month</span>
-                  </div>
-                  <p class="card-offer">Save up to 15% with offer</p>
-                </div>
-                <hr class="flex-grow-1" />
-                <ul class="card-features">
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>100 GB total storage</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Share storage with up to 5 others</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Limited drive access</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>30 days bin data restore</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Limited AI searching per month</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Priority support (email + chat)</span>
-                  </li>
-                </ul>
-
-                <button class="card-btn btn-primary">
-                  Get Started <img src="assets/images/arrow.svg" alt="arrow" />
-                </button>
-              </div>
-
-              <div class="pricing-card enterprise-card">
-                <div class="card-header">
-                  <h3 class="card-title">Enterprise (250+ GB)</h3>
-                  <div class="card-price">
-                    <span class="discounted-price">Pay as You Use</span>
-                    <span class="price-unit">/month</span>
-                  </div>
-                  <p class="card-offer">Save up to 25% with offer</p>
-                </div>
-                <hr class="flex-grow-1" />
-                <ul class="card-features">
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Unlimited GB total storage</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Share storage with up to 10 others</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Unlimited drive access</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>60 days bin data restore</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>Unlimited AI searching per month</span>
-                  </li>
-                  <li>
-                    <img src="assets/images/true.svg" alt="check" />
-                    <span>24/7 Premium support</span>
-                  </li>
-                </ul>
-
-                <button class="card-btn">
-                  Contact Us <img src="assets/images/arrow.svg" alt="arrow" />
-                </button>
-              </div>
+              <button class="card-btn" data-plan="enterprise">
+                Contact Us <img src="assets/images/arrow.svg" alt="arrow" loading="lazy" />
+              </button>
             </div>
           </div>
         </div>
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
 
-    <!-- Load components first -->
-    <script src="components/load-components.js"></script>
-    <!-- Then load other scripts -->
-    <script src="components/sidebar/sidebar.js"></script>
-    <script src="assets/scripts/dropdown/dropdown.js"></script>
-    <script src="components/logout-modal/logout-modal.js"></script>
-    <script src="assets/scripts/render-bin.js"></script>
-    
-    <!-- Initialize feather icons after components are loaded -->
-    <script>
-      document.addEventListener('componentsLoaded', () => {
-        if (feather) {
-          feather.replace();
-        }
-      });
-    </script>
-  </body>
+  <!-- Load components first -->
+  <script src="components/load-components.js"></script>
+  <!-- Then load other scripts -->
+  <script src="components/sidebar/sidebar.js"></script>
+  <script src="assets/scripts/dropdown/dropdown.js"></script>
+  <script src="components/logout-modal/logout-modal.js"></script>
+  <script src="assets/scripts/render-bin.js"></script>
+
+  <!-- Plan specific scripts -->
+  <script src="assets/scripts/plan.js"></script>
+
+  <!-- Initialize feather icons after components are loaded -->
+  <script>
+    document.addEventListener('componentsLoaded', () => {
+      if (feather) {
+        feather.replace();
+      }
+
+      if (typeof initPlanPage === 'function') {
+        initPlanPage();
+      }
+    });
+  </script>
+</body>
+
 </html>
