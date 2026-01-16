@@ -710,8 +710,16 @@ function applyFilters(filterType, value, customData = null) {
   }
 }
 
+// Flag to prevent duplicate event listeners
+let mydriveFileActionHandlersAttached = false;
+
 window.attachFileActionHandlers = function () {
-  document.addEventListener("click", (e) => {
+  // Use event delegation - only attach once
+  if (mydriveFileActionHandlersAttached) return;
+  mydriveFileActionHandlersAttached = true;
+
+  // Single document-level click handler for all file actions
+  document.addEventListener("click", function(e) {
     // Don't interfere with header dropdowns or regular dropdowns
     if (
       e.target.closest(".help-dropdown") ||
@@ -721,33 +729,24 @@ window.attachFileActionHandlers = function () {
       return;
     }
 
-    if (
-      !e.target.closest(".file-actions") &&
-      !e.target.closest(".three-dots")
-    ) {
-      // Close all file menus by removing active class
-      document.querySelectorAll(".file-actions").forEach((fa) => {
-        fa.classList.remove("active");
-      });
-    }
-  });
+    const threeDots = e.target.closest(".three-dots");
+    const fileActions = e.target.closest(".file-actions");
+    const menuItem = e.target.closest(".file-menu li");
 
-  document.querySelectorAll(".three-dots").forEach((dots) => {
-    dots.addEventListener("click", function (e) {
+    // Handle three dots click
+    if (threeDots) {
       e.stopPropagation();
       e.preventDefault();
 
-      const fileActions = this.closest(".file-actions");
-      if (!fileActions) return;
+      const container = threeDots.closest(".file-actions");
+      if (!container) return;
 
-      const fileId = fileActions.dataset.fileId;
-      const menu = this.nextElementSibling;
-
+      const menu = threeDots.nextElementSibling;
       if (!menu || !menu.classList.contains("dropdown-menu")) return;
 
       // Only handle file-menu, not header dropdowns
       if (menu.classList.contains("file-menu")) {
-        const isCurrentlyActive = fileActions.classList.contains("active");
+        const isCurrentlyActive = container.classList.contains("active");
 
         // Close all other file menus first
         document.querySelectorAll(".file-actions").forEach((fa) => {
@@ -756,9 +755,9 @@ window.attachFileActionHandlers = function () {
 
         // Toggle the clicked file menu
         if (isCurrentlyActive) {
-          fileActions.classList.remove("active");
+          container.classList.remove("active");
         } else {
-          fileActions.classList.add("active");
+          container.classList.add("active");
 
           // Check if menu needs to open on the left (if it would overflow)
           requestAnimationFrame(() => {
@@ -771,24 +770,24 @@ window.attachFileActionHandlers = function () {
           });
         }
       }
-    });
-  });
+      return;
+    }
 
-  document.querySelectorAll(".file-menu li").forEach((item) => {
-    item.addEventListener("click", function (e) {
+    // Handle menu item clicks
+    if (menuItem) {
       e.stopPropagation();
       e.preventDefault();
 
-      const action = this.dataset.action;
-      const fileActions = this.closest(".file-actions");
-      if (!fileActions) return;
+      const container = menuItem.closest(".file-actions");
+      if (!container) return;
 
-      const fileId = fileActions.dataset.fileId;
-      const menu = this.closest(".dropdown-menu");
+      const action = menuItem.dataset.action;
+      const fileId = container.dataset.fileId;
+      const menu = menuItem.closest(".dropdown-menu");
 
       // Close file menu by removing active class, let CSS handle header dropdowns
       if (menu && menu.classList.contains("file-menu")) {
-        fileActions.classList.remove("active");
+        container.classList.remove("active");
       }
 
       switch (action) {
@@ -806,7 +805,15 @@ window.attachFileActionHandlers = function () {
           break;
         default:
       }
-    });
+      return;
+    }
+
+    // Close menus when clicking outside
+    if (!fileActions && !threeDots && !menuItem) {
+      document.querySelectorAll(".file-actions").forEach((fa) => {
+        fa.classList.remove("active");
+      });
+    }
   });
 };
 
@@ -1207,7 +1214,7 @@ function addDropdownCSS() {
         border: 1px solid #ddd;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        min-width: 120px;
+        min-width: max-content;
         z-index: 1000;
         margin-top: 4px;
         list-style: none;

@@ -2,13 +2,17 @@ class LogoutModal {
     constructor() {
         this.modal = null;
         this.logoutLinks = [];
+        this.eventListenersSetup = false;
+        this.globalHandlerSetup = false;
         this.initialize();
     }
 
     initialize() {
         const init = () => {
             this.setupModal();
-            this.setupEventListeners();
+            if (this.modal) {
+                this.setupEventListeners();
+            }
             this.setupGlobalLogoutHandler();
         };
 
@@ -20,6 +24,10 @@ class LogoutModal {
 
         // Re-initialize after components are loaded
         document.addEventListener('componentsLoaded', () => {
+            this.setupModal(); // Ensure modal exists
+            if (this.modal && !this.eventListenersSetup) {
+                this.setupEventListeners();
+            }
             this.setupGlobalLogoutHandler();
         });
     }
@@ -54,55 +62,87 @@ class LogoutModal {
     }
 
     setupEventListeners() {
+        if (!this.modal || this.eventListenersSetup) {
+            return; // Modal doesn't exist or listeners already setup
+        }
+
+        // Click outside modal to close
         this.modal.addEventListener('click', (e) => {
             if (e.target === this.modal) {
                 this.hideModal();
             }
         });
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && this.modal.style.display === 'flex') {
+        // Escape key to close (only one listener needed, use capture phase)
+        this.escapeHandler = (e) => {
+            if (e.key === 'Escape' && this.modal && this.modal.style.display === 'flex') {
                 this.hideModal();
             }
-        });
+        };
+        document.addEventListener('keydown', this.escapeHandler);
 
+        // Button event listeners
         const cancelBtn = document.getElementById('cancelLogout');
         if (cancelBtn) {
-            cancelBtn.addEventListener('click', () => this.hideModal());
+            this.cancelHandler = () => this.hideModal();
+            cancelBtn.addEventListener('click', this.cancelHandler);
         }
 
         const confirmBtn = document.getElementById('confirmLogout');
         if (confirmBtn) {
-            confirmBtn.addEventListener('click', () => this.performLogout());
+            this.confirmHandler = () => this.performLogout();
+            confirmBtn.addEventListener('click', this.confirmHandler);
         }
+
+        this.eventListenersSetup = true;
     }
 
     setupGlobalLogoutHandler() {
         // Use event delegation to handle dynamically loaded logout links
-        document.addEventListener('click', (e) => {
-            const logoutLink = e.target.closest('[data-logout]');
-            if (logoutLink) {
-                e.preventDefault();
-                e.stopPropagation();
-                this.showModal();
-            }
-        });
-
-        // Also set up existing links
-        this.logoutLinks = document.querySelectorAll('[data-logout]');
-        this.logoutLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                this.showModal();
-            });
-        });
+        // Only set up once to avoid duplicate listeners
+        if (!this.globalHandlerSetup) {
+            this.globalClickHandler = (e) => {
+                const logoutLink = e.target.closest('[data-logout]');
+                if (logoutLink) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close any open dropdowns
+                    const dropdown = logoutLink.closest(".custom-dropdown");
+                    if (dropdown) {
+                        dropdown.classList.remove("active");
+                        const menu = dropdown.querySelector(".dropdown-menu");
+                        if (menu) {
+                            menu.style.display = "";
+                        }
+                    }
+                    
+                    this.showModal();
+                }
+            };
+            document.addEventListener('click', this.globalClickHandler, true);
+            this.globalHandlerSetup = true;
+        }
     }
 
     showModal() {
+        // Ensure modal exists before showing
+        if (!this.modal) {
+            this.setupModal();
+        }
+        
+        // Ensure event listeners are set up
+        if (this.modal && !this.eventListenersSetup) {
+            this.setupEventListeners();
+        }
+        
         if (this.modal) {
             this.modal.style.display = 'flex';
             setTimeout(() => {
-                document.getElementById('cancelLogout')?.focus();
+                const cancelBtn = document.getElementById('cancelLogout');
+                if (cancelBtn) {
+                    cancelBtn.focus();
+                }
             }, 100);
         }
     }

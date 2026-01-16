@@ -39,7 +39,20 @@
   z-index: -1 !important;
 }
 
-.auth-header h1 {
+.auth-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.auth-header .auth-header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.auth-header .auth-header-left h1 {
   font-weight: 500;
   font-size: 28px;
   line-height: 100%;
@@ -47,25 +60,56 @@
   width: fit-content;
 }
 
-.changepass-wrapper .auth-wrapper {
+.auth-header .auth-header-right {
   display: flex;
-  justify-content: center;
   align-items: center;
+  gap: 20px;
+}
+
+.auth-header .auth-header-right .cancel-btn {
+  padding: 16.5px 22px;
+  background: #7070701A;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 500;
+  color: #707070;
+  border: 0;
+  font-family: var(--outfit);
+  cursor: pointer;
+}
+
+.auth-header .auth-header-right .save-btn {
+  padding: 14px 22px;
+  background-color: #0000FF;
+  border-radius: 14px;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text-white);
+  border: 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--outfit);
+  cursor: pointer;
+}
+
+.changepass-wrapper .auth-wrapper {
+  padding-top: 30px;
   height: calc(100vh - 230px);
 }
 
 .changepass-wrapper .auth-wrapper .auth-box {
   width: 100%;
-  max-width: 550px;
+  max-width: 640px;
 }
 
 .changepass-wrapper .auth-wrapper .auth-box .auth-card {
-  max-width: 550px;
+  max-width: 640px;
   width: 100%;
   background-color: white;
   border: 1px solid #dddddd;
   border-radius: 32px;
-  padding: 40px 30px 30px;
+  padding: 40px;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -76,19 +120,6 @@
   flex-direction: column;
   gap: 20px;
   font-family: var(--outfit);
-}
-
-.changepass-wrapper .auth-wrapper .auth-box .auth-btn {
-  padding: 12px;
-  background-color: #0000ff;
-  border-radius: 16px;
-  font-size: 18px;
-  font-weight: 500;
-  color: var(--text-white);
-  border: 0;
-  width: 100%;
-  font-family: var(--outfit);
-  cursor: pointer;
 }
 
 .changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper {
@@ -117,12 +148,7 @@
   width: 22px;
 }
 
-.changepass-wrapper
-  .auth-wrapper
-  .auth-box
-  .auth-card
-  .input-wrapper
-  .form-control {
+.changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper .form-control {
   padding-right: 50px;
   font-family: var(--outfit);
 }
@@ -145,12 +171,7 @@
   top: 12px;
 }
 
-.changepass-wrapper
-  .auth-wrapper
-  .auth-box
-  .auth-card
-  .input-wrapper
-  .form-control {
+.changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper .form-control {
   padding-right: 50px;
   font-family: var(--outfit);
 }
@@ -160,12 +181,7 @@
   left: 15px;
 }
 
-.changepass-wrapper
-  .auth-wrapper
-  .auth-box
-  .auth-card
-  .input-wrapper
-  .form-control {
+.changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper .form-control {
   padding: 15px 25px 15px 50px;
   border: 1px solid #a1a1a1;
   border-radius: 16px;
@@ -177,12 +193,7 @@
   font-family: var(--outfit);
 }
 
-.changepass-wrapper
-  .auth-wrapper
-  .auth-box
-  .auth-card
-  .input-wrapper
-  .form-control:focus {
+.changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper .form-control:focus {
   outline: none;
   font-family: var(--outfit);
 }
@@ -373,7 +384,7 @@
 .dropdown-menu li:first-child {
   border-bottom: 1px solid #eef2f7;
   padding-bottom: 12px;
-  
+
 }
 
 .dropdown-menu li.danger {

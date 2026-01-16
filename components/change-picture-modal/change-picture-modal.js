@@ -1,4 +1,5 @@
 let isFilePickerOpen = false;
+let changePictureHandler = null;
 
 function initChangePictureModal() {
     const modal = document.getElementById('changePictureModal');
@@ -6,6 +7,8 @@ function initChangePictureModal() {
         console.error('Change picture modal not found in DOM');
         return;
     }
+
+    // Prevent duplicate event delegation handlers
 
     const closeBtn = document.getElementById('closeChangePictureModal');
     const cameraOption = document.getElementById('cameraOption');
@@ -16,27 +19,51 @@ function initChangePictureModal() {
     const mainProfileImage = document.querySelector('.edit-profile');
     const changePictureBtn = document.getElementById('changePictureBtn');
 
+    // Use event delegation to handle dynamically loaded buttons
+    // This works even if the button is added/replaced after initialization
+    if (!changePictureHandler) {
+        changePictureHandler = (e) => {
+            if (e.target.id === 'changePictureBtn' || e.target.closest('#changePictureBtn')) {
+                e.preventDefault();
+                e.stopPropagation();
+                openChangePictureModal();
+            }
+        };
+        document.addEventListener('click', changePictureHandler, true);
+    }
+
+    // Also attach directly if button exists (for immediate binding)
     if (changePictureBtn) {
-        changePictureBtn.addEventListener('click', openChangePictureModal);
-    }
-
-    if (closeBtn) {
-        closeBtn.addEventListener('click', closeChangePictureModal);
-    }
-
-    modal.addEventListener('click', (e) => {
-        if (e.target === modal) {
-            closeChangePictureModal();
-        }
-    });
-
-    if (cameraOption) {
-        cameraOption.addEventListener('click', () => {
-            alert('Camera access can be implemented using capture attribute.');
+        changePictureBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            openChangePictureModal();
         });
     }
 
-    if (galleryOption) {
+    if (closeBtn && !closeBtn.dataset.listenerAttached) {
+        closeBtn.addEventListener('click', closeChangePictureModal);
+        closeBtn.dataset.listenerAttached = 'true';
+    }
+
+    // Modal overlay click handler - only attach once
+    if (!modal.dataset.listenerAttached) {
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                closeChangePictureModal();
+            }
+        });
+        modal.dataset.listenerAttached = 'true';
+    }
+
+    if (cameraOption && !cameraOption.dataset.listenerAttached) {
+        cameraOption.addEventListener('click', () => {
+            alert('Camera access can be implemented using capture attribute.');
+        });
+        cameraOption.dataset.listenerAttached = 'true';
+    }
+
+    if (galleryOption && !galleryOption.dataset.listenerAttached) {
         galleryOption.addEventListener('click', (e) => {
             e.stopPropagation();
 
@@ -51,16 +78,19 @@ function initChangePictureModal() {
                 imageUpload.click();
             }, 150);
         });
+        galleryOption.dataset.listenerAttached = 'true';
     }
 
-    if (avatarOption) {
+    if (avatarOption && !avatarOption.dataset.listenerAttached) {
         avatarOption.addEventListener('click', () => {
             alert('Avatar selection UI can be added here.');
         });
+        avatarOption.dataset.listenerAttached = 'true';
     }
 
-    if (imageUpload) {
+    if (imageUpload && !imageUpload.dataset.listenerAttached) {
         imageUpload.addEventListener('change', handleImageUpload);
+        imageUpload.dataset.listenerAttached = 'true';
     }
 
     function handleImageUpload(e) {

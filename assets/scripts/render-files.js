@@ -403,58 +403,74 @@ function showToast(message) {
   }, 3000);
 }
 
-function attachFileActionHandlers() {
-  document.addEventListener("click", (e) => {
-    if (!e.target.closest(".file-actions") && !e.target.closest(".three-dots")) {
-      document.querySelectorAll(".file-menu").forEach((menu) => {
-        menu.style.display = "none";
-      });
-    }
-  });
+// Flag to prevent duplicate event listeners
+let fileActionHandlersAttached = false;
 
-  document.querySelectorAll(".three-dots").forEach((dots) => {
-    dots.addEventListener("click", function (e) {
+function attachFileActionHandlers() {
+  // Use event delegation - only attach once
+  if (fileActionHandlersAttached) return;
+  fileActionHandlersAttached = true;
+
+  // Single document-level click handler for all file actions
+  document.addEventListener("click", function(e) {
+    const threeDots = e.target.closest(".three-dots");
+    const fileActions = e.target.closest(".file-actions");
+    const menuItem = e.target.closest(".file-menu li");
+
+    // Handle three dots click
+    if (threeDots) {
       e.stopPropagation();
       e.preventDefault();
 
-      const fileActions = this.closest(".file-actions");
-      if (!fileActions) return;
+      const container = threeDots.closest(".file-actions");
+      if (!container) return;
 
-      const menu = this.nextElementSibling;
+      const menu = threeDots.nextElementSibling;
+      if (!menu || !menu.classList.contains("dropdown-menu") || !menu.classList.contains("file-menu")) return;
 
-      if (!menu || !menu.classList.contains("dropdown-menu")) return;
+      // Check current state - handle both inline display and class-based
+      const isOpen = menu.style.display === "block" || container.classList.contains("active");
 
-      if (menu.style.display === "block") {
+      if (isOpen) {
         menu.style.display = "none";
+        container.classList.remove("active");
       } else {
-        document.querySelectorAll(".dropdown-menu").forEach((m) => {
+        // Close all other menus first
+        document.querySelectorAll(".file-menu").forEach((m) => {
           m.style.display = "none";
         });
+        document.querySelectorAll(".file-actions").forEach((fa) => {
+          fa.classList.remove("active");
+        });
 
+        // Open this menu
         menu.style.display = "block";
         menu.style.position = "absolute";
         menu.style.left = "auto";
         menu.style.right = "0";
         menu.style.top = "100%";
         menu.style.zIndex = "1000";
+        container.classList.add("active");
       }
-    });
-  });
+      return;
+    }
 
-  document.querySelectorAll(".file-menu li").forEach((item) => {
-    item.addEventListener("click", function (e) {
+    // Handle menu item clicks
+    if (menuItem) {
       e.stopPropagation();
       e.preventDefault();
 
-      const action = this.dataset.action;
-      const fileActions = this.closest(".file-actions");
-      if (!fileActions) return;
+      const container = menuItem.closest(".file-actions");
+      if (!container) return;
 
-      const fileId = fileActions.dataset.fileId;
+      const action = menuItem.dataset.action;
+      const fileId = container.dataset.fileId;
+      const menu = menuItem.closest(".dropdown-menu");
 
-      const menu = this.closest(".dropdown-menu");
+      // Close menu
       if (menu) {
         menu.style.display = "none";
+        container.classList.remove("active");
       }
 
       switch (action) {
@@ -490,7 +506,18 @@ function attachFileActionHandlers() {
           break;
         default:
       }
-    });
+      return;
+    }
+
+    // Close menus when clicking outside
+    if (!fileActions && !threeDots && !menuItem) {
+      document.querySelectorAll(".file-menu").forEach((menu) => {
+        menu.style.display = "none";
+      });
+      document.querySelectorAll(".file-actions").forEach((fa) => {
+        fa.classList.remove("active");
+      });
+    }
   });
 }
 
@@ -640,62 +667,74 @@ function initFilterDropdowns() {
   });
 }
 
-window.attachFileActionHandlers = function () {
-  document.addEventListener("click", (e) => {
-    if (
-      !e.target.closest(".file-actions") &&
-      !e.target.closest(".three-dots")
-    ) {
-      document.querySelectorAll(".file-menu").forEach((menu) => {
-        menu.style.display = "none";
-      });
-    }
-  });
+// Flag to prevent duplicate event listeners for window version
+let windowFileActionHandlersAttached = false;
 
-  document.querySelectorAll(".three-dots").forEach((dots) => {
-    dots.addEventListener("click", function (e) {
+window.attachFileActionHandlers = function () {
+  // Use event delegation - only attach once
+  if (windowFileActionHandlersAttached) return;
+  windowFileActionHandlersAttached = true;
+
+  // Single document-level click handler for all file actions
+  document.addEventListener("click", function(e) {
+    const threeDots = e.target.closest(".three-dots");
+    const fileActions = e.target.closest(".file-actions");
+    const menuItem = e.target.closest(".file-menu li");
+
+    // Handle three dots click
+    if (threeDots) {
       e.stopPropagation();
       e.preventDefault();
 
-      const fileActions = this.closest(".file-actions");
-      if (!fileActions) return;
+      const container = threeDots.closest(".file-actions");
+      if (!container) return;
 
-      const fileId = fileActions.dataset.fileId;
-      const menu = this.nextElementSibling;
+      const menu = threeDots.nextElementSibling;
+      if (!menu || !menu.classList.contains("dropdown-menu") || !menu.classList.contains("file-menu")) return;
 
-      if (!menu || !menu.classList.contains("dropdown-menu")) return;
+      // Check current state - handle both inline display and class-based
+      const isOpen = menu.style.display === "block" || container.classList.contains("active");
 
-      if (menu.style.display === "block") {
+      if (isOpen) {
         menu.style.display = "none";
+        container.classList.remove("active");
       } else {
-        document.querySelectorAll(".dropdown-menu").forEach((m) => {
+        // Close all other menus first
+        document.querySelectorAll(".file-menu").forEach((m) => {
           m.style.display = "none";
         });
+        document.querySelectorAll(".file-actions").forEach((fa) => {
+          fa.classList.remove("active");
+        });
 
+        // Open this menu
         menu.style.display = "block";
         menu.style.position = "absolute";
         menu.style.left = "auto";
         menu.style.right = "0";
-        menu.style.top = `100%`;
+        menu.style.top = "100%";
         menu.style.zIndex = "1000";
+        container.classList.add("active");
       }
-    });
-  });
+      return;
+    }
 
-  document.querySelectorAll(".file-menu li").forEach((item) => {
-    item.addEventListener("click", function (e) {
+    // Handle menu item clicks
+    if (menuItem) {
       e.stopPropagation();
       e.preventDefault();
 
-      const action = this.dataset.action;
-      const fileActions = this.closest(".file-actions");
-      if (!fileActions) return;
+      const container = menuItem.closest(".file-actions");
+      if (!container) return;
 
-      const fileId = fileActions.dataset.fileId;
+      const action = menuItem.dataset.action;
+      const fileId = container.dataset.fileId;
+      const menu = menuItem.closest(".dropdown-menu");
 
-      const menu = this.closest(".dropdown-menu");
+      // Close menu
       if (menu) {
         menu.style.display = "none";
+        container.classList.remove("active");
       }
 
       switch (action) {
@@ -713,7 +752,18 @@ window.attachFileActionHandlers = function () {
           break;
         default:
       }
-    });
+      return;
+    }
+
+    // Close menus when clicking outside
+    if (!fileActions && !threeDots && !menuItem) {
+      document.querySelectorAll(".file-menu").forEach((menu) => {
+        menu.style.display = "none";
+      });
+      document.querySelectorAll(".file-actions").forEach((fa) => {
+        fa.classList.remove("active");
+      });
+    }
   });
 };
 
@@ -986,7 +1036,7 @@ function addDropdownCSS() {
         border: 1px solid #ddd;
         border-radius: 10px;
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        min-width: 120px;
+        min-width: max-content;
         z-index: 1000;
         margin-top: 4px;
         list-style: none;
