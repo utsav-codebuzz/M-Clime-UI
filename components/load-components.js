@@ -27,7 +27,7 @@ class ComponentLoader {
             requestAnimationFrame(() => {
                 container.classList.remove('component-loading');
                 container.classList.add('component-loaded');
-                
+
                 // Trigger fade-in animation with slight delay for smooth effect
                 setTimeout(() => {
                     if (componentName === 'sidebar') {
@@ -52,7 +52,6 @@ class ComponentLoader {
                 this.initializeChangePictureModal();
             }
         } catch (error) {
-            console.error(`Error loading ${componentName}:`, error);
             const container = document.getElementById(targetElementId);
             if (container) {
                 container.classList.remove('component-loading');
@@ -95,20 +94,20 @@ class ComponentLoader {
         try {
             const response = await fetch(this.components.changePictureModal);
             const html = await response.text();
-            
+
             const tempContainer = document.createElement('div');
             tempContainer.style.display = 'none';
             tempContainer.innerHTML = html;
-            
+
             const modal = tempContainer.querySelector('.modal-overlay');
             if (modal) {
                 document.body.appendChild(modal);
             }
-            
+
             this.loadModalStylesheet('changePictureModal');
-            
+
         } catch (error) {
-            console.error('Error loading change picture modal:', error);
+            throw new Error('Failed to load change picture modal');
         }
 
         document.dispatchEvent(new Event('componentsLoaded'));
@@ -116,10 +115,10 @@ class ComponentLoader {
 
     loadModalStylesheet(modalName) {
         if (!this.stylesheets[modalName]) return;
-        
+
         const linkId = `${modalName}-stylesheet`;
         if (document.getElementById(linkId)) return;
-        
+
         const link = document.createElement('link');
         link.id = linkId;
         link.rel = 'stylesheet';

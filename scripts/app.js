@@ -51,7 +51,6 @@ class PageLoader {
         feather.replace();
       }
     } catch (error) {
-      console.error(`Error loading page ${pageName}:`, error);
       document.getElementById("page-content").innerHTML = `
         <div class="main-card">
           <div style="text-align:center;padding:40px;">
@@ -75,8 +74,6 @@ class PageLoader {
         case "mydrive":
           if (window.initMyDrive) {
             window.initMyDrive();
-          } else {
-            console.error("initMyDrive function not found!");
           }
           break;
 

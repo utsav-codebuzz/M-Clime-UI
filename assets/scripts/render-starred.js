@@ -4,7 +4,6 @@ let modalInitialized = false;
 function showFileInfoModal(fileId) {
   const file = window.starredFilesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -64,7 +63,6 @@ function showFileInfoModal(fileId) {
 function showRenameModal(fileId) {
   const file = window.starredFilesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -218,7 +216,6 @@ function attachRenameModalEvents(fileId) {
 function showDeleteModal(fileId) {
   const file = window.starredFilesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -239,9 +236,8 @@ function showDeleteModal(fileId) {
           </div>
           
           <div class="delete-message">
-            <p>Are you sure you want to delete <strong>"${
-              file.name
-            }"</strong>?</p>
+            <p>Are you sure you want to delete <strong>"${file.name
+    }"</strong>?</p>
             <p class="delete-subtext">This action cannot be undone. The file will be permanently removed from your drive.</p>
           </div>
           
@@ -256,9 +252,8 @@ function showDeleteModal(fileId) {
             </div>
             <div class="delete-info-row">
               <span class="delete-info-label">Uploaded:</span>
-              <span class="delete-info-value">${
-                file.date || file.uploaded || "N/A"
-              }</span>
+              <span class="delete-info-value">${file.date || file.uploaded || "N/A"
+    }</span>
             </div>
           </div>
         </div>
@@ -329,7 +324,6 @@ function attachDeleteModalEvents(fileId) {
       const file = window.starredFilesData.find((f) => f.id == fileId);
 
       if (!file) {
-        console.error("File not found for deletion:", fileId);
         closeModal();
         return;
       }
@@ -740,7 +734,7 @@ window.attachFileActionHandlers = function () {
   starredFileActionHandlersAttached = true;
 
   // Single document-level click handler for all file actions
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
@@ -834,12 +828,10 @@ window.attachFileActionHandlers = function () {
 function renderGridViewStarred() {
   const filesContainer = document.getElementById("filesContainer");
   if (!filesContainer) {
-    console.error("Files container element not found!");
     return;
   }
 
   if (!window.starredFilesData || !Array.isArray(window.starredFilesData)) {
-    console.error("starredFilesData is not defined!");
     filesContainer.innerHTML = '<p class="no-files">No files available</p>';
     return;
   }
@@ -906,12 +898,10 @@ function renderGridViewStarred() {
 function renderListViewStarred() {
   const filesContainer = document.getElementById("filesContainer");
   if (!filesContainer) {
-    console.error("Files container element not found!");
     return;
   }
 
   if (!window.starredFilesData || !Array.isArray(window.starredFilesData)) {
-    console.error("starredFilesData is not defined!");
     filesContainer.innerHTML = '<p class="no-files">No files available</p>';
     return;
   }
@@ -951,8 +941,8 @@ function renderListViewStarred() {
       </thead>
       <tbody>
         ${window.starredFilesData
-          .map(
-            (file) => `
+      .map(
+        (file) => `
           <tr class="file-row" data-file-id="${file.id}">
             <td class="td-name">
               <div class="file-info-cell">
@@ -972,16 +962,15 @@ function renderListViewStarred() {
             <td class="td-size">${file.size}</td>
             <td class="td-actions">
               <div class="action-buttons">
-               ${
-                 file.isStarred
-                   ? `
+               ${file.isStarred
+            ? `
 <button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/star.svg" alt="info" width="16" height="16">
                 </button>                  `
-                   : `<button class="action-btn info-btn" title="Info">
+            : `<button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/inactive_star.svg" alt="info" width="16" height="16">
                 </button>`
-               }
+          }
                 
                 <div class="file-actions" data-file-id="${file.id}">
                   <img
@@ -1001,8 +990,8 @@ function renderListViewStarred() {
             </td>
           </tr>
         `
-          )
-          .join("")}
+      )
+      .join("")}
       </tbody>
     </table>
   `;
@@ -1049,7 +1038,7 @@ function initializeStarred() {
   }
 
   initViewToggleStarred();
-  
+
   const filesContainer = document.getElementById("filesContainer");
   if (filesContainer) {
     renderGridViewStarred();

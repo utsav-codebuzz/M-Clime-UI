@@ -3,7 +3,6 @@ let modalInitialized = false;
 function showFileInfoModal(fileId) {
   const file = window.filesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -63,7 +62,6 @@ function showFileInfoModal(fileId) {
 function showRenameModal(fileId) {
   const file = window.filesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -129,7 +127,6 @@ function showRenameModal(fileId) {
 function showDeleteModal(fileId) {
   const file = window.filesData.find((f) => f.id == fileId);
   if (!file) {
-    console.error("File not found:", fileId);
     return;
   }
 
@@ -238,7 +235,6 @@ function attachDeleteModalEvents(fileId) {
       const file = window.filesData.find((f) => f.id == fileId);
 
       if (!file) {
-        console.error("File not found for deletion:", fileId);
         closeModal();
         return;
       }
@@ -412,7 +408,7 @@ function attachFileActionHandlers() {
   fileActionHandlersAttached = true;
 
   // Single document-level click handler for all file actions
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
@@ -676,7 +672,7 @@ window.attachFileActionHandlers = function () {
   windowFileActionHandlersAttached = true;
 
   // Single document-level click handler for all file actions
-  document.addEventListener("click", function(e) {
+  document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
@@ -771,7 +767,6 @@ function renderFilesGrid() {
   const filesGrid = document.getElementById("filesGrid");
 
   if (!filesGrid) {
-    console.error("Files grid element not found!");
     return;
   }
 
@@ -780,7 +775,6 @@ function renderFilesGrid() {
     !Array.isArray(window.filesData) ||
     window.filesData.length === 0
   ) {
-    console.error("filesData is not defined or empty!");
     filesGrid.innerHTML = '<p class="no-files">No files available</p>';
     return;
   }
