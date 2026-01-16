@@ -2,8 +2,6 @@ let starredCurrentView = "grid";
 let modalInitialized = false;
 
 function initFilterDropdowns() {
-  console.log("Initializing filter dropdowns...");
-
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".custom-dropdown")) {
       document
@@ -12,7 +10,7 @@ function initFilterDropdowns() {
     }
   });
 
-  document.querySelectorAll(".custom-dropdown").forEach((dropdown) => {
+  document.querySelectorAll(".custom-dropdown:not(#sortDropdown)").forEach((dropdown) => {
     const button = dropdown.querySelector(".dropdown-btn");
     const menu = dropdown.querySelector(".dropdown-menu");
 
@@ -61,9 +59,88 @@ function initFilterDropdowns() {
       });
     });
   });
+
+  // Special handling for sort dropdown
+  const sortDropdown = document.getElementById("sortDropdown");
+  if (sortDropdown) {
+    const sortButton = document.getElementById("sortButton");
+    const sortMenu = document.getElementById("sortMenu");
+    const applyCustomDateBtn = document.getElementById("applyCustomDate");
+    const startDateInput = document.getElementById("startDate");
+    const endDateInput = document.getElementById("endDate");
+
+    const today = new Date().toISOString().split("T")[0];
+    if (startDateInput) startDateInput.max = today;
+    if (endDateInput) endDateInput.max = today;
+
+    // Sort items click
+    const sortItems = sortMenu.querySelectorAll(".sort-item");
+    sortItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.stopPropagation();
+
+        // Remove active class from all sort items
+        sortItems.forEach((i) => i.classList.remove("active"));
+
+        // Add active class to clicked item
+        this.classList.add("active");
+
+        const value = this.getAttribute("data-value");
+
+        if (value === "custom") {
+          sortMenu.classList.add("show-custom");
+        } else {
+          sortMenu.classList.remove("show-custom");
+
+          // Update button text
+          const buttonText = sortButton.querySelector("span");
+          if (buttonText) {
+            buttonText.textContent = this.textContent.replace("›", "").trim();
+          }
+
+          // Close dropdown and apply filter
+          sortDropdown.classList.remove("active");
+          applyFilters("sort", value);
+        }
+      });
+    });
+
+    // Apply custom date
+    if (applyCustomDateBtn) {
+      applyCustomDateBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const startDate = startDateInput?.value;
+        const endDate = endDateInput?.value;
+
+        if (!startDate || !endDate) {
+          alert("Please select both start and end dates");
+          return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+          alert("Start date cannot be after end date");
+          return;
+        }
+
+        // Update button text
+        const buttonText = sortButton.querySelector("span");
+        if (buttonText) {
+          buttonText.textContent = "Custom Date";
+        }
+
+        // Close dropdown and apply filter
+        sortDropdown.classList.remove("active");
+        sortMenu.classList.remove("show-custom");
+
+        applyFilters("sort", "custom", { startDate, endDate });
+      });
+    }
+  }
 }
 
-function applyFilters(filterType, value) {
+function applyFilters(filterType, value, customData = null) {
   if (!window.binFilesData) return;
 
   if (!window.originalFilesData) {
@@ -80,25 +157,71 @@ function applyFilters(filterType, value) {
       break;
 
     case "sort":
-      filteredFiles.sort((a, b) => {
-        if (value === "name") return a.name.localeCompare(b.name);
-        if (value === "date") {
-          return (
-            new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date)
-          );
-        }
-        if (value === "size") {
-          const getSizeValue = (sizeStr) => {
-            if (!sizeStr) return 0;
-            const num = parseFloat(sizeStr);
-            if (sizeStr.includes("GB")) return num * 1000;
-            if (sizeStr.includes("MB")) return num;
-            return num;
-          };
-          return getSizeValue(b.size) - getSizeValue(a.size);
-        }
-        return 0;
-      });
+      if (value === "custom" && customData) {
+        const startDate = new Date(customData.startDate);
+        const endDate = new Date(customData.endDate);
+        endDate.setHours(23, 59, 59, 999);
+
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate >= startDate && fileDate <= endDate;
+        });
+
+        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+      } else if (value === "yesterday") {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+        filteredFiles = filteredFiles.filter(
+          (file) => {
+            const fileDate = new Date(file.uploaded || file.date);
+            return fileDate.toISOString().split("T")[0] === yesterdayStr;
+          }
+        );
+      } else if (value === "7days") {
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate >= weekAgo;
+        });
+      } else if (value === "30days") {
+        const monthAgo = new Date();
+        monthAgo.setDate(monthAgo.getDate() - 30);
+
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate >= monthAgo;
+        });
+      } else if (value === "thisyear") {
+        const currentYear = new Date().getFullYear();
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileYear = new Date(file.uploaded || file.date).getFullYear();
+          return fileYear === currentYear;
+        });
+      } else if (value === "lastyear") {
+        const lastYear = new Date().getFullYear() - 1;
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileYear = new Date(file.uploaded || file.date).getFullYear();
+          return fileYear === lastYear;
+        });
+      } else if (value === "name") {
+        filteredFiles.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (value === "size") {
+        const getSizeValue = (sizeStr) => {
+          if (!sizeStr) return 0;
+          const num = parseFloat(sizeStr);
+          if (sizeStr.includes("GB")) return num * 1000;
+          if (sizeStr.includes("MB")) return num;
+          return num;
+        };
+        filteredFiles.sort((a, b) => getSizeValue(b.size) - getSizeValue(a.size));
+      } else if (value === "all") {
+        // Show all files, sorted by date (newest first)
+        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+      }
       break;
 
     default:
@@ -313,22 +436,36 @@ function initViewToggleStarred() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function initializeBin() {
   initViewToggleStarred();
-  renderGridViewStarred();
+  
+  const filesContainer = document.getElementById("filesContainer");
+  if (filesContainer) {
+    renderGridViewStarred();
+  } else {
+    setTimeout(() => {
+      if (document.getElementById("filesContainer")) {
+        renderGridViewStarred();
+      }
+    }, 100);
+  }
 
   setTimeout(() => {
     initFilterDropdowns();
   }, 100);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById("sidebar-container") || document.getElementById("header-container")) {
+    document.addEventListener("componentsLoaded", initializeBin, { once: true });
+    setTimeout(initializeBin, 500);
+  } else {
+    initializeBin();
+  }
 });
 
 window.initStarred = function () {
-  initViewToggleStarred();
-  renderGridViewStarred();
-
-  setTimeout(() => {
-    initFilterDropdowns();
-  }, 100);
+  initializeBin();
 };
 
 function addDropdownCSS() {

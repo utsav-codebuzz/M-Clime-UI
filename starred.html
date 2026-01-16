@@ -7,6 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link rel="stylesheet" href="assets/styles/common.css" />
     <link rel="stylesheet" href="assets/styles/mydrive-styles.css" />
+    <link rel="stylesheet" href="assets/styles/storage-styles.css" />
     <link rel="stylesheet" href="styles/main.css" />
     <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
     <link
@@ -97,16 +98,56 @@
                   </ul>
                 </div>
 
-                <div class="custom-dropdown" data-filter="sort">
-                  <button class="dropdown-btn">
+                <div class="custom-dropdown" data-filter="sort" id="sortDropdown">
+                  <button class="dropdown-btn" id="sortButton">
                     <span>Sort By</span>
                     <img src="assets/images/arrow-down.svg" />
                   </button>
-                  <ul class="dropdown-menu">
-                    <li data-value="name">Name</li>
-                    <li data-value="size">Size</li>
-                    <li data-value="date">Date</li>
-                  </ul>
+
+                  <div class="dropdown-menu sort-dropdown" id="sortMenu">
+                    <div class="sort-left">
+                      <div class="sort-item active" data-value="all">All</div>
+                      <div class="sort-item" data-value="yesterday">
+                        Yesterday
+                      </div>
+                      <div class="sort-item" data-value="7days">
+                        Last 7 Days
+                      </div>
+                      <div class="sort-item" data-value="30days">
+                        Last 30 Days
+                      </div>
+                      <div class="sort-item" data-value="thisyear">
+                        This Year (2026)
+                      </div>
+                      <div class="sort-item" data-value="lastyear">
+                        Last Year (2025)
+                      </div>
+                      <div class="sort-item custom-trigger" data-value="custom">
+                        Custom Date
+                        <span class="arrow">›</span>
+                      </div>
+                    </div>
+
+                    <div class="sort-right" id="customDateSection">
+                      <!-- <div class="date-range-label">Custom Date Range</div> -->
+                      <div class="date-input-wrapper">
+                        <label for="startDate">Start Date</label>
+                        <div class="date-input-container">
+                          <input type="date" class="date-input" id="startDate" placeholder="Start Date"/>
+                          <img src="assets/images/storage/date.svg" alt="date" />
+                        </div>
+                      </div>
+                      <div class="date-input-wrapper">
+                        <label for="endDate">End Date</label>
+                        <div class="date-input-container">
+                          <input type="date" class="date-input" id="endDate" placeholder="End Date"/>
+                          <img src="assets/images/storage/date.svg" alt="date" />
+                        </div>
+                      </div>
+
+                      <button class="apply-btn" id="applyCustomDate">Apply</button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

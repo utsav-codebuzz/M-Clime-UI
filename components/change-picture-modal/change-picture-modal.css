@@ -1,0 +1,143 @@
+.change-picture-modal.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.change-picture-modal .modal-content {
+    background: white;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 500px;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.change-picture-modal .modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+}
+
+.change-picture-modal .modal-header h2 {
+    font-size: 20px;
+    font-weight: 400;
+    color: var(--text-base);
+    margin: 0;
+    line-height: 100%;
+}
+
+.change-picture-modal .close-modal-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #6b7280;
+    transition: background-color 0.2s;
+}
+
+.change-picture-modal .close-modal-btn:hover {
+    background-color: #f3f4f6;
+}
+
+.change-picture-modal .modal-body {
+    padding: 24px;
+    padding-top: 0;
+}
+
+.change-picture-modal .profile-preview {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 32px;
+}
+
+.change-picture-modal .profile-preview img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 4px solid #e5e7eb;
+}
+
+.change-picture-modal .picture-options {
+    display: grid;
+    grid-template-columns: repeat(4, 0.2fr);
+    gap: 16px;
+}
+
+.change-picture-modal .picture-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.change-picture-modal .picture-option:hover {
+    transform: translateY(-2px);
+}
+
+.change-picture-modal .option-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 100px;
+    background: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    transition: background-color 0.2s;
+    box-shadow: 0px 0px 4px 0px #0000001A;
+}
+
+.change-picture-modal .picture-option span {
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 100%;
+    color: #707070;
+}
+
+@media (max-width: 640px) {
+    .change-picture-modal .modal-content {
+        width: 95%;
+        margin: 10px;
+    }
+}

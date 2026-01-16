@@ -269,14 +269,19 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
-  border-right: 1px solid #f3f4f6;
   padding-right: 16px;
   min-width: 180px;
 }
 
 .sort-right {
   flex: 1;
-  padding-left: 16px;
+  padding-inline: 10px;
+  display: none;
+  border-left: 1px solid #f3f4f6;
+}
+
+.sort-dropdown.show-custom .sort-right {
+  display: block;
 }
 
 .sort-item {
@@ -313,7 +318,84 @@
   padding-top: 12px;
 }
 
-/* 自定义日期范围样式 */
+.date-input-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.date-input-container {
+  position: relative;
+  width: 100%;
+}
+
+.date-input {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  background: #fff;
+  font-size: 14px;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  opacity: 0;
+}
+
+.date-placeholder {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #999;
+  font-size: 14px;
+  pointer-events: none;
+  transition: 0.2s ease;
+}
+
+.date-input:focus+.date-placeholder,
+.date-input:not(:placeholder-shown)+.date-placeholder,
+.date-input[value]:not([value=""])+.date-placeholder {
+  opacity: 0;
+}
+
+.date-input-container input[type="date"] {
+  width: 100%;
+  padding: 10px 40px 10px 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 8px;
+  font-size: 14px;
+  background-color: #fff;
+}
+
+.date-input-container input[type="date"]::-webkit-calendar-picker-indicator {
+  opacity: 0;
+  position: absolute;
+  right: 0;
+  cursor: pointer;
+}
+
+.date-input-container input[type="date"] {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.date-input-container img {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.date-input-container input[type="date"]:focus {
+  outline: none;
+  border-color: #4a90e2;
+}
+
 .date-range-label {
   font-size: 14px;
   font-weight: 600;
@@ -329,7 +411,6 @@
   display: block;
   font-size: 13px;
   color: #6b7280;
-  margin-bottom: 6px;
 }
 
 .date-input {
@@ -351,7 +432,7 @@
 .apply-btn {
   width: 100%;
   padding: 10px 16px;
-  background-color: #3a81e4;
+  background-color: var(--primary);
   color: white;
   border: none;
   border-radius: 8px;
@@ -359,11 +440,6 @@
   font-weight: 500;
   cursor: pointer;
   transition: background-color 0.2s ease;
-  margin-top: 8px;
-}
-
-.apply-btn:hover {
-  background-color: #2d6bc8;
 }
 
 .custom-dropdown {
@@ -399,7 +475,7 @@
 
   .sort-right {
     padding-left: 0;
-    padding-top: 16px;
+    padding-inline: 10px;
   }
 }
 

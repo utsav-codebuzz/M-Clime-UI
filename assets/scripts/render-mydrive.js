@@ -495,46 +495,125 @@ function initModalEvents() {
 function initFilterDropdowns() {
   // Filter dropdowns are now handled by dropdown.js using the .active class system
   // This function only needs to handle the filter logic when items are clicked
-  const filterDropdowns = document.querySelectorAll(".custom-dropdown[data-filter], .custom-dropdown[data-type]");
+  const filterDropdowns = document.querySelectorAll(".custom-dropdown[data-filter]:not(#sortDropdown), .custom-dropdown[data-type]");
 
-  if (filterDropdowns.length === 0) return;
+  if (filterDropdowns.length > 0) {
+    filterDropdowns.forEach((dropdown) => {
+      const menu = dropdown.querySelector(".dropdown-menu");
+      if (!menu) return;
 
-  filterDropdowns.forEach((dropdown) => {
-    const menu = dropdown.querySelector(".dropdown-menu");
-    if (!menu) return;
+      menu.querySelectorAll("li").forEach((item) => {
+        // Remove any existing listeners to avoid duplicates
+        const newItem = item.cloneNode(true);
+        item.parentNode.replaceChild(newItem, item);
 
-    menu.querySelectorAll("li").forEach((item) => {
-      // Remove any existing listeners to avoid duplicates
-      const newItem = item.cloneNode(true);
-      item.parentNode.replaceChild(newItem, item);
+        newItem.addEventListener("click", function (e) {
+          e.stopPropagation();
 
-      newItem.addEventListener("click", function (e) {
-        e.stopPropagation();
+          const value = this.getAttribute("data-value");
+          const text = this.textContent;
 
-        const value = this.getAttribute("data-value");
-        const text = this.textContent;
+          const button = dropdown.querySelector(".dropdown-btn");
+          const buttonText = button?.querySelector("span");
+          if (buttonText) {
+            buttonText.textContent = text;
+          }
 
-        const button = dropdown.querySelector(".dropdown-btn");
-        const buttonText = button?.querySelector("span");
-        if (buttonText) {
-          buttonText.textContent = text;
-        }
+          // Close the dropdown (dropdown.js will handle this via .active class)
+          dropdown.classList.remove("active");
 
-        // Close the dropdown (dropdown.js will handle this via .active class)
-        dropdown.classList.remove("active");
+          const dropdownType =
+            dropdown.getAttribute("data-filter") ||
+            dropdown.getAttribute("data-type") ||
+            "category";
 
-        const dropdownType =
-          dropdown.getAttribute("data-filter") ||
-          dropdown.getAttribute("data-type") ||
-          "category";
-
-        applyFilters(dropdownType, value);
+          applyFilters(dropdownType, value);
+        });
       });
     });
-  });
+  }
+
+  // Special handling for sort dropdown
+  const sortDropdown = document.getElementById("sortDropdown");
+  if (sortDropdown) {
+    const sortButton = document.getElementById("sortButton");
+    const sortMenu = document.getElementById("sortMenu");
+    const applyCustomDateBtn = document.getElementById("applyCustomDate");
+    const startDateInput = document.getElementById("startDate");
+    const endDateInput = document.getElementById("endDate");
+
+    const today = new Date().toISOString().split("T")[0];
+    if (startDateInput) startDateInput.max = today;
+    if (endDateInput) endDateInput.max = today;
+
+    // Sort items click
+    const sortItems = sortMenu.querySelectorAll(".sort-item");
+    sortItems.forEach((item) => {
+      item.addEventListener("click", function (e) {
+        e.stopPropagation();
+
+        // Remove active class from all sort items
+        sortItems.forEach((i) => i.classList.remove("active"));
+
+        // Add active class to clicked item
+        this.classList.add("active");
+
+        const value = this.getAttribute("data-value");
+
+        if (value === "custom") {
+          sortMenu.classList.add("show-custom");
+        } else {
+          sortMenu.classList.remove("show-custom");
+
+          // Update button text
+          const buttonText = sortButton.querySelector("span");
+          if (buttonText) {
+            buttonText.textContent = this.textContent.replace("›", "").trim();
+          }
+
+          // Close dropdown and apply filter
+          sortDropdown.classList.remove("active");
+          applyFilters("sort", value);
+        }
+      });
+    });
+
+    // Apply custom date
+    if (applyCustomDateBtn) {
+      applyCustomDateBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        const startDate = startDateInput?.value;
+        const endDate = endDateInput?.value;
+
+        if (!startDate || !endDate) {
+          alert("Please select both start and end dates");
+          return;
+        }
+
+        if (new Date(startDate) > new Date(endDate)) {
+          alert("Start date cannot be after end date");
+          return;
+        }
+
+        // Update button text
+        const buttonText = sortButton.querySelector("span");
+        if (buttonText) {
+          buttonText.textContent = "Custom Date";
+        }
+
+        // Close dropdown and apply filter
+        sortDropdown.classList.remove("active");
+        sortMenu.classList.remove("show-custom");
+
+        applyFilters("sort", "custom", { startDate, endDate });
+      });
+    }
+  }
 }
 
-function applyFilters(filterType, value) {
+function applyFilters(filterType, value, customData = null) {
   if (!window.mydriveFilesData) return;
 
   if (!window.originalFilesData) {
@@ -551,25 +630,71 @@ function applyFilters(filterType, value) {
       break;
 
     case "sort":
-      filteredFiles.sort((a, b) => {
-        if (value === "name") return a.name.localeCompare(b.name);
-        if (value === "date") {
-          return (
-            new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date)
-          );
-        }
-        if (value === "size") {
-          const getSizeValue = (sizeStr) => {
-            if (!sizeStr) return 0;
-            const num = parseFloat(sizeStr);
-            if (sizeStr.includes("GB")) return num * 1000;
-            if (sizeStr.includes("MB")) return num;
-            return num;
-          };
-          return getSizeValue(b.size) - getSizeValue(a.size);
-        }
-        return 0;
-      });
+      if (value === "custom" && customData) {
+        const startDate = new Date(customData.startDate);
+        const endDate = new Date(customData.endDate);
+        endDate.setHours(23, 59, 59, 999);
+
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate >= startDate && fileDate <= endDate;
+        });
+
+        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+      } else if (value === "yesterday") {
+        const yesterday = new Date();
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayStr = yesterday.toISOString().split("T")[0];
+
+        filteredFiles = filteredFiles.filter(
+          (file) => {
+            const fileDate = new Date(file.uploaded || file.date);
+            return fileDate.toISOString().split("T")[0] === yesterdayStr;
+          }
+        );
+      } else if (value === "7days") {
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate >= weekAgo;
+        });
+      } else if (value === "30days") {
+        const monthAgo = new Date();
+        monthAgo.setDate(monthAgo.getDate() - 30);
+
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileDate = new Date(file.uploaded || file.date);
+          return fileDate >= monthAgo;
+        });
+      } else if (value === "thisyear") {
+        const currentYear = new Date().getFullYear();
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileYear = new Date(file.uploaded || file.date).getFullYear();
+          return fileYear === currentYear;
+        });
+      } else if (value === "lastyear") {
+        const lastYear = new Date().getFullYear() - 1;
+        filteredFiles = filteredFiles.filter((file) => {
+          const fileYear = new Date(file.uploaded || file.date).getFullYear();
+          return fileYear === lastYear;
+        });
+      } else if (value === "name") {
+        filteredFiles.sort((a, b) => a.name.localeCompare(b.name));
+      } else if (value === "size") {
+        const getSizeValue = (sizeStr) => {
+          if (!sizeStr) return 0;
+          const num = parseFloat(sizeStr);
+          if (sizeStr.includes("GB")) return num * 1000;
+          if (sizeStr.includes("MB")) return num;
+          return num;
+        };
+        filteredFiles.sort((a, b) => getSizeValue(b.size) - getSizeValue(a.size));
+      } else if (value === "all") {
+        // Show all files, sorted by date (newest first)
+        filteredFiles.sort((a, b) => new Date(b.uploaded || b.date) - new Date(a.uploaded || a.date));
+      }
       break;
 
     default:
@@ -894,7 +1019,7 @@ function initViewToggle() {
   }
 }
 
-document.addEventListener("DOMContentLoaded", function () {
+function initializeMyDrive() {
   if (!document.getElementById("fileInfoModal")) {
     createModal();
   } else {
@@ -902,26 +1027,34 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
   initViewToggle();
-  renderGridView();
+  
+  const filesContainer = document.getElementById("filesContainer");
+  if (filesContainer) {
+    renderGridView();
+  } else {
+    setTimeout(() => {
+      if (document.getElementById("filesContainer")) {
+        renderGridView();
+      }
+    }, 100);
+  }
 
   setTimeout(() => {
     initFilterDropdowns();
   }, 100);
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  if (document.getElementById("sidebar-container") || document.getElementById("header-container")) {
+    document.addEventListener("componentsLoaded", initializeMyDrive, { once: true });
+    setTimeout(initializeMyDrive, 500);
+  } else {
+    initializeMyDrive();
+  }
 });
 
 window.initMyDrive = function () {
-  if (!document.getElementById("fileInfoModal")) {
-    createModal();
-  } else {
-    initModalEvents();
-  }
-
-  initViewToggle();
-  renderGridView();
-
-  setTimeout(() => {
-    initFilterDropdowns();
-  }, 100);
+  initializeMyDrive();
 };
 
 function addModalCSS() {
