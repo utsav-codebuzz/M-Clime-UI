@@ -23,39 +23,39 @@ class ComponentLoader {
       const html = await response.text();
       container.innerHTML = html;
 
-            requestAnimationFrame(() => {
-                container.classList.remove('component-loading');
-                container.classList.add('component-loaded');
+      requestAnimationFrame(() => {
+        container.classList.remove("component-loading");
+        container.classList.add("component-loaded");
 
-                setTimeout(() => {
-                    if (componentName === 'sidebar') {
-                        const sidebar = document.getElementById('sidebar');
-                        if (sidebar) {
-                            sidebar.classList.add('fade-in');
-                        }
-                    } else if (componentName === 'header') {
-                        const header = container.querySelector('header');
-                        if (header) {
-                            header.classList.add('fade-in');
-                        }
-                    }
-                }, 50);
-            });
+        setTimeout(() => {
+          if (componentName === "sidebar") {
+            const sidebar = document.getElementById("sidebar");
+            if (sidebar) {
+              sidebar.classList.add("fade-in");
+            }
+          } else if (componentName === "header") {
+            const header = container.querySelector("header");
+            if (header) {
+              header.classList.add("fade-in");
+            }
+          }
+        }, 50);
+      });
 
-            if (componentName === 'sidebar') {
-                this.initializeSidebar();
-            } else if (componentName === 'header') {
-                this.initializeHeader();
-            } else if (componentName === 'changePictureModal') {
-                this.initializeChangePictureModal();
-            }
-        } catch (error) {
-            const container = document.getElementById(targetElementId);
-            if (container) {
-                container.classList.remove('component-loading');
-            }
-        }
+      if (componentName === "sidebar") {
+        this.initializeSidebar();
+      } else if (componentName === "header") {
+        this.initializeHeader();
+      } else if (componentName === "changePictureModal") {
+        this.initializeChangePictureModal();
+      }
+    } catch (error) {
+      const container = document.getElementById(targetElementId);
+      if (container) {
+        container.classList.remove("component-loading");
+      }
     }
+  }
 
   initializeSidebar() {
     const currentPage = window.location.pathname.split("/").pop();
@@ -68,7 +68,43 @@ class ComponentLoader {
     });
   }
 
-  initializeHeader() {}
+  initializeHeader() {
+    const currentPage =
+      window.location.pathname.split("/").pop() || "home.html";
+    const searchInput = document.getElementById("headerSearchInput");
+    const mobileSearchContainer = document.querySelector(
+      ".mobile-search-container"
+    );
+
+    if (!searchInput) return;
+
+    const placeholderMap = {
+      "storage.html": "Search in storage...",
+      "mydrive.html": "Search in my drive",
+      "bin.html": "Search in bin",
+      "starred.html": "Search in starred",
+      "plan.html": "Search plans...",
+    };
+
+    if (
+      currentPage === "home.html" ||
+      currentPage === "editprofile.html" ||
+      currentPage === "changepassword.html" ||
+      currentPage === "signin.html" ||
+      currentPage === "signup.html" ||
+      currentPage === "forgotpassword.html" ||
+      currentPage === "termsofuse.html" ||
+      currentPage === "vercel.json"
+    ) {
+      if (mobileSearchContainer) {
+        mobileSearchContainer.style.display = "none";
+      }
+      return;
+    }
+
+    const placeholder = placeholderMap[currentPage] || "Search...";
+    searchInput.placeholder = placeholder;
+  }
 
   initializeChangePictureModal() {}
 
@@ -81,40 +117,39 @@ class ComponentLoader {
       await this.loadComponent("header", "header-container");
     }
 
-        try {
-            const response = await fetch(this.components.changePictureModal);
-            const html = await response.text();
+    try {
+      const response = await fetch(this.components.changePictureModal);
+      const html = await response.text();
 
-            const tempContainer = document.createElement('div');
-            tempContainer.style.display = 'none';
-            tempContainer.innerHTML = html;
+      const tempContainer = document.createElement("div");
+      tempContainer.style.display = "none";
+      tempContainer.innerHTML = html;
 
-            const modal = tempContainer.querySelector('.modal-overlay');
-            if (modal) {
-                document.body.appendChild(modal);
-            }
+      const modal = tempContainer.querySelector(".modal-overlay");
+      if (modal) {
+        document.body.appendChild(modal);
+      }
 
-            this.loadModalStylesheet('changePictureModal');
-
-        } catch (error) {
-            throw new Error('Failed to load change picture modal');
-        }
+      this.loadModalStylesheet("changePictureModal");
+    } catch (error) {
+      throw new Error("Failed to load change picture modal");
+    }
 
     document.dispatchEvent(new Event("componentsLoaded"));
   }
 
-    loadModalStylesheet(modalName) {
-        if (!this.stylesheets[modalName]) return;
+  loadModalStylesheet(modalName) {
+    if (!this.stylesheets[modalName]) return;
 
-        const linkId = `${modalName}-stylesheet`;
-        if (document.getElementById(linkId)) return;
+    const linkId = `${modalName}-stylesheet`;
+    if (document.getElementById(linkId)) return;
 
-        const link = document.createElement('link');
-        link.id = linkId;
-        link.rel = 'stylesheet';
-        link.href = this.stylesheets[modalName];
-        document.head.appendChild(link);
-    }
+    const link = document.createElement("link");
+    link.id = linkId;
+    link.rel = "stylesheet";
+    link.href = this.stylesheets[modalName];
+    document.head.appendChild(link);
+  }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
