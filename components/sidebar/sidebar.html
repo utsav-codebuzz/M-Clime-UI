@@ -1,102 +1,151 @@
-<!-- components/sidebar/sidebar.html -->
 <aside class="sidebar" id="sidebar">
-    <div class="logo-container">
-        <a href="home.html">
-            <div class="logo-wrapper">
-                <img src="assets/images/logos/logo_without_bg.svg" alt="M'Clime Logo" class="logo-img" />
-                <span class="logo-text">M'Clime</span>
-            </div>
-        </a>
+  <div class="logo-container">
+    <a href="home.html">
+      <div class="logo-wrapper">
+        <img
+          src="assets/images/logos/logo_without_bg.svg"
+          alt="M'Clime Logo"
+          class="logo-img"
+        />
+        <span class="logo-text">M'Clime</span>
+      </div>
+    </a>
 
-        <!-- Mobile Close Button (Visible only on mobile) -->
-        <button class="mobile-close-btn" id="mobileCloseBtn">
-            <img src="assets/images/sidebar/close.svg" alt="Close Sidebar" class="close-icon" />
-            <!-- If you don't have close.svg, use this CSS X icon instead -->
-            <!-- <span class="close-icon-x"></span> -->
-        </button>
-
-        <!-- Desktop Toggle Button -->
-        <button class="toggle-btn" id="toggleBtn">
-            <img src="assets/images/sidebar/collpsed.svg" alt="Toggle Sidebar" class="toggle-icon" />
-        </button>
-        <div class="tooltip">M'Clime</div>
-    </div>
-
-    <button class="btn-add-new">
-        <img src="assets/images/sidebar/plus.svg" alt="Add New" />
-        <span>Add New</span>
-        <div class="tooltip">Add New</div>
+    <button class="mobile-close-btn" id="mobileCloseBtn">
+      <img
+        src="assets/images/sidebar/close.svg"
+        alt="Close Sidebar"
+        class="close-icon"
+      />
     </button>
 
-    <nav>
-        <ul class="nav-list">
-            <li class="nav-item">
-                <a href="home.html" class="nav-link">
-                    <span class="icon-bg"><img src="assets/images/sidebar/home.svg" alt="Home" /></span>
-                    <span class="nav-text">Home</span>
-                    <div class="tooltip">Home</div>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="mydrive.html" class="nav-link">
-                    <span class="icon-bg"><img src="assets/images/sidebar/drive.svg" alt="My Drive" /></span>
-                    <span class="nav-text">My Drive</span>
-                    <div class="tooltip">My Drive</div>
-                </a>
-            </li>
-            <li class="nav-divider"></li>
+    <button class="toggle-btn" id="toggleBtn">
+      <img
+        src="assets/images/sidebar/collpsed.svg"
+        alt="Toggle Sidebar"
+        class="toggle-icon"
+      />
+    </button>
+    <div class="tooltip">M'Clime</div>
+  </div>
 
-            <li class="nav-item">
-                <a href="starred.html" class="nav-link">
-                    <span class="icon-bg"><img src="assets/images/sidebar/starred.svg" alt="Starred" /></span>
-                    <span class="nav-text">Starred</span>
-                    <div class="tooltip">Starred</div>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="bin.html" class="nav-link">
-                    <span class="icon-bg"><img src="assets/images/sidebar/bin.svg" alt="Bin" /></span>
-                    <span class="nav-text">Bin</span>
-                    <div class="tooltip">Bin</div>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="storage.html" class="nav-link">
-                    <span class="icon-bg"><img src="assets/images/sidebar/storages.svg" alt="Storage" /></span>
-                    <span class="nav-text">Storage</span>
-                    <div class="tooltip">Storage</div>
-                </a>
-            </li>
-        </ul>
-    </nav>
+  <button class="btn-add-new">
+    <img src="assets/images/sidebar/plus.svg" alt="Add New" />
+    <span>Add New</span>
+    <div class="tooltip">Add New</div>
+  </button>
 
-    <div class="sidebar-upgrade">
-        <a href="plan.html" class="nav-link upgrade-link">
-            <div class="upgrade-card">
-                <div class="upgrade-left">
-                    <img src="assets/images/sidebar/upgrade_plan.svg" alt="Upgrade" class="upgrade-icon" />
-                    <div class="upgrade-text">
-                        <div class="upgrade-title">Upgrade Plan</div>
-                        <div class="upgrade-subtitle">
-                            Get Storage
-                            <img src="assets/images/sidebar/get_storage.svg" alt="get_storage" width="14" height="14" />
-                        </div>
-                    </div>
-                </div>
-
-                <div class="upgrade-progress">
-                    <svg width="50" height="50" viewBox="0 0 36 36">
-                        <circle cx="18" cy="18" r="16" fill="none" stroke="#EBF2FC" stroke-width="3" />
-                        <circle cx="18" cy="18" r="16" fill="none" stroke="#3A81E4" stroke-width="3"
-                            stroke-dasharray="64 100" stroke-linecap="round" transform="rotate(-90 18 18)" />
-                        <text x="50%" y="54%" text-anchor="middle" font-size="9" fill="#3A81E4" font-weight="600">
-                            64%
-                        </text>
-                    </svg>
-                </div>
-            </div>
+  <nav>
+    <ul class="nav-list">
+      <li class="nav-item">
+        <a href="home.html" class="nav-link">
+          <span class="icon-bg"
+            ><img src="assets/images/sidebar/home.svg" alt="Home"
+          /></span>
+          <span class="nav-text">Home</span>
+          <div class="tooltip">Home</div>
         </a>
+      </li>
+      <li class="nav-item">
+        <a href="mydrive.html" class="nav-link">
+          <span class="icon-bg"
+            ><img src="assets/images/sidebar/drive.svg" alt="My Drive"
+          /></span>
+          <span class="nav-text">My Drive</span>
+          <div class="tooltip">My Drive</div>
+        </a>
+      </li>
+      <li class="nav-divider"></li>
 
-        <div class="tooltip">Upgrade Plan</div>
-    </div>
+      <li class="nav-item">
+        <a href="starred.html" class="nav-link">
+          <span class="icon-bg"
+            ><img src="assets/images/sidebar/starred.svg" alt="Starred"
+          /></span>
+          <span class="nav-text">Starred</span>
+          <div class="tooltip">Starred</div>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="bin.html" class="nav-link">
+          <span class="icon-bg"
+            ><img src="assets/images/sidebar/bin.svg" alt="Bin"
+          /></span>
+          <span class="nav-text">Bin</span>
+          <div class="tooltip">Bin</div>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="storage.html" class="nav-link">
+          <span class="icon-bg"
+            ><img src="assets/images/sidebar/storages.svg" alt="Storage"
+          /></span>
+          <span class="nav-text">Storage</span>
+          <div class="tooltip">Storage</div>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <div class="sidebar-upgrade">
+    <a href="plan.html" class="nav-link upgrade-link">
+      <div class="upgrade-card">
+        <div class="upgrade-left">
+          <img
+            src="assets/images/sidebar/upgrade_plan.svg"
+            alt="Upgrade"
+            class="upgrade-icon"
+          />
+          <div class="upgrade-text">
+            <div class="upgrade-title">Upgrade Plan</div>
+            <div class="upgrade-subtitle">
+              Get Storage
+              <img
+                src="assets/images/sidebar/get_storage.svg"
+                alt="get_storage"
+                width="14"
+                height="14"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div class="upgrade-progress">
+          <svg width="50" height="50" viewBox="0 0 36 36">
+            <circle
+              cx="18"
+              cy="18"
+              r="16"
+              fill="none"
+              stroke="#EBF2FC"
+              stroke-width="3"
+            />
+            <circle
+              cx="18"
+              cy="18"
+              r="16"
+              fill="none"
+              stroke="#3A81E4"
+              stroke-width="3"
+              stroke-dasharray="64 100"
+              stroke-linecap="round"
+              transform="rotate(-90 18 18)"
+            />
+            <text
+              x="50%"
+              y="54%"
+              text-anchor="middle"
+              font-size="9"
+              fill="#3A81E4"
+              font-weight="600"
+            >
+              64%
+            </text>
+          </svg>
+        </div>
+      </div>
+    </a>
+
+    <div class="tooltip">Upgrade Plan</div>
+  </div>
 </aside>
