@@ -10,6 +10,7 @@ window.mydriveFilesData = [
     category: "Design",
     isStarred: false,
     uploaded: "Sep 28, 2025",
+    modified: "Sep 29, 2025",
     format: "Figma",
   },
   {
@@ -23,6 +24,7 @@ window.mydriveFilesData = [
     category: "Finance",
     isStarred: true,
     uploaded: "Sep 25, 2025",
+    modified: "Sep 26, 2025",
     format: "PDF",
   },
   {
@@ -36,6 +38,7 @@ window.mydriveFilesData = [
     category: "Design",
     isStarred: true,
     uploaded: "Sep 22, 2025",
+    modified: "Sep 23, 2025",
     format: "ZIP",
   },
   {
@@ -49,6 +52,7 @@ window.mydriveFilesData = [
     category: "Documents",
     isStarred: false,
     uploaded: "Sep 20, 2025",
+    modified: "Sep 21, 2025",
     format: "Word",
   },
   {
@@ -62,6 +66,7 @@ window.mydriveFilesData = [
     category: "Finance",
     isStarred: true,
     uploaded: "Sep 18, 2025",
+    modified: "Sep 19, 2025",
     format: "Excel",
   },
   {
@@ -75,6 +80,7 @@ window.mydriveFilesData = [
     category: "Presentations",
     isStarred: false,
     uploaded: "Sep 15, 2025",
+    modified: "Sep 16, 2025",
     format: "PowerPoint",
   },
 ];

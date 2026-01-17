@@ -10,6 +10,7 @@ window.binFilesData = [
     category: "Presentations",
     isStarred: false,
     uploaded: "Aug 12, 2025",
+    modified: "Aug 13, 2025",
     format: "PPTX",
   },
   {
@@ -23,6 +24,7 @@ window.binFilesData = [
     category: "Images",
     isStarred: false,
     uploaded: "Jul 01, 2025",
+    modified: "Jul 02, 2025",
     format: "PNG",
   },
   {
@@ -36,6 +38,7 @@ window.binFilesData = [
     category: "Documents",
     isStarred: false,
     uploaded: "Jun 20, 2025",
+    modified: "Jun 21, 2025",
     format: "Word",
   },
 ];

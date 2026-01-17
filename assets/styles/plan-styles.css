@@ -102,10 +102,7 @@
   display: flex;
   justify-content: center;
   gap: 15px;
-  background: white;
-  border-radius: 100px;
-  padding: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: transparent;
   width: 100%;
   max-width: 400px;
   margin: 0 auto;
@@ -194,24 +191,22 @@
 
 .pricing-card.featured {
   border: 2px solid transparent;
-  border-image-source: linear-gradient(
-    90deg,
-    rgba(209, 133, 71, 0.028) 0%,
-    rgba(172, 115, 117, 0.56) 50%,
-    rgba(116, 132, 183, 0.028) 100%
-  );
+  border-image-source: linear-gradient(90deg,
+      rgba(209, 133, 71, 0.028) 0%,
+      rgba(172, 115, 117, 0.56) 50%,
+      rgba(116, 132, 183, 0.028) 100%);
   border-image-slice: 1;
   box-shadow: 0 12px 32px rgba(59, 130, 246, 0.15);
 }
 
 .popular-badge {
   position: absolute;
-  top: -12px;
+  top: -20px;
   left: 50%;
   transform: translateX(-50%);
   background: linear-gradient(90deg, #c79426 0.01%, #465fb4 50%, #0000ff 100%);
   color: white;
-  padding: 6px 16px;
+  padding: 10px 20px;
   border-radius: 20px;
   font-size: 11px;
   font-weight: 700;
@@ -240,41 +235,42 @@
 }
 
 .card-title {
-  font-size: 18px;
-  font-weight: 600;
-  color: #1a202c;
+  font-size: 22px;
+  font-weight: 500;
+  color: var(--text-base);
   margin: 0;
 }
 
 .card-price {
   display: flex;
   align-items: baseline;
-  gap: 8px;
+  gap: 5px;
   margin-top: 8px;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .original-price {
-  font-size: 14px;
-  color: #a0aec0;
+  font-size: 26px;
+  color: #707070;
   text-decoration: line-through;
+  font-weight: 600;
 }
 
 .discounted-price {
-  font-size: 28px;
-  font-weight: 700;
-  color: #2d3748;
+  font-size: 26px;
+  font-weight: 600;
+  color: #707070;
 }
 
 .price-unit {
-  font-size: 13px;
-  color: #718096;
+  font-size: 18px;
+  color: #707070;
 }
 
 .card-offer {
   font-size: 12px;
-  color: #48bb78;
+  color: #107C41;
   margin: 0;
   font-weight: 600;
 }
@@ -327,9 +323,17 @@
   font-family: var(--outfit);
 }
 
+.card-btn.btn-started img {
+  filter: brightness(0) invert(1);
+}
+
 .card-btn:hover {
   background: #0000ff;
   color: white;
+}
+
+.card-btn:hover img {
+  filter: brightness(0) invert(1);
 }
 
 .btn-primary {
@@ -553,7 +557,7 @@
 .storage-bar {
   height: 6px;
   width: 100%;
-  background: #e5e7eb;
+  background: #0000ff33;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -679,10 +683,6 @@
 .dropdown-menu li:first-child {
   border-bottom: 1px solid #eef2f7;
   padding-bottom: 12px;
-}
-
-.dropdown-menu li.danger {
-  color: #dc2626;
 }
 
 .dropdown-menu li:hover {

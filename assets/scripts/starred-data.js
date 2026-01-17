@@ -10,6 +10,7 @@ window.starredFilesData = [
     category: "Finance",
     isStarred: true,
     uploaded: "Sep 25, 2025",
+    modified: "Sep 26, 2025",
     format: "PDF",
   },
   {
@@ -23,6 +24,7 @@ window.starredFilesData = [
     category: "Design",
     isStarred: true,
     uploaded: "Sep 22, 2025",
+    modified: "Sep 23, 2025",
     format: "ZIP",
   },
   {
@@ -36,6 +38,7 @@ window.starredFilesData = [
     category: "Finance",
     isStarred: true,
     uploaded: "Sep 18, 2025",
+    modified: "Sep 19, 2025",
     format: "Excel",
   },
 ];

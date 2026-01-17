@@ -79,7 +79,7 @@
 
 .terms-container h3 {
   position: relative;
-  padding-left: 25px;
+  padding-left: 27px;
   font-weight: 500;
   font-size: 18px;
   line-height: 100%;
@@ -95,6 +95,7 @@
   font-weight: bold;
   font-size: 18px;
 }
+
 .terms-container h4 {
   position: relative;
   padding-left: 50px;
@@ -129,16 +130,16 @@
   margin-bottom: 15px;
 }
 
-.terms-container > ul,
-.terms-container .desc + ul {
+.terms-container>ul,
+.terms-container .desc+ul {
   list-style-type: none;
   counter-reset: list-counter;
   padding-left: 50px;
   margin: 15px 0;
 }
 
-.terms-container > ul > li,
-.terms-container .desc + ul > li {
+.terms-container>ul>li,
+.terms-container .desc+ul>li {
   position: relative;
   padding-left: 30px;
   counter-increment: list-counter;
@@ -149,8 +150,8 @@
   color: var(--text-base);
 }
 
-.terms-container > ul > li::before,
-.terms-container .desc + ul > li::before {
+.terms-container>ul>li::before,
+.terms-container .desc+ul>li::before {
   content: counter(list-counter) ". ";
   position: absolute;
   left: 0;
@@ -185,21 +186,21 @@
   margin: 8px 0;
 }
 
-.terms-container h2:nth-of-type(5) + .desc + ul li::before {
+.terms-container h2:nth-of-type(5)+.desc+ul li::before {
   content: "✓" !important;
   color: var(--success, #10b981) !important;
 }
 
-.terms-container h3 + ul,
-.terms-container h4 + ul {
+.terms-container h3+ul,
+.terms-container h4+ul {
   list-style-type: none;
   counter-reset: list-counter;
   padding-left: 50px;
   margin: 15px 0;
 }
 
-.terms-container h3 + ul > li,
-.terms-container h4 + ul > li {
+.terms-container h3+ul>li,
+.terms-container h4+ul>li {
   padding-left: 30px;
   counter-increment: list-counter;
   margin-bottom: 10px;
@@ -209,8 +210,8 @@
   color: var(--text-base);
 }
 
-.terms-container h3 + ul > li::before,
-.terms-container h4 + ul > li::before {
+.terms-container h3+ul>li::before,
+.terms-container h4+ul>li::before {
   content: counter(list-counter) ". ";
   position: absolute;
   left: 0;
@@ -231,6 +232,7 @@
   .terms-container h1 {
     font-size: 24px;
   }
+
   .terms-container h4 {
     font-size: 15px;
     padding-left: 60px;
@@ -243,6 +245,7 @@
     left: 25px;
     font-size: 15px;
   }
+
   .terms-container h2 {
     font-size: 18px;
     margin-top: 25px;
@@ -286,18 +289,18 @@
     margin-bottom: 16px;
   }
 
-  .terms-container > ul,
-  .terms-container .desc + ul,
-  .terms-container h3 + ul,
-  .terms-container h4 + ul {
+  .terms-container>ul,
+  .terms-container .desc+ul,
+  .terms-container h3+ul,
+  .terms-container h4+ul {
     padding-left: 40px;
     margin: 12px 0;
   }
 
-  .terms-container > ul > li,
-  .terms-container .desc + ul > li,
-  .terms-container h3 + ul > li,
-  .terms-container h4 + ul > li {
+  .terms-container>ul>li,
+  .terms-container .desc+ul>li,
+  .terms-container h3+ul>li,
+  .terms-container h4+ul>li {
     padding-left: 25px;
     font-size: 14px;
     line-height: 24px;
@@ -322,6 +325,7 @@
   .terms-wrapper {
     padding: 16px;
   }
+
   .terms-container h4 {
     padding-left: 55px;
     font-size: 14px;
@@ -334,6 +338,7 @@
     left: 20px;
     font-size: 14px;
   }
+
   .terms-container h1 {
     font-size: 20px;
     margin-bottom: 16px;
@@ -387,18 +392,18 @@
     margin-bottom: 14px;
   }
 
-  .terms-container > ul,
-  .terms-container .desc + ul,
-  .terms-container h3 + ul,
-  .terms-container h4 + ul {
+  .terms-container>ul,
+  .terms-container .desc+ul,
+  .terms-container h3+ul,
+  .terms-container h4+ul {
     padding-left: 30px;
     margin: 10px 0;
   }
 
-  .terms-container > ul > li,
-  .terms-container .desc + ul > li,
-  .terms-container h3 + ul > li,
-  .terms-container h4 + ul > li {
+  .terms-container>ul>li,
+  .terms-container .desc+ul>li,
+  .terms-container h3+ul>li,
+  .terms-container h4+ul>li {
     padding-left: 20px;
     font-size: 13px;
     line-height: 22px;
@@ -461,7 +466,7 @@
 .storage-bar {
   height: 6px;
   width: 100%;
-  background: #e5e7eb;
+  background: #0000ff33;
   border-radius: 999px;
   overflow: hidden;
 }
@@ -584,10 +589,6 @@
 .dropdown-menu li:first-child {
   border-bottom: 1px solid #eef2f7;
   padding-bottom: 12px;
-}
-
-.dropdown-menu li.danger {
-  color: #dc2626;
 }
 
 .dropdown-menu li:hover {

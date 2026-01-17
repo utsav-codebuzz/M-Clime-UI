@@ -1,257 +1,208 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Storage - M'Clime</title>
-    <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
-    <link rel="stylesheet" href="assets/styles/common.css" />
-    <link rel="stylesheet" href="assets/styles/sortby.css" />
-    <link rel="stylesheet" href="assets/styles/storage-styles.css" />
-    <link rel="stylesheet" href="styles/main.css" />
-    <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
-    <link
-      rel="icon"
-      type="image/svg+xml"
-      href="/assets/images/logos/logo_without_bg.svg"
-    />
-    <style>
-      .debug {
-        border: 1px solid red !important;
-      }
-    </style>
-  </head>
 
-  <body>
-    <div class="dashboard-wrapper">
-      <!-- Sidebar Container -->
-      <div id="sidebar-container"></div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Storage - M'Clime</title>
+  <script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
+  <link rel="stylesheet" href="assets/styles/common.css" />
+  <link rel="stylesheet" href="assets/styles/sortby.css" />
+  <link rel="stylesheet" href="assets/styles/storage-styles.css" />
+  <link rel="stylesheet" href="styles/main.css" />
+  <link rel="stylesheet" href="components/logout-modal/logout-modal.css" />
+  <link rel="icon" type="image/svg+xml" href="/assets/images/logos/logo_without_bg.svg" />
+  <style>
+    .debug {
+      border: 1px solid red !important;
+    }
+  </style>
+</head>
 
-      <main class="main-content" id="mainContent">
-        <div class="main-card">
-          <!-- Header Container -->
-          <div id="header-container"></div>
+<body>
+  <div class="dashboard-wrapper">
+    <!-- Sidebar Container -->
+    <div id="sidebar-container"></div>
 
-          <div class="mydrive-content">
-            <div class="view-controls">
-              <div class="search-bar">
-                <img src="assets/images/search.svg" alt="search" />
-                <input
-                  type="text"
-                  class="search-input"
-                  placeholder="Search in Storage"
-                />
+    <main class="main-content" id="mainContent">
+      <div class="main-card">
+        <!-- Header Container -->
+        <div id="header-container"></div>
+
+        <div class="mydrive-content">
+          <div class="view-controls">
+            <div class="search-bar">
+              <img src="assets/images/search.svg" alt="search" />
+              <input type="text" class="search-input" placeholder="Search in Storage" />
+            </div>
+            <div class="filters">
+              <div class="custom-dropdown" data-type="type">
+                <button class="dropdown-btn">
+                  <span>Type</span>
+                  <img src="assets/images/arrow-down.svg" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li data-value="name">All</li>
+                  <li data-value="size">.pdf</li>
+                  <li data-value="size">.doc</li>
+                  <li data-value="size">.docx</li>
+                  <li data-value="size">.txt</li>
+                  <li data-value="size">.xls</li>
+                  <li data-value="size">.xlsx</li>
+                  <li data-value="size">.csv</li>
+                  <li data-value="size">.jpg</li>
+                  <li data-value="size">.jpeg</li>
+                  <li data-value="size">.png</li>
+                  <li data-value="size">.heic</li>
+                </ul>
               </div>
-              <div class="filters">
-                <div class="custom-dropdown" data-type="type">
-                  <button class="dropdown-btn">
-                    <span>Type</span>
-                    <img src="assets/images/arrow-down.svg" />
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li data-value="name">All</li>
-                    <li data-value="size">.pdf</li>
-                    <li data-value="size">.doc</li>
-                    <li data-value="size">.docx</li>
-                    <li data-value="size">.txt</li>
-                    <li data-value="size">.xls</li>
-                    <li data-value="size">.xlsx</li>
-                    <li data-value="size">.csv</li>
-                    <li data-value="size">.jpg</li>
-                    <li data-value="size">.jpeg</li>
-                    <li data-value="size">.png</li>
-                    <li data-value="size">.heic</li>
-                  </ul>
-                </div>
 
-                <div class="custom-dropdown" data-type="filter">
-                  <button class="dropdown-btn">
-                    <span>Filter By</span>
-                    <img src="assets/images/arrow-down.svg" />
-                  </button>
-                  <ul class="dropdown-menu">
-                    <li data-value="name">All</li>
-                    <li data-value="size">Identity</li>
-                    <li data-value="size">Financial</li>
-                    <li data-value="size">Tax</li>
-                    <li data-value="size">Bills</li>
-                    <li data-value="size">Legal</li>
-                    <li data-value="size">Work</li>
-                    <li data-value="size">Personal</li>
-                    <li data-value="size">Receipt</li>
-                    <li data-value="size">Other</li>
-                  </ul>
-                </div>
+              <div class="custom-dropdown" data-type="filter">
+                <button class="dropdown-btn">
+                  <span>Filter By</span>
+                  <img src="assets/images/arrow-down.svg" />
+                </button>
+                <ul class="dropdown-menu">
+                  <li data-value="name">All</li>
+                  <li data-value="size">Identity</li>
+                  <li data-value="size">Financial</li>
+                  <li data-value="size">Tax</li>
+                  <li data-value="size">Bills</li>
+                  <li data-value="size">Legal</li>
+                  <li data-value="size">Work</li>
+                  <li data-value="size">Personal</li>
+                  <li data-value="size">Receipt</li>
+                  <li data-value="size">Other</li>
+                </ul>
+              </div>
 
-                <div
-                  class="custom-dropdown"
-                  data-filter="sort"
-                  id="sortDropdown"
-                >
-                  <button class="dropdown-btn" id="sortButton">
-                    <span>Sort By</span>
-                    <img src="assets/images/arrow-down.svg" />
-                  </button>
+              <div class="custom-dropdown" data-filter="sort" id="sortDropdown">
+                <button class="dropdown-btn" id="sortButton">
+                  <span>Sort By</span>
+                  <img src="assets/images/arrow-down.svg" />
+                </button>
 
-                  <div class="dropdown-menu sort-dropdown" id="sortMenu">
-                    <div class="sort-left">
-                      <div class="sort-item active" data-value="all">All</div>
-                      <div class="sort-item" data-value="yesterday">
-                        Yesterday
+                <div class="dropdown-menu sort-dropdown" id="sortMenu">
+                  <div class="sort-left">
+                    <div class="sort-item active" data-value="all">All</div>
+                    <div class="sort-item" data-value="yesterday">
+                      Yesterday
+                    </div>
+                    <div class="sort-item" data-value="7days">
+                      Last 7 Days
+                    </div>
+                    <div class="sort-item" data-value="30days">
+                      Last 30 Days
+                    </div>
+                    <div class="sort-item" data-value="thisyear">
+                      This Year (2026)
+                    </div>
+                    <div class="sort-item" data-value="lastyear">
+                      Last Year (2025)
+                    </div>
+                    <div class="sort-item custom-trigger" data-value="custom">
+                      Custom Date
+                      <span class="arrow"><img src="assets/images/arrow-down.svg" /></span>
+                    </div>
+                  </div>
+
+                  <div class="sort-right" id="customDateSection">
+                    <!-- <div class="date-range-label">Custom Date Range</div> -->
+                    <div class="date-input-wrapper">
+                      <label for="startDate">Start Date</label>
+                      <div class="date-input-container">
+                        <input type="date" class="date-input" id="startDate" placeholder="Start Date" />
+                        <img src="assets/images/storage/date.svg" alt="date" />
                       </div>
-                      <div class="sort-item" data-value="7days">
-                        Last 7 Days
-                      </div>
-                      <div class="sort-item" data-value="30days">
-                        Last 30 Days
-                      </div>
-                      <div class="sort-item" data-value="thisyear">
-                        This Year (2026)
-                      </div>
-                      <div class="sort-item" data-value="lastyear">
-                        Last Year (2025)
-                      </div>
-                      <div class="sort-item custom-trigger" data-value="custom">
-                        Custom Date
-                        <span class="arrow"
-                          ><img src="assets/images/arrow-down.svg"
-                        /></span>
+                    </div>
+                    <div class="date-input-wrapper">
+                      <label for="endDate">End Date</label>
+                      <div class="date-input-container">
+                        <input type="date" class="date-input" id="endDate" placeholder="End Date" />
+                        <img src="assets/images/storage/date.svg" alt="date" />
                       </div>
                     </div>
 
-                    <div class="sort-right" id="customDateSection">
-                      <!-- <div class="date-range-label">Custom Date Range</div> -->
-                      <div class="date-input-wrapper">
-                        <label for="startDate">Start Date</label>
-                        <div class="date-input-container">
-                          <input
-                            type="date"
-                            class="date-input"
-                            id="startDate"
-                            placeholder="Start Date"
-                          />
-                          <img
-                            src="assets/images/storage/date.svg"
-                            alt="date"
-                          />
-                        </div>
-                      </div>
-                      <div class="date-input-wrapper">
-                        <label for="endDate">End Date</label>
-                        <div class="date-input-container">
-                          <input
-                            type="date"
-                            class="date-input"
-                            id="endDate"
-                            placeholder="End Date"
-                          />
-                          <img
-                            src="assets/images/storage/date.svg"
-                            alt="date"
-                          />
-                        </div>
-                      </div>
-
-                      <button class="apply-btn" id="applyCustomDate">
-                        Apply
-                      </button>
-                    </div>
+                    <button class="apply-btn" id="applyCustomDate">
+                      Apply
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
 
-            <div class="mydrive-header">
-              <div class="page-title">Storage</div>
-            </div>
+          <div class="mydrive-header">
+            <div class="page-title">Storage</div>
+          </div>
 
-            <div class="page-header">
-              <div class="page-header-info">
-                <img src="assets/images/mydrive/figam_wb.svg" alt="" />
-                <p style="font-size: 14px">
-                  <span>Cloud Dashboard.fig </span> • <span> 1.5 GB </span> •
-                  <span> Sep 28, 2025</span>
-                </p>
-                <button class="view_detils">
-                  <img
-                    src="assets/images/mydrive/search_docs.svg"
-                    alt="search"
-                    width="16"
-                    height="16"
-                  />
-                  View Details
-                </button>
-              </div>
-              <div class="action_images action_images-local">
-                <img
-                  src="assets/images/mydrive/info_circle.svg"
-                  alt="info"
-                  width="22"
-                  height="22"
-                />
-                <img
-                  src="assets/images/mydrive/download.svg"
-                  alt="download"
-                  width="22"
-                  height="22"
-                />
-                <img
-                  src="assets/images/mydrive/rename.svg"
-                  alt="rename"
-                  width="22"
-                  height="22"
-                />
-                <img
-                  src="assets/images/mydrive/delete.svg"
-                  alt="delete"
-                  width="22"
-                  height="22"
-                />
-              </div>
-            </div>
-
-            <div class="storage-cta">
-              <div class="storage-cta-left">
-                <div class="cta-title">Basic Storage</div>
-                <div class="cta-sub">50GB / 100GB</div>
-                <div class="storage-cta-bar">
-                  <span class="storage-cta-progress" style="width: 50%"></span>
-                </div>
-              </div>
-            </div>
-
-            <div class="storage-cta-action">
-              <button
-                class="get-storage-btn"
-                onclick="location.href='plan.html'"
-              >
-                Get More Storage
-                <img src="assets/images/storage/more_storage.svg" alt="" />
+          <div class="page-header">
+            <div class="page-header-info">
+              <img src="assets/images/mydrive/figam_wb.svg" alt="" />
+              <p style="font-size: 14px">
+                <span>Cloud Dashboard.fig </span> • <span> 1.5 GB </span> •
+                <span> Sep 28, 2025</span>
+              </p>
+              <button class="view_detils">
+                <img src="assets/images/mydrive/search_docs.svg" alt="search" width="16" height="16" />
+                View Details
               </button>
             </div>
+            <div class="action_images action_images-local" role="toolbar" aria-label="File actions">
+              <button class="action-btn" data-tooltip="Download">
+                <img src="assets/images/mydrive/download.svg" width="28" height="28" />
+              </button>
 
-            <div class="storage-files" id="storageContainer"></div>
+              <button class="action-btn" data-tooltip="Rename">
+                <img src="assets/images/mydrive/rename.svg" width="28" height="28" />
+              </button>
+
+              <button class="action-btn" data-tooltip="Delete">
+                <img src="assets/images/mydrive/delete.svg" width="28" height="28" />
+              </button>
+            </div>
           </div>
-        </div>
-      </main>
-    </div>
 
-    <!-- Load components first -->
-    <script src="components/load-components.js"></script>
-    <!-- Then load other scripts -->
-    <script src="assets/scripts/storage-data.js"></script>
-    <script src="assets/scripts/file-modals.js"></script>
-    <script src="assets/scripts/render-storage.js"></script>
-    <script src="assets/scripts/dropdown/dropdown.js"></script>
-    <script src="components/logout-modal/logout-modal.js"></script>
-    <script src="components/sidebar/sidebar.js"></script>
-    <!-- Initialize feather icons after components are loaded -->
-    <script>
-      document.addEventListener("componentsLoaded", () => {
-        if (feather) {
-          feather.replace();
-        }
-      });
-    </script>
-  </body>
+          <div class="storage-cta">
+            <div class="storage-cta-left">
+              <div class="cta-title">Basic Storage</div>
+              <div class="cta-sub">50GB / 100GB</div>
+              <div class="storage-cta-bar">
+                <span class="storage-cta-progress" style="width: 50%"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="storage-cta-action">
+            <button class="get-storage-btn" onclick="location.href='plan.html'">
+              Get More Storage
+              <img src="assets/images/storage/more_storage.svg" alt="" />
+            </button>
+          </div>
+
+          <div class="storage-files" id="storageContainer"></div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Load components first -->
+  <script src="components/load-components.js"></script>
+  <!-- Then load other scripts -->
+  <script src="assets/scripts/storage-data.js"></script>
+  <script src="assets/scripts/file-modals.js"></script>
+  <script src="assets/scripts/render-storage.js"></script>
+  <script src="assets/scripts/dropdown/dropdown.js"></script>
+  <script src="components/logout-modal/logout-modal.js"></script>
+  <script src="components/sidebar/sidebar.js"></script>
+  <!-- Initialize feather icons after components are loaded -->
+  <script>
+    document.addEventListener("componentsLoaded", () => {
+      if (feather) {
+        feather.replace();
+      }
+    });
+  </script>
+</body>
+
 </html>

@@ -9,32 +9,28 @@ function showFileInfoModal(fileId) {
   const modalContent = `
     <table class="file-info-table">
       <tr>
-        <td class="file-info-label">Name:</td>
+        <td class="file-info-label">File Name</td>
         <td class="file-info-value">${file.name}</td>
       </tr>
       <tr>
-        <td class="file-info-label">Type:</td>
+        <td class="file-info-label">Category</td>
         <td class="file-info-value">${file.category || "File"}</td>
       </tr>
       <tr>
-        <td class="file-info-label">Size:</td>
+        <td class="file-info-label">Type</td>
+        <td class="file-info-value">${file.type || "Type"}</td>
+      </tr>
+      <tr>
+        <td class="file-info-label">Size</td>
         <td class="file-info-value">${file.size || "N/A"}</td>
       </tr>
       <tr>
-        <td class="file-info-label">Uploaded:</td>
-        <td class="file-info-value">${file.date || file.uploaded || "N/A"}</td>
+        <td class="file-info-label">Uploaded</td>
+        <td class="file-info-value">${file.uploaded || "N/A"}</td>
       </tr>
       <tr>
-        <td class="file-info-label">Starred:</td>
-        <td class="file-info-value">${file.isStarred ? "Yes" : "No"}</td>
-      </tr>
-      <tr>
-        <td class="file-info-label">Shared:</td>
-        <td class="file-info-value">Yes</td>
-      </tr>
-      <tr>
-        <td class="file-info-label">Location:</td>
-        <td class="file-info-value">My Drive</td>
+        <td class="file-info-label">Modified</td>
+        <td class="file-info-value">${file.modified || "N/A"}</td>
       </tr>
     </table>
   `;
@@ -135,45 +131,19 @@ function showDeleteModal(fileId) {
       <div class="modal-overlay"></div>
       <div class="modal-content delete-modal">
         <div class="modal-header">
-          <h3>Delete File</h3>
+          <h3>Move to Bin</h3>
           <span class="modal-close delete-close">&times;</span>
         </div>
         
         <div class="modal-body">
-          <div class="delete-warning-icon">
-            <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="#dc2626" stroke-width="1.5">
-              <path d="M12 9v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
-          </div>
-          
           <div class="delete-message">
-            <p>Are you sure you want to delete <strong>"${
-              file.name
-            }"</strong>?</p>
-            <p class="delete-subtext">This action cannot be undone. The file will be permanently removed from your drive.</p>
-          </div>
-          
-          <div class="file-delete-info">
-            <div class="delete-info-row">
-              <span class="delete-info-label">Type:</span>
-              <span class="delete-info-value">${file.category || "File"}</span>
-            </div>
-            <div class="delete-info-row">
-              <span class="delete-info-label">Size:</span>
-              <span class="delete-info-value">${file.size || "N/A"}</span>
-            </div>
-            <div class="delete-info-row">
-              <span class="delete-info-label">Uploaded:</span>
-              <span class="delete-info-value">${
-                file.date || file.uploaded || "N/A"
-              }</span>
-            </div>
+            <p>Are you sure you want to move <strong>${file.name}</strong> file to Bin?</p>
           </div>
         </div>
         
         <div class="modal-footer">
           <button type="button" class="btn-secondary cancel-delete-btn">Cancel</button>
-          <button type="button" class="btn-danger confirm-delete-btn">Delete</button>
+          <button type="button" class="btn-danger confirm-delete-btn">Move to Bin</button>
         </div>
       </div>
     </div>
@@ -481,10 +451,8 @@ function attachFileActionHandlers() {
           const file = window.filesData.find((f) => f.id == fileId);
           if (file) {
             alert(
-              `File Information:\n\nName: ${file.name}\nType: ${
-                file.category || "File"
-              }\nSize: ${file.size}\nDate: ${file.date}\nStarred: ${
-                file.isStarred ? "Yes" : "No"
+              `File Information:\n\nName: ${file.name}\nType: ${file.category || "File"
+              }\nSize: ${file.size}\nDate: ${file.date}\nStarred: ${file.isStarred ? "Yes" : "No"
               }`
             );
           }
@@ -832,7 +800,7 @@ function renderFilesGrid() {
                   <li data-action="file_info"><img src="assets/images/common/action/info.svg" alt="info"/>File Information</li>
                   <li data-action="rename"><img src="assets/images/mydrive/rename.svg" alt="rename"/>Rename</li>
                   <li data-action="download"><img src="assets/images/common/action/download.svg" alt="download"/>Download</li>
-                  <li data-action="delete" class="danger"><img src="assets/images/common/action/delete.svg" alt="delete"/>Delete</li>
+                  <li data-action="delete" class="danger"><img src="assets/images/common/action/delete.svg" alt="delete"/>Move to Bin</li>
                 </ul>
             </div>
           </div>
@@ -894,10 +862,10 @@ window.addEventListener("load", function () {
 });
 
 function addModalCSS() {
-  if (document.getElementById("mydrive-modal-css")) return;
+  if (document.getElementById("home-modal-css")) return;
 
   const css = `
-    <style id="mydrive-modal-css">
+    <style id="home-modal-css">
       /* Modal Styles */
       .modal {
         display: none;
@@ -907,7 +875,7 @@ function addModalCSS() {
         top: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
+        background: #00000033;
         justify-content: center;
         align-items: center;
       }
@@ -938,14 +906,14 @@ function addModalCSS() {
         justify-content: space-between;
         align-items: center;
         padding: 20px 24px;
-        border-bottom: 1px solid #e5e7eb;
       }
 
       .modal-header h3 {
         margin: 0;
         font-size: 18px;
-        font-weight: 600;
-        color: #111827;
+        font-weight: 400;
+        color: var(--text-base);
+        font-family: var(--outfit);
       }
 
       .modal-close {
@@ -970,6 +938,7 @@ function addModalCSS() {
 
       .modal-body {
         padding: 24px;
+        padding-top: 0;
       }
 
       /* File info table styles */
@@ -978,28 +947,36 @@ function addModalCSS() {
         border-collapse: collapse;
       }
 
+      .file-info-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
       .file-info-table tr {
-        border-bottom: 1px solid #f3f4f6;
+        border-bottom: 0;
+        display: flex;
+        flex-direction: column;
       }
 
       .file-info-table tr:last-child {
         border-bottom: none;
       }
 
-      .file-info-table td {
-        padding: 12px 0;
-        vertical-align: top;
-      }
-
       .file-info-label {
-        font-weight: 500;
-        color: #374151;
-        width: 120px;
-        padding-right: 16px;
+        font-weight: 400;
+        color: var(--text-base);
+        padding: 0 0 5px;
+        vertical-align: top;
+        font-family: var(--outfit);
+        font-size: 16px;
       }
-
-      .file-info-value {
-        color: #111827;
+        
+        .file-info-value {
+          color: #707070;
+          font-weight: 400;
+          font-family: var(--outfit);
+          font-size: 14px;
       }
     </style>
   `;
@@ -1008,10 +985,10 @@ function addModalCSS() {
 }
 
 function addDropdownCSS() {
-  if (document.getElementById("mydrive-dropdown-css")) return;
+  if (document.getElementById("home-dropdown-css")) return;
 
   const css = `
-    <style id="mydrive-dropdown-css">
+    <style id="home-dropdown-css">
       /* Dropdown styles for filters */
       .custom-dropdown {
         position: relative;
@@ -1070,14 +1047,6 @@ function addDropdownCSS() {
         width: 16px;
         height: 16px;
       }
-
-      .dropdown-menu li.danger {
-        color: #dc2626;
-      }
-
-      .dropdown-menu li.danger:hover {
-        background: #fee2e2;
-      }
     </style>
   `;
 
@@ -1112,8 +1081,7 @@ function addRenameModalCSS() {
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.5);
-        backdrop-filter: blur(4px);
+        background: #00000033;
       }
       
       .rename-modal {
@@ -1141,6 +1109,7 @@ function addRenameModalCSS() {
       
       .modal-body {
         padding: 24px;
+        padding-top: 0;
       }
     
       .file-icon-small {
@@ -1218,12 +1187,12 @@ function addRenameModalCSS() {
         justify-content: flex-end;
         gap: 12px;
         padding: 20px 24px;
-        border-top: 1px solid #e5e7eb;
+        padding-top: 0;
       }
       
       .btn-primary, .btn-secondary {
         padding: 10px 20px;
-        border-radius: 8px;
+        border-radius: 100px;
         font-size: 14px;
         font-weight: 500;
         cursor: pointer;
@@ -1233,7 +1202,7 @@ function addRenameModalCSS() {
       }
       
       .btn-primary {
-        background: #3b82f6;
+        background: #0000FF;
         color: white;
           font-family: var(--outfit);
 
@@ -1244,12 +1213,8 @@ function addRenameModalCSS() {
       }
       
       .btn-secondary {
-        background: #f3f4f6;
-        color: #374151;
-      }
-      
-      .btn-secondary:hover {
-        background: #e5e7eb;
+        background: transparent;
+        color: var(--text-base);
       }
       
       /* Toast Notification */
@@ -1301,88 +1266,52 @@ function addDeleteModalCSS() {
       .delete-modal {
         max-width: 450px;
       }
-      
-      .delete-warning-icon {
-        display: flex;
-        justify-content: center;
-        margin-bottom: 20px;
-      }
-      
-      .delete-message {
-        text-align: center;
-        margin-bottom: 24px;
+
+      .modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--text-base);
+        font-family: var(--outfit);
       }
       
       .delete-message p {
         margin: 0 0 10px 0;
-        color: #374151;
-        font-size: 15px;
+        color: #707070;
+        font-size: 18px;
         line-height: 1.5;
+        margin-bottom: 0;
+        font-weight: 400;
+        font-family: var(--outfit);
       }
       
       .delete-message strong {
-        color: #111827;
-      }
-      
-      .delete-subtext {
-        color: #6b7280 !important;
-        font-size: 13px !important;
-        margin-top: 8px !important;
-      }
-      
-      .file-delete-info {
-        background: #f9fafb;
-        border-radius: 8px;
-        padding: 16px;
-        margin-bottom: 10px;
-      }
-      
-      .delete-info-row {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 8px 0;
-        border-bottom: 1px solid #e5e7eb;
-      }
-      
-      .delete-info-row:last-child {
-        border-bottom: none;
-      }
-      
-      .delete-info-label {
-        color: #6b7280;
-        font-size: 13px;
-        font-weight: 500;
-      }
-      
-      .delete-info-value {
-        color: #111827;
-        font-weight: 500;
-        font-size: 13px;
+        color: var(--text-base);
+        font-weight: 400;
+        font-family: var(--outfit);
+        font-size: 18px;
       }
       
       .btn-danger {
-        background: #dc2626;
+        background: #F60000;
         color: white;
         padding: 10px 20px;
-        border-radius: 8px;
+        border-radius: 100px;
         font-size: 14px;
         font-weight: 500;
         cursor: pointer;
         border: none;
         transition: all 0.2s ease;
         min-width: 80px;
-          font-family: var(--outfit);
+        font-family: var(--outfit);
+      }
 
-      }
-      
-      .btn-danger:hover {
-        background: #b91c1c;
-      }
-      
-      .btn-danger:focus {
-        outline: none;
-        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.2);
+      .cancel-delete-btn {
+        background: transparent;
+        color: var(--text-base);
+        font-family: var(--outfit);
+        font-size: 14px;
+        font-weight: 500;
       }
     </style>
   `;

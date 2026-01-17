@@ -124,7 +124,6 @@ function renderFilesList() {
             <span>${item.size}</span>
             <span>•</span>
             <span>${item.date}</span>
-            ${dateLabel}
           </div>
         </div>
       </div>

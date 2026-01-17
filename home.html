@@ -15,7 +15,6 @@
 
 <body>
   <div class="dashboard-wrapper">
-   
 
     <!-- Sidebar Container -->
     <div id="sidebar-container"></div>
@@ -26,74 +25,71 @@
         <div id="header-container"></div>
 
         <div class="outlet-content">
-          <div class="welcome-icon">
-            <img src="assets/images/home/logo_with_bg.svg" alt="logo" width="100" height="100" />
-          </div>
-          <h1 class="welcome-title">Welcome Back Tarun Patel</h1>
-          <p class="welcome-subtitle">
-            Turn imagination into impact with M'Clime AI-built to unlock
-            endless possibilities and transform documents into intelligent
-            results.
-          </p>
-
-          <div class="ask-section">
-            <div class="ask-input-wrapper">
-              <input type="text" class="ask-input" placeholder="Ask me anything" />
-              <button class="ask-btn">
-                <img src="assets/images/home/send.svg" alt="send" /> Send
-              </button>
+          <div class="center-screen" id="centerScreen">
+            <div class="welcome-icon" id="welcomeLogo">
+              <img src="assets/images/home/logo_with_bg.svg" alt="logo" width="100" height="100" />
             </div>
-          </div>
+            <h1 class="welcome-title" id="welcomeTitle">Welcome Back Tarun Patel</h1>
 
-          <div class="response-section">
-            <div class="section-header">
-              <div class="response-title">
-                <img src="assets/images/logos/logo_with_bg.svg" alt="logo" />
-                <span>Response</span>
-              </div>
-              <div class="response-actions">
-                <img src="assets/images/home/like.svg" alt="like" />
-                <img src="assets/images/home/dislike.svg" alt="dislike" />
-                <img src="assets/images/home/comment.svg" alt="comment" />
+            <div class="ask-section">
+              <div class="ask-input-wrapper">
+                <input type="text" class="ask-input" id="askInput" placeholder="Ask me anything" />
+                <button class="ask-btn" id="sendBtn">
+                  <img src="assets/images/home/send.svg" alt="send" /> Send
+                </button>
               </div>
             </div>
-            <h5>
-              Here's a clear and simple explanation of PAN number details with
-              an example 👇
-            </h5>
 
-            <div class="content-section">
-              <h3>What is PAN Card</h3>
-              <p>
-                A PAN Card (Permanent Account Number) is an official
-                identification card issued by the Income Tax Department of
-                India. It contains a unique 10-character alphanumeric code
-                used to track financial and tax-related activities.
-              </p>
-
-              <h3>What is My PAN Number</h3>
-              <p>
-                A PAN Card (Permanent Account Number) is
-                <strong class="pan-number">AAAA8888A</strong>. It contains a
-                unique 10-character alphanumeric code used to track financial
-                and tax-related activities.
-              </p>
-            </div>
-          </div>
-
-          <div class="suggested-section">
-            <div class="section-header">
-              <div class="response-title">
-                <img src="assets/images/logos/logo_with_bg.svg" alt="logo" />
-                <span>Suggested Files</span>
+            <div class="response-section" id="responseSection">
+              <div class="section-header">
+                <div class="response-title">
+                  <img src="assets/images/logos/logo_with_bg.svg" alt="logo" />
+                  <span>Response</span>
+                </div>
+                <div class="response-actions">
+                  <img src="assets/images/home/like.svg" alt="like" />
+                  <img src="assets/images/home/dislike.svg" alt="dislike" />
+                  <img src="assets/images/home/comment.svg" alt="comment" />
+                </div>
               </div>
-              <div class="response-actions">
-                <img src="assets/images/home/like.svg" alt="like" />
-                <img src="assets/images/home/dislike.svg" alt="dislike" />
-                <img src="assets/images/home/comment.svg" alt="comment" />
+              <h5>
+                Here's a clear and simple explanation of PAN number details with
+                an example 👇
+              </h5>
+
+              <div class="content-section">
+                <h3>What is PAN Card</h3>
+                <p>
+                  A PAN Card (Permanent Account Number) is an official
+                  identification card issued by the Income Tax Department of
+                  India. It contains a unique 10-character alphanumeric code
+                  used to track financial and tax-related activities.
+                </p>
+
+                <h3>What is My PAN Number</h3>
+                <p>
+                  A PAN Card (Permanent Account Number) is
+                  <strong class="pan-number">AAAA8888A</strong>. It contains a
+                  unique 10-character alphanumeric code used to track financial
+                  and tax-related activities.
+                </p>
               </div>
             </div>
-            <div class="files-grid" id="filesGrid"></div>
+
+            <div class="suggested-section" id="suggestedSection">
+              <div class="section-header">
+                <div class="response-title">
+                  <img src="assets/images/logos/logo_with_bg.svg" alt="logo" />
+                  <span>Suggested Files</span>
+                </div>
+                <div class="response-actions">
+                  <img src="assets/images/home/like.svg" alt="like" />
+                  <img src="assets/images/home/dislike.svg" alt="dislike" />
+                  <img src="assets/images/home/comment.svg" alt="comment" />
+                </div>
+              </div>
+              <div class="files-grid" id="filesGrid"></div>
+            </div>
           </div>
         </div>
       </div>
@@ -115,6 +111,38 @@
       if (feather) {
         feather.replace();
       }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const sendBtn = document.getElementById("sendBtn");
+      const askInput = document.getElementById("askInput");
+      const logo = document.getElementById("welcomeLogo");
+      const title = document.getElementById("welcomeTitle");
+      const centerScreen = document.getElementById("centerScreen");
+      const responseSection = document.getElementById("responseSection");
+      const suggestedSection = document.getElementById("suggestedSection");
+
+      function handleSubmit() {
+        const value = askInput.value.trim();
+        if (!value) return;
+        askInput.value = "";
+
+        logo.style.display = "none";
+        title.style.display = "none";
+
+        centerScreen.classList.add("submitted");
+
+        responseSection.style.display = "block";
+        suggestedSection.style.display = "block";
+      }
+
+      sendBtn.addEventListener("click", handleSubmit);
+
+      askInput.addEventListener("keydown", function (e) {
+        if (e.key === "Enter") {
+          handleSubmit();
+        }
+      });
     });
   </script>
 </body>

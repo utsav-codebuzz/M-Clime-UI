@@ -126,14 +126,6 @@ function addDropdownCSS() {
         width: 16px;
         height: 16px;
       }
-
-      .dropdown-menu li.danger {
-        color: #dc2626;
-      }
-
-      .dropdown-menu li.danger:hover {
-        background: #fee2e2;
-      }
     </style>
   `;
 
