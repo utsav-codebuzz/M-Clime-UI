@@ -1,7 +1,4 @@
 document.addEventListener("DOMContentLoaded", function () {
-  /* =========================
-     PASSWORD TOGGLE
-  ========================= */
   document.querySelectorAll(".toggle-password").forEach((toggle) => {
     toggle.addEventListener("click", function () {
       const input = this.parentElement.querySelector(".password-field");
@@ -19,9 +16,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  /* =========================
-     HELPERS
-  ========================= */
   function getErrorDiv(input) {
     const block = input.closest(".mb-2, .mb-3");
     return block ? block.querySelector(".error-text") : null;
@@ -47,9 +41,6 @@ document.addEventListener("DOMContentLoaded", function () {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
   }
 
-  /* =========================
-     SIGN IN VALIDATION
-  ========================= */
   const signinForm = document.getElementById("signinForm");
 
   function validateSignin() {
@@ -94,9 +85,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /* =========================
-     SIGN UP VALIDATION
-  ========================= */
   const signupForm = document.getElementById("signupForm");
 
   function validateSignup() {
@@ -165,9 +153,6 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   }
 
-  /* =========================
-   FORGOT PASSWORD VALIDATION
-========================= */
   const forgotForm = document.getElementById("forgotPasswordForm");
 
   function validateForgot() {

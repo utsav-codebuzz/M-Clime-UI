@@ -369,21 +369,17 @@ function showToast(message) {
   }, 3000);
 }
 
-// Flag to prevent duplicate event listeners
 let fileActionHandlersAttached = false;
 
 function attachFileActionHandlers() {
-  // Use event delegation - only attach once
   if (fileActionHandlersAttached) return;
   fileActionHandlersAttached = true;
 
-  // Single document-level click handler for all file actions
   document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
 
-    // Handle three dots click
     if (threeDots) {
       e.stopPropagation();
       e.preventDefault();
@@ -399,7 +395,6 @@ function attachFileActionHandlers() {
       )
         return;
 
-      // Check current state - handle both inline display and class-based
       const isOpen =
         menu.style.display === "block" ||
         container.classList.contains("active");
@@ -408,7 +403,6 @@ function attachFileActionHandlers() {
         menu.style.display = "none";
         container.classList.remove("active");
       } else {
-        // Close all other menus first
         document.querySelectorAll(".file-menu").forEach((m) => {
           m.style.display = "none";
         });
@@ -416,7 +410,6 @@ function attachFileActionHandlers() {
           fa.classList.remove("active");
         });
 
-        // Open this menu
         menu.style.display = "block";
         menu.style.position = "absolute";
         menu.style.left = "auto";
@@ -428,7 +421,6 @@ function attachFileActionHandlers() {
       return;
     }
 
-    // Handle menu item clicks
     if (menuItem) {
       e.stopPropagation();
       e.preventDefault();
@@ -440,7 +432,6 @@ function attachFileActionHandlers() {
       const fileId = container.dataset.fileId;
       const menu = menuItem.closest(".dropdown-menu");
 
-      // Close menu
       if (menu) {
         menu.style.display = "none";
         container.classList.remove("active");
@@ -488,7 +479,6 @@ function attachFileActionHandlers() {
       return;
     }
 
-    // Close menus when clicking outside
     if (!fileActions && !threeDots && !menuItem) {
       document.querySelectorAll(".file-menu").forEach((menu) => {
         menu.style.display = "none";
@@ -646,21 +636,17 @@ function initFilterDropdowns() {
   });
 }
 
-// Flag to prevent duplicate event listeners for window version
 let windowFileActionHandlersAttached = false;
 
 window.attachFileActionHandlers = function () {
-  // Use event delegation - only attach once
   if (windowFileActionHandlersAttached) return;
   windowFileActionHandlersAttached = true;
 
-  // Single document-level click handler for all file actions
   document.addEventListener("click", function (e) {
     const threeDots = e.target.closest(".three-dots");
     const fileActions = e.target.closest(".file-actions");
     const menuItem = e.target.closest(".file-menu li");
 
-    // Handle three dots click
     if (threeDots) {
       e.stopPropagation();
       e.preventDefault();
@@ -676,7 +662,6 @@ window.attachFileActionHandlers = function () {
       )
         return;
 
-      // Check current state - handle both inline display and class-based
       const isOpen =
         menu.style.display === "block" ||
         container.classList.contains("active");
@@ -685,7 +670,6 @@ window.attachFileActionHandlers = function () {
         menu.style.display = "none";
         container.classList.remove("active");
       } else {
-        // Close all other menus first
         document.querySelectorAll(".file-menu").forEach((m) => {
           m.style.display = "none";
         });
@@ -693,7 +677,6 @@ window.attachFileActionHandlers = function () {
           fa.classList.remove("active");
         });
 
-        // Open this menu
         menu.style.display = "block";
         menu.style.position = "absolute";
         menu.style.left = "auto";
@@ -705,7 +688,6 @@ window.attachFileActionHandlers = function () {
       return;
     }
 
-    // Handle menu item clicks
     if (menuItem) {
       e.stopPropagation();
       e.preventDefault();
@@ -717,7 +699,6 @@ window.attachFileActionHandlers = function () {
       const fileId = container.dataset.fileId;
       const menu = menuItem.closest(".dropdown-menu");
 
-      // Close menu
       if (menu) {
         menu.style.display = "none";
         container.classList.remove("active");
@@ -741,7 +722,6 @@ window.attachFileActionHandlers = function () {
       return;
     }
 
-    // Close menus when clicking outside
     if (!fileActions && !threeDots && !menuItem) {
       document.querySelectorAll(".file-menu").forEach((menu) => {
         menu.style.display = "none";
@@ -866,7 +846,6 @@ function addModalCSS() {
 
   const css = `
     <style id="home-modal-css">
-      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
@@ -941,7 +920,6 @@ function addModalCSS() {
         padding-top: 0;
       }
 
-      /* File info table styles */
       .file-info-table {
         width: 100%;
         border-collapse: collapse;
@@ -989,7 +967,6 @@ function addDropdownCSS() {
 
   const css = `
     <style id="home-dropdown-css">
-      /* Dropdown styles for filters */
       .custom-dropdown {
         position: relative;
         display: inline-block;
@@ -1058,7 +1035,6 @@ function addRenameModalCSS() {
 
   const css = `
     <style id="rename-modal-css">
-      /* Rename Modal Specific Styles */
       .file-modal {
         position: fixed;
         top: 0;
@@ -1217,7 +1193,6 @@ function addRenameModalCSS() {
         color: var(--text-base);
       }
       
-      /* Toast Notification */
       .toast {
         position: fixed;
         bottom: 24px;
@@ -1262,7 +1237,6 @@ function addDeleteModalCSS() {
 
   const css = `
     <style id="delete-modal-css">
-      /* Delete Modal Specific Styles */
       .delete-modal {
         max-width: 450px;
       }

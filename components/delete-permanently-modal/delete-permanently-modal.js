@@ -49,7 +49,6 @@ class DeletePermanentlyModal {
 
     const css = `
             <style id="delete-permanently-toast-styles">
-                /* Toast Notification */
                 .toast {
                     position: fixed;
                     bottom: 24px;

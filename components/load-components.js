@@ -23,12 +23,10 @@ class ComponentLoader {
       const html = await response.text();
       container.innerHTML = html;
 
-            // Add loaded class and trigger animation
             requestAnimationFrame(() => {
                 container.classList.remove('component-loading');
                 container.classList.add('component-loaded');
 
-                // Trigger fade-in animation with slight delay for smooth effect
                 setTimeout(() => {
                     if (componentName === 'sidebar') {
                         const sidebar = document.getElementById('sidebar');

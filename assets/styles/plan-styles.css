@@ -443,7 +443,6 @@
   }
 
   .card-price {
-    /* flex-direction: column; */
     align-items: center;
     gap: 4px;
   }
@@ -502,14 +501,6 @@
     font-size: 8px;
   }
 }
-
-/* .plan-toggle-section,
-.plan-toggle,
-.toggle-btn {
-  display: flex !important;
-  visibility: visible !important;
-  opacity: 1 !important;
-} */
 
 .storage-header {
   display: flex;
@@ -650,7 +641,6 @@
   display: none !important;
 }
 
-/* Show dropdown menus when parent has active class */
 .custom-dropdown.active .dropdown-menu,
 .help-dropdown.active .dropdown-menu,
 .help-dropdown.active .help-menu,
@@ -659,7 +649,6 @@
   display: block !important;
 }
 
-/* Ensure help-menu and profile-menu are hidden by default */
 .help-dropdown .help-menu,
 .profile-dropdown .profile-menu {
   display: none !important;

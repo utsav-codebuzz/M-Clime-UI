@@ -222,7 +222,6 @@
   }
 }
 
-/* Header Styles */
 .storage-header {
   display: flex;
   justify-content: space-between;
@@ -362,7 +361,6 @@
   display: none !important;
 }
 
-/* Show dropdown menus when parent has active class */
 .custom-dropdown.active .dropdown-menu,
 .help-dropdown.active .dropdown-menu,
 .help-dropdown.active .help-menu,
@@ -371,7 +369,6 @@
   display: block !important;
 }
 
-/* Ensure help-menu and profile-menu are hidden by default */
 .help-dropdown .help-menu,
 .profile-dropdown .profile-menu {
   display: none !important;

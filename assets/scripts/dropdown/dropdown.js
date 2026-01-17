@@ -24,9 +24,6 @@ document.addEventListener(
     const isClickInsideDropdown =
       activeDropdown && e.target.closest(".dropdown-menu");
 
-    /* ===========================
-     OPEN DROPDOWN
-  ============================ */
     if (dropdownBtn) {
       e.stopPropagation();
       e.preventDefault();
@@ -63,9 +60,6 @@ document.addEventListener(
       return;
     }
 
-    /* ===========================
-     NORMAL DROPDOWN ITEMS (li)
-  ============================ */
     if (dropdownItem && dropdownItem.closest(".custom-dropdown")) {
       e.stopPropagation();
 
@@ -92,9 +86,6 @@ document.addEventListener(
       return;
     }
 
-    /* ===========================
-     SORT BY (CUSTOM DESIGN)
-  ============================ */
     if (sortItem) {
       e.stopPropagation();
 
@@ -120,10 +111,6 @@ document.addEventListener(
       return;
     }
 
-    /* ===========================
-     FILE THREE DOTS MENU
-     Only handle if not already handled by page-specific handlers
-  ============================ */
     if (threeDots) {
       const container = threeDots.closest(".file-actions");
       if (!container) return;
@@ -160,10 +147,6 @@ document.addEventListener(
       }
     }
 
-    /* ===========================
-     CLICK OUTSIDE → CLOSE ALL
-     Only close if not clicking inside an active dropdown menu
-  ============================ */
     if (
       !isClickInsideDropdown &&
       !dropdownBtn &&

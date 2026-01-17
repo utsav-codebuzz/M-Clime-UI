@@ -68,7 +68,6 @@ function addDropdownCSS() {
 
     const css = `
     <style id="bin-dropdown-css">
-      /* Dropdown styles for filters */
       .custom-dropdown {
         position: relative;
         display: inline-block;
