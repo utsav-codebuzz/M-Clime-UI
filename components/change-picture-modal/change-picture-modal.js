@@ -1,16 +1,18 @@
 let isFilePickerOpen = false;
 let changePictureHandler = null;
+window.addEventListener("focus", () => {
+  isFilePickerOpen = false;
+});
 
 function initChangePictureModal() {
   const modal = document.getElementById("changePictureModal");
-  if (!modal) {
-    return;
-  }
+  if (!modal) return;
 
   const closeBtn = document.getElementById("closeChangePictureModal");
   const cameraOption = document.getElementById("cameraOption");
   const galleryOption = document.getElementById("galleryOption");
   const avatarOption = document.getElementById("avatarOption");
+  const cameraUpload = document.getElementById("cameraUpload");
   const imageUpload = document.getElementById("imageUpload");
   const profileImagePreview = document.getElementById("profileImagePreview");
   const mainProfileImage = document.querySelector(".edit-profile");
@@ -53,8 +55,18 @@ function initChangePictureModal() {
   }
 
   if (cameraOption && !cameraOption.dataset.listenerAttached) {
-    cameraOption.addEventListener("click", () => {
-      alert("Camera access can be implemented using capture attribute.");
+    cameraOption.addEventListener("click", (e) => {
+      e.stopPropagation();
+
+      if (!cameraUpload || isFilePickerOpen) return;
+
+      isFilePickerOpen = true;
+      closeChangePictureModal();
+
+      setTimeout(() => {
+        cameraUpload.value = "";
+        cameraUpload.click();
+      }, 150);
     });
     cameraOption.dataset.listenerAttached = "true";
   }
@@ -89,6 +101,11 @@ function initChangePictureModal() {
     imageUpload.dataset.listenerAttached = "true";
   }
 
+  if (cameraUpload && !cameraUpload.dataset.listenerAttached) {
+    cameraUpload.addEventListener("change", handleImageUpload);
+    cameraUpload.dataset.listenerAttached = "true";
+  }
+
   function handleImageUpload(e) {
     isFilePickerOpen = false;
 
@@ -114,17 +131,11 @@ function initChangePictureModal() {
   }
 
   function updateProfileImage(imageUrl) {
-    if (profileImagePreview) {
-      profileImagePreview.src = imageUrl;
-    }
+    if (profileImagePreview) profileImagePreview.src = imageUrl;
+    if (mainProfileImage) mainProfileImage.src = imageUrl;
 
-    if (mainProfileImage) {
-      mainProfileImage.src = imageUrl;
-    }
-
-    if (imageUpload) {
-      imageUpload.value = "";
-    }
+    if (imageUpload) imageUpload.value = "";
+    if (cameraUpload) cameraUpload.value = "";
   }
 }
 
@@ -135,9 +146,7 @@ function openChangePictureModal() {
   modal.style.display = "flex";
   document.body.style.overflow = "hidden";
 
-  if (feather) {
-    feather.replace();
-  }
+  if (window.feather) feather.replace();
 }
 
 function closeChangePictureModal() {
