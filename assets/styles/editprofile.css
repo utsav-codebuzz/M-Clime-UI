@@ -404,7 +404,6 @@ Show dropdown menus when parent has active class
   }
 
   .auth-header .auth-header-right button {
-    width: 100%;
     justify-content: center;
   }
 
