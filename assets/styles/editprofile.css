@@ -248,7 +248,6 @@ Show dropdown menus when parent has active class
   display: block !important;
 }
 
-/* Ensure help-menu and profile-menu are hidden by default */
 .help-dropdown .help-menu,
 .profile-dropdown .profile-menu {
   display: none !important;

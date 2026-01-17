@@ -702,7 +702,6 @@ function addModalCSS() {
 
   const css = `
     <style id="bin-modal-css">
-      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
@@ -777,7 +776,6 @@ function addModalCSS() {
         padding-top: 0;
       }
 
-      /* File info table styles */
       .file-info-table {
         width: 100%;
         border-collapse: collapse;
@@ -825,7 +823,6 @@ function addDropdownCSS() {
 
   const css = `
     <style id="bin-dropdown-css">
-      /* Dropdown styles for filters */
       .custom-dropdown {
         position: relative;
         display: inline-block;

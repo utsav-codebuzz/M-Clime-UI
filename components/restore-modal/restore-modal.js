@@ -49,7 +49,6 @@ class RestoreModal {
 
     const css = `
             <style id="restore-toast-styles">
-                /* Toast Notification */
                 .toast {
                     position: fixed;
                     bottom: 24px;

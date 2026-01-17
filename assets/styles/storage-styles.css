@@ -211,7 +211,6 @@
   display: none !important;
 }
 
-/* Show dropdown menus when parent has active class */
 .custom-dropdown.active .dropdown-menu,
 .help-dropdown.active .dropdown-menu,
 .help-dropdown.active .help-menu,
@@ -220,7 +219,6 @@
   display: block !important;
 }
 
-/* Ensure header dropdowns have higher z-index than filter dropdowns */
 .help-dropdown.active .dropdown-menu,
 .help-dropdown.active .help-menu,
 .profile-dropdown.active .dropdown-menu,
@@ -228,13 +226,11 @@
   z-index: 10001 !important;
 }
 
-/* Ensure help-menu and profile-menu are hidden by default */
 .help-dropdown .help-menu,
 .profile-dropdown .profile-menu {
   display: none !important;
 }
 
-/* File menu should be hidden by default but shown when file-actions is active */
 .dropdown-menu.file-menu {
   display: none !important;
 }
@@ -437,7 +433,6 @@
 }
 
 .view_detils:hover {
-  /* background-color: var(--primary-dark); */
   transform: translateY(-1px);
   box-shadow: 0 3px 8px rgba(58, 129, 228, 0.3);
 }
@@ -678,7 +673,6 @@
   opacity: 1;
 }
 
-/* Files table styles */
 .storage-files {
   margin-top: 18px;
   border-radius: 14px;

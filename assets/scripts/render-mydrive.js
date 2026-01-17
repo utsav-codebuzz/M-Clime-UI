@@ -1020,7 +1020,6 @@ function addModalCSS() {
 
   const css = `
     <style id="mydrive-modal-css">
-      /* Modal Styles */
       .modal {
         display: none;
         position: fixed;
@@ -1095,7 +1094,6 @@ function addModalCSS() {
         padding-top: 0;
       }
 
-      /* File info table styles */
       .file-info-table {
         width: 100%;
         border-collapse: collapse;
@@ -1143,7 +1141,6 @@ function addDropdownCSS() {
 
   const css = `
     <style id="mydrive-dropdown-css">
-      /* Dropdown styles for filters */
       .custom-dropdown {
         position: relative;
         display: inline-block;
@@ -1212,7 +1209,6 @@ function addRenameModalCSS() {
 
   const css = `
     <style id="rename-modal-css">
-      /* Rename Modal Specific Styles */
       .file-modal {
         position: fixed;
         top: 0;
@@ -1371,7 +1367,6 @@ function addRenameModalCSS() {
         color: var(--text-base);
       }
       
-      /* Toast Notification */
       .toast {
         position: fixed;
         bottom: 24px;
@@ -1416,7 +1411,6 @@ function addDeleteModalCSS() {
 
   const css = `
     <style id="delete-modal-css">
-      /* Delete Modal Specific Styles */
       .delete-modal {
         max-width: 450px;
       }

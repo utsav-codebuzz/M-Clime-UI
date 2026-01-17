@@ -494,7 +494,6 @@ function addDropdownCSS() {
         background: #f0f0f0;
       }
 
-      /* Sort dropdown specific */
       .sort-left {
         display: flex;
         flex-direction: column;
