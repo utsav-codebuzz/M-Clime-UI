@@ -503,13 +503,13 @@
   }
 }
 
-.plan-toggle-section,
+/* .plan-toggle-section,
 .plan-toggle,
 .toggle-btn {
   display: flex !important;
   visibility: visible !important;
   opacity: 1 !important;
-}
+} */
 
 .storage-header {
   display: flex;
