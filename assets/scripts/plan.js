@@ -24,28 +24,28 @@ function initPlanPage() {
         });
     });
 
-    const planBtns = document.querySelectorAll('.card-btn[data-plan]');
-    planBtns.forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            e.preventDefault();
+    // const planBtns = document.querySelectorAll('.card-btn[data-plan]');
+    // planBtns.forEach(btn => {
+    //     btn.addEventListener('click', function (e) {
+    //         e.preventDefault();
 
-            const plan = this.dataset.plan;
-            const activeToggle = document.querySelector('.toggle-btn.active');
-            const period = activeToggle ? activeToggle.dataset.period : 'monthly';
+    //         const plan = this.dataset.plan;
+    //         const activeToggle = document.querySelector('.toggle-btn.active');
+    //         const period = activeToggle ? activeToggle.dataset.period : 'monthly';
 
-            this.classList.add('loading');
+    //         this.classList.add('loading');
 
-            setTimeout(() => {
-                this.classList.remove('loading');
+    //         setTimeout(() => {
+    //             this.classList.remove('loading');
 
-                if (plan === 'enterprise') {
-                    window.location.href = '/contact?plan=enterprise';
-                } else {
-                    window.location.href = `/checkout?plan=${plan}&period=${period}`;
-                }
-            }, 1000);
-        });
-    });
+    //             if (plan === 'enterprise') {
+    //                 window.location.href = '/contact?plan=enterprise';
+    //             } else {
+    //                 window.location.href = `/checkout?plan=${plan}&period=${period}`;
+    //             }
+    //         }, 1000);
+    //     });
+    // });
 }
 
 function updatePrices(period) {
