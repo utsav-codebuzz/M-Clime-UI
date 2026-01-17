@@ -90,7 +90,11 @@
                   </ul>
                 </div>
 
-                <div class="custom-dropdown" data-filter="sort" id="sortDropdown">
+                <div
+                  class="custom-dropdown"
+                  data-filter="sort"
+                  id="sortDropdown"
+                >
                   <button class="dropdown-btn" id="sortButton">
                     <span>Sort By</span>
                     <img src="assets/images/arrow-down.svg" />
@@ -116,7 +120,9 @@
                       </div>
                       <div class="sort-item custom-trigger" data-value="custom">
                         Custom Date
-                        <span class="arrow"><img src="assets/images/arrow-down.svg" /></span>
+                        <span class="arrow"
+                          ><img src="assets/images/arrow-down.svg"
+                        /></span>
                       </div>
                     </div>
 
@@ -125,19 +131,37 @@
                       <div class="date-input-wrapper">
                         <label for="startDate">Start Date</label>
                         <div class="date-input-container">
-                          <input type="date" class="date-input" id="startDate" placeholder="Start Date"/>
-                          <img src="assets/images/storage/date.svg" alt="date" />
+                          <input
+                            type="date"
+                            class="date-input"
+                            id="startDate"
+                            placeholder="Start Date"
+                          />
+                          <img
+                            src="assets/images/storage/date.svg"
+                            alt="date"
+                          />
                         </div>
                       </div>
                       <div class="date-input-wrapper">
                         <label for="endDate">End Date</label>
                         <div class="date-input-container">
-                          <input type="date" class="date-input" id="endDate" placeholder="End Date"/>
-                          <img src="assets/images/storage/date.svg" alt="date" />
+                          <input
+                            type="date"
+                            class="date-input"
+                            id="endDate"
+                            placeholder="End Date"
+                          />
+                          <img
+                            src="assets/images/storage/date.svg"
+                            alt="date"
+                          />
                         </div>
                       </div>
 
-                      <button class="apply-btn" id="applyCustomDate">Apply</button>
+                      <button class="apply-btn" id="applyCustomDate">
+                        Apply
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -159,7 +183,7 @@
             <div class="page-header">
               <div class="page-header-info">
                 <img src="assets/images/mydrive/figam_wb.svg" alt="" />
-                <p>
+                <p style="font-size: 14px">
                   <span>Cloud Dashboard.fig </span> • <span> 1.5 GB </span> •
                   <span> Sep 28, 2025</span>
                 </p>
@@ -216,10 +240,10 @@
     <script src="components/sidebar/sidebar.js"></script>
     <script src="assets/scripts/dropdown/dropdown.js"></script>
     <script src="components/logout-modal/logout-modal.js"></script>
-    
+
     <!-- Initialize feather icons after components are loaded -->
     <script>
-      document.addEventListener('componentsLoaded', () => {
+      document.addEventListener("componentsLoaded", () => {
         if (feather) {
           feather.replace();
         }
