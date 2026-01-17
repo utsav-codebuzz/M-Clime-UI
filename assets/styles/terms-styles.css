@@ -46,7 +46,7 @@
 .terms-container {
   margin: 0 auto;
   width: 100%;
-  counter-reset: section-counter;
+  counter-reset: section-counter h4-counter;
 }
 
 .terms-container h1 {
@@ -79,8 +79,7 @@
 
 .terms-container h3 {
   position: relative;
-  padding-left: 40px;
-  margin-left: 10px;
+  padding-left: 25px;
   font-weight: 500;
   font-size: 18px;
   line-height: 100%;
@@ -92,25 +91,25 @@
 .terms-container h3::before {
   content: "⮞";
   position: absolute;
-  left: 20px;
+  left: 1px;
   font-weight: bold;
   font-size: 18px;
 }
-
 .terms-container h4 {
   position: relative;
   padding-left: 50px;
-  margin-left: 20px;
+
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
   color: var(--text-base);
   margin-top: 15px;
   margin-bottom: 10px;
+  counter-increment: h4-counter;
 }
 
 .terms-container h4::before {
-  content: "›";
+  content: counter(h4-counter) ".";
   position: absolute;
   left: 30px;
   font-weight: bold;
@@ -201,7 +200,6 @@
 
 .terms-container h3 + ul > li,
 .terms-container h4 + ul > li {
-  position: relative;
   padding-left: 30px;
   counter-increment: list-counter;
   margin-bottom: 10px;
@@ -233,7 +231,18 @@
   .terms-container h1 {
     font-size: 24px;
   }
+  .terms-container h4 {
+    font-size: 15px;
+    padding-left: 60px;
+    margin-left: 15px;
+    margin-top: 15px;
+    margin-bottom: 8px;
+  }
 
+  .terms-container h4::before {
+    left: 25px;
+    font-size: 15px;
+  }
   .terms-container h2 {
     font-size: 18px;
     margin-top: 25px;
@@ -313,7 +322,18 @@
   .terms-wrapper {
     padding: 16px;
   }
+  .terms-container h4 {
+    padding-left: 55px;
+    font-size: 14px;
+    margin-left: 10px;
+    margin-top: 12px;
+    margin-bottom: 6px;
+  }
 
+  .terms-container h4::before {
+    left: 20px;
+    font-size: 14px;
+  }
   .terms-container h1 {
     font-size: 20px;
     margin-bottom: 16px;
