@@ -760,8 +760,7 @@ header .profile-menu {
 }
 
 @media (max-width: 768px) {
-  .storage-left,
-  .storage-info {
+  .storage-header a {
     display: none !important;
   }
 
