@@ -669,7 +669,7 @@ header .profile-menu {
   }
 
   .toggle-btn {
-    display: none;
+    display: none !important;
   }
 
   .sidebar-upgrade {
