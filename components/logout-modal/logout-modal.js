@@ -42,21 +42,21 @@ class LogoutModal {
 
   createModal() {
     const modalHTML = `
-            <div class="logout-modal-overlay" id="logoutModal" style="display: none;">
-                <div class="logout-modal">
-                    <div class="logout-modal-header">
-                        <h3>Log Out</h3>
-                        <p>Are you sure want to logout this account ?</p>
-                    </div>
-                    
-                    <div class="logout-modal-actions">
-                        <button class="logout-modal-btn cancel-btn" id="cancelLogout">Cancel</button>
-                        <button class="logout-modal-btn confirm-btn" id="confirmLogout">Yes</button>
-                    </div>
-                </div>
-            </div>
-        `;
+    <div class="logout-modal-overlay" id="logoutModal" style="display: none;">
+      <div class="logout-modal">
+        <div class="logout-modal-header">
+          <h3>Log Out</h3>
+          <button class="logout-close-btn" id="closeLogout" aria-label="Close"><i data-feather="x"></i></button>
+          <p>Are you sure want to logout this account ?</p>
+        </div>
 
+        <div class="logout-modal-actions">
+          <button class="logout-modal-btn cancel-btn" id="cancelLogout">Cancel</button>
+          <button class="logout-modal-btn confirm-btn" id="confirmLogout">Yes</button>
+        </div>
+      </div>
+    </div>
+  `;
     document.body.insertAdjacentHTML("beforeend", modalHTML);
   }
 
@@ -86,6 +86,12 @@ class LogoutModal {
     if (cancelBtn) {
       this.cancelHandler = () => this.hideModal();
       cancelBtn.addEventListener("click", this.cancelHandler);
+    }
+
+    const closeBtn = document.getElementById("closeLogout");
+    if (closeBtn) {
+      this.closeHandler = () => this.hideModal();
+      closeBtn.addEventListener("click", this.closeHandler);
     }
 
     const confirmBtn = document.getElementById("confirmLogout");

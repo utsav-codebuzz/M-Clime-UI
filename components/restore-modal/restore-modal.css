@@ -4,12 +4,11 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: #00000033;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  backdrop-filter: blur(2px);
 }
 
 .restore-modal {
@@ -84,7 +83,7 @@
 .restore-modal-actions {
   display: flex;
   gap: 16px;
-  margin-top: 32px;
+  margin-top: 24px;
   justify-content: end;
 }
 
@@ -103,24 +102,29 @@
 
 .restore-modal-btn.cancel-btn {
   background: transparent;
-  color: #0000ff;
+  color: var(--text-base);
   border: 0;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
   font-family: var(--outfit);
+  padding: 10px 25px;
+  width: 100%;
+  max-width: max-content;
 }
 
 .restore-modal-btn.confirm-btn {
-  background: #10b981;
+  background: #0000ff;
   color: white;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
   border-radius: 100px;
-  padding: 8px;
+  padding: 10px 25px;
+  width: 100%;
+  max-width: max-content;
 }
 
 .restore-modal-btn.confirm-btn:hover {
-  background: #059669;
+  background: #0000e6;
 }

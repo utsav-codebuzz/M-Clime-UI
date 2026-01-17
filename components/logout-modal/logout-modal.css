@@ -4,18 +4,17 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background: #00000033;
   display: flex;
   justify-content: center;
   align-items: center;
   z-index: 9999;
-  backdrop-filter: blur(2px);
 }
 
 .logout-modal {
   background: white;
   border-radius: 16px;
-  padding: 40px;
+  padding: 30px;
   max-width: 500px;
   width: 100%;
   text-align: center;
@@ -35,10 +34,30 @@
   }
 }
 
+.logout-modal-header {
+  position: relative;
+}
+
+.logout-close-btn {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #707070;
+  display: flex;
+  align-items: center;
+}
+
+.logout-close-btn:hover {
+  color: #707070ce;
+}
+
 .logout-modal-header h3 {
-  font-size: 24px;
-  font-weight: 600;
-  color: #2d3748;
+  font-size: 20px;
+  font-weight: 400;
+  color: var(--text-base);
   margin: 0 0 12px 0;
   text-align: start;
 }
@@ -54,7 +73,7 @@
 .logout-modal-actions {
   display: flex;
   gap: 16px;
-  margin-top: 32px;
+  margin-top: 24px;
   justify-content: end;
 }
 
@@ -73,12 +92,15 @@
 
 .cancel-btn {
   background: transparent;
-  color: #0000ff;
+  color: var(--text-base);
   border: 0;
   font-weight: 500;
   font-size: 16px;
   line-height: 100%;
   font-family: var(--outfit);
+  padding: 10px 25px;
+  width: 100%;
+  max-width: max-content;
 }
 
 .confirm-btn {
@@ -88,5 +110,7 @@
   font-size: 16px;
   line-height: 100%;
   border-radius: 100px;
-  padding: 8px 24px;
+  padding: 10px 25px;
+  width: 100%;
+  max-width: max-content;
 }

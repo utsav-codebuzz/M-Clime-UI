@@ -1,6 +1,61 @@
 let starredCurrentView = "grid";
 let modalInitialized = false;
 
+function showFileInfoModal(fileId) {
+  const file = window.binFilesData.find((f) => f.id == fileId);
+  if (!file) {
+    return;
+  }
+
+  const modalContent = `
+    <table class="file-info-table">
+      <tr>
+        <td class="file-info-label">File Name</td>
+        <td class="file-info-value">${file.name}</td>
+      </tr>
+      <tr>
+        <td class="file-info-label">Category</td>
+        <td class="file-info-value">${file.category || "File"}</td>
+      </tr>
+      <tr>
+        <td class="file-info-label">Type</td>
+        <td class="file-info-value">${file.type || "Type"}</td>
+      </tr>
+      <tr>
+        <td class="file-info-label">Size</td>
+        <td class="file-info-value">${file.size || "N/A"}</td>
+      </tr>
+      <tr>
+        <td class="file-info-label">Uploaded</td>
+        <td class="file-info-value">${file.uploaded || "N/A"}</td>
+      </tr>
+      <tr>
+        <td class="file-info-label">Modified</td>
+        <td class="file-info-value">${file.modified || "N/A"}</td>
+      </tr>
+    </table>
+  `;
+
+  const fileInfoContent = document.getElementById("fileInfoContent");
+  if (fileInfoContent) {
+    fileInfoContent.innerHTML = modalContent;
+  } else {
+    createModal();
+    setTimeout(() => {
+      const content = document.getElementById("fileInfoContent");
+      if (content) {
+        content.innerHTML = modalContent;
+      }
+    }, 10);
+  }
+
+  const modal = document.getElementById("fileInfoModal");
+  if (modal) {
+    modal.style.display = "flex";
+    document.body.style.overflow = "hidden";
+  }
+}
+
 function initFilterDropdowns() {
   document.addEventListener("click", (e) => {
     if (!e.target.closest(".custom-dropdown")) {
@@ -235,6 +290,94 @@ function applyFilters(filterType, value, customData = null) {
   }
 }
 
+let starredFileActionHandlersAttached = false;
+
+window.attachFileActionHandlers = function () {
+  if (starredFileActionHandlersAttached) return;
+  starredFileActionHandlersAttached = true;
+
+  document.addEventListener("click", function (e) {
+    const threeDots = e.target.closest(".three-dots");
+    const fileActions = e.target.closest(".file-actions");
+    const menuItem = e.target.closest(".file-menu li");
+
+    if (threeDots) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const container = threeDots.closest(".file-actions");
+      if (!container) return;
+
+      const menu = threeDots.nextElementSibling;
+      if (
+        !menu ||
+        !menu.classList.contains("dropdown-menu") ||
+        !menu.classList.contains("file-menu")
+      )
+        return;
+
+      const isOpen =
+        menu.style.display === "block" ||
+        container.classList.contains("active");
+
+      if (isOpen) {
+        menu.style.display = "none";
+        container.classList.remove("active");
+      } else {
+        document.querySelectorAll(".file-menu").forEach((m) => {
+          m.style.display = "none";
+        });
+        document.querySelectorAll(".file-actions").forEach((fa) => {
+          fa.classList.remove("active");
+        });
+
+        menu.style.display = "block";
+        menu.style.position = "absolute";
+        menu.style.left = "auto";
+        menu.style.right = "0";
+        menu.style.top = "100%";
+        menu.style.zIndex = "1000";
+        container.classList.add("active");
+      }
+      return;
+    }
+
+    if (menuItem) {
+      e.stopPropagation();
+      e.preventDefault();
+
+      const container = menuItem.closest(".file-actions");
+      if (!container) return;
+
+      const action = menuItem.dataset.action;
+      const fileId = container.dataset.fileId;
+      const menu = menuItem.closest(".dropdown-menu");
+
+      if (menu) {
+        menu.style.display = "none";
+        container.classList.remove("active");
+      }
+
+      switch (action) {
+        case "file_info":
+          showFileInfoModal(fileId);
+          break;
+        default:
+      }
+      return;
+    }
+
+    if (!fileActions && !threeDots && !menuItem) {
+      document.querySelectorAll(".file-menu").forEach((menu) => {
+        menu.style.display = "none";
+      });
+      document.querySelectorAll(".file-actions").forEach((fa) => {
+        fa.classList.remove("active");
+      });
+    }
+  });
+};
+
 function renderGridViewStarred() {
   const filesContainer = document.getElementById("filesContainer");
   if (!filesContainer) {
@@ -278,8 +421,9 @@ function renderGridViewStarred() {
               />
 
               <ul class="dropdown-menu file-menu">
-                <li data-action="restore"><img src="assets/images/common/action/info.svg" alt="restore"/>Restore</li>
-                <li data-action="delete" class="danger"><img src="assets/images/common/action/delete.svg" alt="delete"/>Delete Permanently</li>
+                <li data-action="file_info"><img src="assets/images/common/action/info.svg" alt="info"/>File Information</li>
+                <li data-action="restore"><img src="assets/images/common/action/restore.svg" alt="restore"/>Restore</li>
+                <li data-action="delete" class="danger"><img src="assets/images/common/action/delete.svg" alt="delete"/>Permanent Delete</li>
               </ul>
             </div>
           </div>
@@ -343,8 +487,8 @@ function renderListViewStarred() {
       </thead>
       <tbody>
         ${window.binFilesData
-          .map(
-            (file) => `
+      .map(
+        (file) => `
           <tr class="file-row" data-file-id="${file.id}">
             <td class="td-name">
               <div class="file-info-cell">
@@ -364,16 +508,15 @@ function renderListViewStarred() {
             <td class="td-size">${file.size}</td>
             <td class="td-actions">
               <div class="action-buttons">
-               ${
-                 file.isStarred
-                   ? `
+               ${file.isStarred
+            ? `
 <button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/star.svg" alt="info" width="16" height="16">
                 </button>                  `
-                   : `<button class="action-btn info-btn" title="Info">
+            : `<button class="action-btn info-btn" title="Info">
                   <img src="assets/images/home/inactive_star.svg" alt="info" width="16" height="16">
                 </button>`
-               }
+          }
                 
                 <div class="file-actions" data-file-id="${file.id}">
                   <img
@@ -383,7 +526,8 @@ function renderListViewStarred() {
                   />
 
                   <ul class="dropdown-menu file-menu">
-                    <li data-action="restore"><img src="assets/images/common/action/info.svg" alt="restore"/>Restore</li>
+                    <li data-action="file_info"><img src="assets/images/common/action/info.svg" alt="info"/>File Information</li>
+                    <li data-action="restore"><img src="assets/images/common/action/restore.svg" alt="restore"/>Restore</li>
                     <li data-action="delete" class="danger"><img src="assets/images/common/action/delete.svg" alt="delete"/>Delete Permanently</li>
                   </ul>
                 </div>
@@ -391,8 +535,8 @@ function renderListViewStarred() {
             </td>
           </tr>
         `
-          )
-          .join("")}
+      )
+      .join("")}
       </tbody>
     </table>
   `;
@@ -431,7 +575,92 @@ function initViewToggleStarred() {
   }
 }
 
+function closeFileInfoModal() {
+  const modal = document.getElementById("fileInfoModal");
+  if (modal) {
+    modal.style.display = "none";
+    document.body.style.overflow = "auto";
+  }
+}
+
+function createModal() {
+  if (document.getElementById("fileInfoModal")) {
+    return;
+  }
+
+  const modalHTML = `
+    <div id="fileInfoModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>File Information</h3>
+          <span class="modal-close">&times;</span>
+        </div>
+        <div class="modal-body" id="fileInfoContent">
+        </div>
+      </div>
+    </div>
+  `;
+
+  document.body.insertAdjacentHTML("beforeend", modalHTML);
+
+  initModalEvents();
+}
+
+function initModalEvents() {
+  if (modalInitialized) {
+    return;
+  }
+
+  document.addEventListener("click", function (e) {
+    const link = e.target.closest(".profile-menu a");
+
+    if (link) {
+      window.location.href = link.href;
+    }
+
+    if (e.target.classList.contains("modal-close")) {
+      e.preventDefault();
+      e.stopPropagation();
+      closeFileInfoModal();
+      return;
+    }
+
+    const modal = document.getElementById("fileInfoModal");
+    if (modal && e.target === modal) {
+      closeFileInfoModal();
+    }
+  });
+
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") {
+      const modal = document.getElementById("fileInfoModal");
+      if (modal && modal.style.display === "flex") {
+        closeFileInfoModal();
+      }
+    }
+  });
+
+  setTimeout(() => {
+    const closeBtn = document.querySelector(".modal-close");
+    if (closeBtn) {
+      closeBtn.addEventListener("click", function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        closeFileInfoModal();
+      });
+    }
+  }, 100);
+
+  modalInitialized = true;
+}
+
 function initializeBin() {
+  if (!document.getElementById("fileInfoModal")) {
+    createModal();
+  } else {
+    initModalEvents();
+  }
+
   initViewToggleStarred();
 
   const filesContainer = document.getElementById("filesContainer");
@@ -467,6 +696,129 @@ document.addEventListener("DOMContentLoaded", function () {
 window.initStarred = function () {
   initializeBin();
 };
+
+function addModalCSS() {
+  if (document.getElementById("bin-modal-css")) return;
+
+  const css = `
+    <style id="bin-modal-css">
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background: #00000033;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .modal-content {
+        background: white;
+        border-radius: 8px;
+        width: 90%;
+        max-width: 500px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        animation: modalSlideIn 0.3s ease-out;
+        position: relative;
+      }
+
+      @keyframes modalSlideIn {
+        from {
+          opacity: 0;
+          transform: translateY(-20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 24px;
+      }
+
+      .modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 400;
+        color: var(--text-base);
+        font-family: var(--outfit);
+      }
+
+      .modal-close {
+        font-size: 28px;
+        cursor: pointer;
+        color: #6b7280;
+        line-height: 1;
+        background: none;
+        border: none;
+        padding: 0;
+        width: 30px;
+        height: 30px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: color 0.2s;
+      }
+
+      .modal-close:hover {
+        color: #111827;
+      }
+
+      .modal-body {
+        padding: 24px;
+        padding-top: 0;
+      }
+
+      /* File info table styles */
+      .file-info-table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      .file-info-table tbody {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .file-info-table tr {
+        border-bottom: 0;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .file-info-table tr:last-child {
+        border-bottom: none;
+      }
+
+      .file-info-label {
+        font-weight: 400;
+        color: var(--text-base);
+        padding: 0 0 5px;
+        vertical-align: top;
+        font-family: var(--outfit);
+        font-size: 16px;
+      }
+        
+        .file-info-value {
+          color: #707070;
+          font-weight: 400;
+          font-family: var(--outfit);
+          font-size: 14px;
+      }
+    </style>
+  `;
+
+  document.head.insertAdjacentHTML("beforeend", css);
+}
 
 function addDropdownCSS() {
   if (document.getElementById("bin-dropdown-css")) return;
@@ -531,14 +883,6 @@ function addDropdownCSS() {
         width: 16px;
         height: 16px;
       }
-
-      .dropdown-menu li.danger {
-        color: #dc2626;
-      }
-
-      .dropdown-menu li.danger:hover {
-        background: #fee2e2;
-      }
     </style>
   `;
 
@@ -546,3 +890,4 @@ function addDropdownCSS() {
 }
 
 addDropdownCSS();
+addModalCSS();

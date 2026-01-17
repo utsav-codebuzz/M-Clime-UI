@@ -138,7 +138,7 @@ class DeletePermanentlyModal {
                     
                     <div class="delete-permanently-modal-actions">
                         <button class="delete-permanently-modal-btn cancel-btn" id="cancelDeletePermanently">Cancel</button>
-                        <button class="delete-permanently-modal-btn confirm-btn" id="confirmDeletePermanently">Delete Permanently</button>
+                        <button class="delete-permanently-modal-btn confirm-btn" id="confirmDeletePermanently">Delete</button>
                     </div>
                 </div>
             </div>
