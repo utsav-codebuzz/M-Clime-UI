@@ -1060,7 +1060,7 @@ function addModalCSS() {
 
       .modal-content {
         background: white;
-        border-radius: 8px;
+        border-radius: 16px;
         width: 90%;
         max-width: 500px;
         box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
@@ -1172,7 +1172,7 @@ function addDropdownCSS() {
       }
 
       .dropdown-btn {
-        background: white;
+        background: transparent;
         border: 1px solid #ddd;
         border-radius: 4px;
         padding: 8px 12px;
@@ -1469,7 +1469,7 @@ function addDeleteModalCSS() {
         background: #dc2626;
         color: white;
         padding: 10px 20px;
-        border-radius: 8px;
+        border-radius: 100px;
         font-size: 14px;
         font-weight: 500;
         cursor: pointer;

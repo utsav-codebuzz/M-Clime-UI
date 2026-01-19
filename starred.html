@@ -153,28 +153,37 @@
 
           <div class="page-header">
             <div class="page-header-info">
-              <img src="assets/images/mydrive/figam_wb.svg" alt="" />
-              <p style="font-size: 14px">
-                <span>Cloud Dashboard.fig </span> • <span> 1.5 GB </span> •
-                <span> Sep 28, 2025</span>
+              <img src="assets/images/mydrive/figam_wb.svg" alt="Figma file icon" />
+              <p class="header-file-info">
+                <span class="">Cloud Dashboard.fig</span>
+                <span class="separator">•</span>
+                <span class="file-size">1.5 GB</span>
+                <span class="separator">•</span>
+                <span class="">Sep 28, 2025</span>
               </p>
-              <button class="view_detils">
-                <img src="assets/images/mydrive/search_docs.svg" alt="search" width="16" height="16" />
+              <button class="view_detils" aria-label="View file details">
+                <img src="assets/images/mydrive/search_docs.svg" alt="" width="16" height="16" aria-hidden="true" />
                 View Details
               </button>
             </div>
             <div class="action_images" role="toolbar" aria-label="File actions">
-              <button class="action-btn" data-tooltip="Download">
-                <img src="assets/images/mydrive/download.svg" width="28" height="28" />
+              <button class="view_detils mobile_view_details" aria-label="View file details">
+                <img src="assets/images/mydrive/search_docs.svg" alt="" width="16" height="16" aria-hidden="true" />
+                View Details
               </button>
+              <div class="sub_action">
+                <button class="action-btn" data-tooltip="Download">
+                  <img src="assets/images/mydrive/download.svg" width="28" height="28" />
+                </button>
 
-              <button class="action-btn" data-tooltip="Rename">
-                <img src="assets/images/mydrive/rename.svg" width="28" height="28" />
-              </button>
+                <button class="action-btn" data-tooltip="Rename">
+                  <img src="assets/images/mydrive/rename.svg" width="28" height="28" />
+                </button>
 
-              <button class="action-btn" data-tooltip="Delete">
-                <img src="assets/images/mydrive/delete.svg" width="28" height="28" />
-              </button>
+                <button class="action-btn" data-tooltip="Delete">
+                  <img src="assets/images/mydrive/delete.svg" width="28" height="28" />
+                </button>
+              </div>
             </div>
           </div>
           <div class="files-grid" id="filesContainer"></div>
