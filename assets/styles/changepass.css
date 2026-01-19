@@ -492,3 +492,56 @@
 .input-error {
   border-color: #dc2626 !important;
 }
+
+@media (max-width: 768px) {
+  .changepass-wrapper {
+    padding: 20px;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card {
+    padding: 30px 20px 20px;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card h6 {
+    font-size: 28px;
+  }
+
+  .auth-header {
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  .changepass-wrapper {
+    padding: 15px;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card {
+    padding: 20px 8px 15px;
+    border-radius: 20px;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper .icon {
+    left: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper .icon img {
+    width: 18px;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card .input-wrapper .form-control{
+    font-size: 14px;
+    padding: 12px 12px 12px 35px;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card .password-toggle {
+    right: 12px;
+  }
+
+  .changepass-wrapper .auth-wrapper .auth-box .auth-card .password-toggle img {
+    width: 18px;
+  }
+}

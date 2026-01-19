@@ -239,8 +239,7 @@
   }
 }
 
-Show dropdown menus when parent has active class
-.custom-dropdown.active .dropdown-menu,
+Show dropdown menus when parent has active class .custom-dropdown.active .dropdown-menu,
 .help-dropdown.active .dropdown-menu,
 .help-dropdown.active .help-menu,
 .profile-dropdown.active .dropdown-menu,
@@ -361,18 +360,6 @@ Show dropdown menus when parent has active class
 }
 
 @media (max-width: 991px) {
-  .auth-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 16px;
-  }
-
-  .auth-header .auth-header-right {
-    width: 100%;
-    justify-content: flex-end;
-    gap: 12px;
-  }
-
   .editprofile-wrapper .auth-medal .picture-info {
     gap: 24px;
   }
@@ -383,7 +370,6 @@ Show dropdown menus when parent has active class
 }
 
 @media (max-width: 768px) {
-
   .main-card,
   .editprofile-wrapper {
     padding: 20px;
@@ -396,11 +382,6 @@ Show dropdown menus when parent has active class
 
   .auth-header .auth-header-left p {
     font-size: 15px;
-  }
-
-  .auth-header .auth-header-right {
-    flex-wrap: wrap;
-    width: 100%;
   }
 
   .auth-header .auth-header-right button {
@@ -423,7 +404,6 @@ Show dropdown menus when parent has active class
 }
 
 @media (max-width: 480px) {
-
   .main-card,
   .editprofile-wrapper {
     padding: 16px;
@@ -447,5 +427,19 @@ Show dropdown menus when parent has active class
   .dropdown-menu li {
     font-size: 13px;
     padding: 10px 12px;
+  }
+
+  .auth-header{
+    flex-wrap: wrap;
+    gap: 15px;
+  }
+
+  .auth-header .auth-header-right {
+    justify-content: flex-start;
+  }
+
+  .editprofile-wrapper .auth-medal .picture-info .picture-btn {
+    flex-wrap: wrap;
+    gap: 10px;
   }
 }

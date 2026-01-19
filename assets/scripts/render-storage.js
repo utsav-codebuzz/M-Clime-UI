@@ -431,7 +431,7 @@ function addDropdownCSS() {
       }
 
       .dropdown-btn {
-        background: white;
+        background: transparent;
         border: 1px solid #ddd;
         border-radius: 10px;
         padding: 8px 12px;
