@@ -132,13 +132,13 @@
   justify-content: center;
 }
 
-.toggle-btn.active {
+.plan-toggle .toggle-btn.active {
   background: #0000ff;
   color: #ffffff;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.toggle-btn:focus,
+.plan-toggle .toggle-btn:focus,
 .card-btn:focus {
   outline: 2px solid #0000ff;
   outline-offset: 2px;
@@ -392,18 +392,23 @@
   }
 
   .plan-header {
-    margin-bottom: 30px;
+    margin-bottom: 0px;
+  }
+
+  .plan-toggle-section {
+    margin-bottom: 0px;
   }
 
   .plan-toggle {
     max-width: 320px;
   }
 
-  .toggle-btn {
+  .plan-toggle .toggle-btn {
     min-width: 120px;
     padding: 10px 20px;
     font-size: 14px;
     height: 42px;
+    display: flex !important;
   }
 
   .save-badge {
@@ -459,6 +464,7 @@
   .popular-badge {
     font-size: 10px;
     padding: 4px 12px;
+    top: -11px;
   }
 }
 
@@ -471,12 +477,13 @@
     max-width: 280px;
   }
 
-  .toggle-btn {
+  .plan-toggle .toggle-btn {
     width: auto !important;
     min-width: 100px;
     padding: 8px 16px;
     font-size: 13px;
     height: 38px;
+    display: flex !important;
   }
 
   .save-badge {
@@ -490,11 +497,12 @@
     max-width: 260px;
   }
 
-  .toggle-btn {
+  .plan-toggle .toggle-btn {
     min-width: 90px;
     padding: 6px 12px;
     font-size: 12px;
     height: 36px;
+    display: flex !important;
   }
 
   .save-badge {

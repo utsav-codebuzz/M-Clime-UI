@@ -52,28 +52,99 @@
                   <img src="assets/images/home/comment.svg" alt="comment" />
                 </div>
               </div>
-              <h5>
-                Here's a clear and simple explanation of PAN number details with
-                an example 👇
-              </h5>
 
-              <div class="content-section">
-                <h3>What is PAN Card</h3>
-                <p>
-                  A PAN Card (Permanent Account Number) is an official
-                  identification card issued by the Income Tax Department of
-                  India. It contains a unique 10-character alphanumeric code
-                  used to track financial and tax-related activities.
-                </p>
+              <div class="response-content collapsed" id="responseContent">
+                <h5>
+                  Here's a clear and simple explanation of PAN number details with
+                  an example 👇
+                </h5>
 
-                <h3>What is My PAN Number</h3>
-                <p>
-                  A PAN Card (Permanent Account Number) is
-                  <strong class="pan-number">AAAA8888A</strong>. It contains a
-                  unique 10-character alphanumeric code used to track financial
-                  and tax-related activities.
-                </p>
+                <div class="content-section">
+                  <h3>What is PAN Card</h3>
+                  <p>
+                    A PAN Card (Permanent Account Number) is an official
+                    identification card issued by the Income Tax Department of
+                    India. It contains a unique 10-character alphanumeric code
+                    used to track financial and tax-related activities.
+                  </p>
+
+                  <h3>What is My PAN Number</h3>
+                  <p>
+                    A PAN Card number is
+                    <strong class="pan-number">AAAA8888A</strong>. It is used for
+                    tax and financial identification.
+                  </p>
+                </div>
+                <div class="content-section">
+                  <h3>What is PAN Card</h3>
+                  <p>
+                    A PAN Card (Permanent Account Number) is an official
+                    identification card issued by the Income Tax Department of
+                    India. It contains a unique 10-character alphanumeric code
+                    used to track financial and tax-related activities.
+                  </p>
+
+                  <h3>What is My PAN Number</h3>
+                  <p>
+                    A PAN Card number is
+                    <strong class="pan-number">AAAA8888A</strong>. It is used for
+                    tax and financial identification.
+                  </p>
+                </div>
+                <div class="content-section">
+                  <h3>What is PAN Card</h3>
+                  <p>
+                    A PAN Card (Permanent Account Number) is an official
+                    identification card issued by the Income Tax Department of
+                    India. It contains a unique 10-character alphanumeric code
+                    used to track financial and tax-related activities.
+                  </p>
+
+                  <h3>What is My PAN Number</h3>
+                  <p>
+                    A PAN Card number is
+                    <strong class="pan-number">AAAA8888A</strong>. It is used for
+                    tax and financial identification.
+                  </p>
+                </div>
+                <div class="content-section">
+                  <h3>What is PAN Card</h3>
+                  <p>
+                    A PAN Card (Permanent Account Number) is an official
+                    identification card issued by the Income Tax Department of
+                    India. It contains a unique 10-character alphanumeric code
+                    used to track financial and tax-related activities.
+                  </p>
+
+                  <h3>What is My PAN Number</h3>
+                  <p>
+                    A PAN Card number is
+                    <strong class="pan-number">AAAA8888A</strong>. It is used for
+                    tax and financial identification.
+                  </p>
+                </div>
+                <div class="content-section">
+                  <h3>What is PAN Card</h3>
+                  <p>
+                    A PAN Card (Permanent Account Number) is an official
+                    identification card issued by the Income Tax Department of
+                    India. It contains a unique 10-character alphanumeric code
+                    used to track financial and tax-related activities.
+                  </p>
+
+                  <h3>What is My PAN Number</h3>
+                  <p>
+                    A PAN Card number is
+                    <strong class="pan-number">AAAA8888A</strong>. It is used for
+                    tax and financial identification.
+                  </p>
+                </div>
               </div>
+
+              <button class="view-toggle-btn" id="viewToggleBtn">
+                <span>View More</span>
+                <img src="assets/images/arrow-down.svg" alt="arrow" class="toggle-arrow" id="toggleArrow" />
+              </button>
             </div>
 
             <div class="suggested-section" id="suggestedSection">
@@ -143,6 +214,23 @@
           handleSubmit();
         }
       });
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+      const toggleBtn = document.getElementById("viewToggleBtn");
+      const responseContent = document.getElementById("responseContent");
+
+      if (toggleBtn && responseContent) {
+        toggleBtn.addEventListener("click", function () {
+          const isCollapsed = responseContent.classList.contains("collapsed");
+
+          responseContent.classList.toggle("collapsed");
+          toggleBtn.classList.toggle("expanded");
+
+          toggleBtn.querySelector("span").textContent =
+            isCollapsed ? "View Less" : "View More";
+        });
+      }
     });
   </script>
 </body>

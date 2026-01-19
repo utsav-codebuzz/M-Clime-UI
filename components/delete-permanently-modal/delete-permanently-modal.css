@@ -128,3 +128,9 @@
 .delete-permanently-modal-btn.confirm-btn:hover {
   background: #b91c1c;
 }
+
+@media (max-width:480px) {
+  .delete-permanently-modal {
+    margin: 10px;
+  }
+}

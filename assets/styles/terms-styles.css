@@ -88,12 +88,21 @@
   margin-bottom: 10px;
 }
 
+.terms-container h3 {
+  position: relative;
+}
+
 .terms-container h3::before {
-  content: "⮞";
+  content: "";
   position: absolute;
   left: 1px;
-  font-weight: bold;
-  font-size: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 18px;
+  height: 18px;
+  background-image: url("../images/terms-arrow.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 
 .terms-container h4 {

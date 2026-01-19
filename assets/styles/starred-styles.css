@@ -1137,6 +1137,10 @@
 }
 
 @media (max-width: 768px) {
+  .mydrive-content {
+    padding: 20px 20px;
+  }
+
   .files-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 16px;
@@ -1172,6 +1176,10 @@
     width: 95%;
     margin: 10px;
   }
+
+  .view-controls .filters .custom-dropdown .dropdown-btn {
+    min-width: unset;
+  }
 }
 
 @media (max-width: 680px) {
@@ -1204,7 +1212,8 @@
   }
 
   .filters {
-    justify-content: center;
+    justify-content: flex-start;
+    gap: 8px;
   }
 
   .file-thumbnail {
@@ -1223,5 +1232,17 @@
 
   .rename-input-group {
     width: 100%;
+  }
+
+  .mydrive-content {
+    padding: 16px 16px;
+  }
+
+  .view-controls {
+    justify-content: center;
+  }
+
+  .dropdown-menu {
+    left: 0;
   }
 }

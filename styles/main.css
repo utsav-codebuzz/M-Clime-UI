@@ -200,7 +200,7 @@
   }
 
   .sidebar.mobile-open .mobile-close-btn {
-    right: 16px;
+    right: 0px;
     background: rgba(0, 0, 0, 0.05);
   }
 }
@@ -215,6 +215,10 @@
   flex-direction: column;
   justify-content: center;
   gap: 16px;
+}
+
+.mobile-open.collapsed .logo-container {
+  align-items: flex-start;
 }
 
 .sidebar.collapsed .logo-wrapper {
@@ -642,7 +646,7 @@ header .profile-menu {
   .main-content {
     margin-left: 0;
     width: 100%;
-    padding: 12px;
+    padding: 10px;
   }
 
   .main-content.collapsed {
@@ -707,7 +711,7 @@ header .profile-menu {
   }
 
   .main-card {
-    padding: 16px;
+    padding: 10px;
   }
 }
 

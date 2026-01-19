@@ -128,3 +128,9 @@
 .restore-modal-btn.confirm-btn:hover {
   background: #0000e6;
 }
+
+@media (max-width:480px) {
+  .restore-modal{
+    margin: 10px;
+  }
+}

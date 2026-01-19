@@ -302,6 +302,36 @@
   display: none;
 }
 
+.response-content {
+  max-height: none;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.response-content.collapsed {
+  max-height: 180px;
+}
+
+.view-toggle-btn {
+  background: none;
+  border: none;
+  color: #0000ff;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-family: var(--outfit);
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.view-toggle-btn img {
+  transition: transform 0.3s ease;
+  transform: rotate(270deg);
+  filter: brightness(0) saturate(100%) invert(8%) sepia(98%) saturate(6943%) hue-rotate(248deg) brightness(98%) contrast(143%);
+}
+
 .section-header {
   display: flex;
   align-items: center;
@@ -640,7 +670,7 @@
   .suggested-section {
     background: white;
     border-radius: 12px;
-    padding: 20px;
+    padding: 10px;
     margin-bottom: 24px;
     box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
     color: #333;
