@@ -1069,6 +1069,10 @@
 }
 
 @media (max-width: 768px) {
+  .mydrive-content {
+    padding: 20px 20px;
+  }
+
   .files-grid {
     grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
     gap: 16px;
@@ -1090,6 +1094,7 @@
   .view-controls .filters .custom-dropdown .dropdown-btn {
     box-shadow: none;
     background: transparent;
+    min-width: unset;
   }
 
   .file-thumbnail {
@@ -1160,5 +1165,28 @@
 
   .rename-input-group {
     width: 100%;
+  }
+
+  .mydrive-content {
+    padding: 16px 10px;
+  }
+
+  .view-controls {
+    justify-content: center;
+  }
+
+  .filters {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .view-controls .filters .custom-dropdown .dropdown-btn {
+    gap: 5px;
+    font-size: 14px;
+    padding: 0px 10px;
+  }
+
+  .dropdown-menu{
+    left: 0;
   }
 }

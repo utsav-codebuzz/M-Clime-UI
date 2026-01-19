@@ -930,8 +930,16 @@
 }
 
 @media (max-width: 720px) {
+  .mydrive-content {
+    padding: 20px 20px;
+  }
+
   .search-bar {
     display: none;
+  }
+
+  .view-controls .filters .custom-dropdown .dropdown-btn {
+    min-width: unset;
   }
 }
 
@@ -959,7 +967,20 @@
 }
 
 @media (max-width: 480px) {
-  .filters {
+  .mydrive-content {
+    padding: 16px 16px;
+  }
+
+  .view-controls {
     justify-content: center;
+  }
+
+  .filters {
+    justify-content: flex-start;
+    gap: 8px;
+  }
+
+  .dropdown-menu {
+    left: 0;
   }
 }
